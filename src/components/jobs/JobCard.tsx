@@ -2,6 +2,7 @@
 import { ChevronRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Badge, type Tone } from "@/components/ui";
+import { TradeIcon } from "./TradeIcon";
 import { timeAgo } from "@/lib/format";
 import { STATUS_LABEL } from "@/lib/jobs-extra";
 import { trade, URGENCY } from "@/lib/trades";
@@ -43,13 +44,13 @@ export function JobCard({ job }: { job: Job }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={job.photoUrl} alt="" className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-3xl" aria-hidden>
-            {job.trade ? t.emoji : "🛠️"}
+          <div className="flex h-full w-full items-center justify-center">
+            <TradeIcon trade={job.trade} className="h-9 w-9" />
           </div>
         )}
         {job.photoUrl && job.trade && (
-          <span className="absolute bottom-1 right-1 rounded-md border-2 border-ink bg-white px-1 text-sm leading-tight" aria-hidden>
-            {t.emoji}
+          <span className="absolute bottom-1 right-1 rounded-md border-2 border-ink bg-honey p-0.5">
+            <TradeIcon trade={job.trade} className="h-4 w-4" />
           </span>
         )}
       </div>

@@ -1,8 +1,8 @@
 "use client";
-import { Camera } from "lucide-react";
+import { Camera, Wrench } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { JobCard } from "@/components/jobs/JobCard";
-import { EmptyState, LinkButton, PageHeader, Spinner } from "@/components/ui";
+import { Card, LinkButton, PageHeader, Spinner } from "@/components/ui";
 import { useJobs } from "@/lib/db";
 
 export default function JobsPage() {
@@ -25,12 +25,16 @@ export default function JobsPage() {
       {loading ? (
         <Spinner label="Loading your jobs" />
       ) : jobs.length === 0 ? (
-        <EmptyState
-          emoji="🧰"
-          title="Nothing broken yet"
-          body="When something does break, snap a photo. You'll get a plain-English diagnosis and a write-up you can send to every pro."
-          action={<LinkButton href="/jobs/new">Something broke?</LinkButton>}
-        />
+        <Card flat className="border-dashed px-6 py-10 text-center">
+          <Wrench className="mx-auto h-10 w-10" aria-hidden />
+          <h3 className="mt-3 text-xl font-bold">Nothing broken yet</h3>
+          <p className="mx-auto mt-1 max-w-md text-ink-soft">
+            When something does break, snap a photo. You&apos;ll get a plain-English diagnosis and a write-up you can send to every pro.
+          </p>
+          <div className="mt-5 flex justify-center">
+            <LinkButton href="/jobs/new">Something broke?</LinkButton>
+          </div>
+        </Card>
       ) : (
         <div className="space-y-8">
           <section>
