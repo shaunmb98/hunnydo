@@ -1,6 +1,6 @@
 "use client";
 import { setDoc } from "firebase/firestore";
-import { ArrowRight, Check, Loader2, MapPin, RotateCw, TriangleAlert } from "lucide-react";
+import { ArrowRight, Check, Loader2, MapPin, NotebookText, RotateCw, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
@@ -11,6 +11,7 @@ import { Badge, Button, Card, ErrorNote, LinkButton, Logo, ScoreDial, Spinner, S
 import { api } from "@/lib/api-client";
 import { usePros, userRef } from "@/lib/db";
 import { cx } from "@/lib/format";
+import { houseSummary, type HouseLookup } from "@/lib/house-types";
 import { plural } from "@/lib/pros-client";
 import { rankPros } from "@/lib/ranking";
 import { TRADES } from "@/lib/trades";
@@ -214,6 +215,7 @@ function ScoutStep({
   );
   const [homeError, setHomeError] = useState("");
   const [finished, setFinished] = useState(false);
+  const [county, setCounty] = useState<{ state: "looking" | "done"; text?: string }>({ state: "looking" });
   const started = useRef(false);
 
   const scout = useCallback(async (ids: TradeId[]) => {
@@ -245,6 +247,10 @@ function ScoutStep({
           return;
         }
       }
+      // County records ride alongside. If they fail or take a while, nobody waits on them.
+      api<HouseLookup>("/api/house")
+        .then((res) => setCounty({ state: "done", text: res.coverage === "county" ? houseSummary(res.facts) || "Parcel found" : "" }))
+        .catch(() => setCounty({ state: "done" }));
       await scout(TRADES.map((t) => t.id));
     })();
   }, [home, placeId, onHome, scout]);
@@ -322,6 +328,29 @@ function ScoutStep({
             </li>
           );
         })}
+        <li
+          className={cx(
+            "flex items-center gap-3 rounded-xl border-2 px-3 py-2.5 transition-colors sm:col-span-2",
+            county.text ? "border-ink bg-white" : "border-line bg-white",
+          )}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-honey-soft">
+            <NotebookText className="h-5 w-5" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-bold leading-tight">County records</span>
+            <span className={cx("block text-sm", county.text ? "font-semibold text-go" : "text-mute")}>
+              {county.state === "looking" ? "Looking..." : county.text || "Not available for this county yet"}
+            </span>
+          </span>
+          {county.state === "looking" ? (
+            <Loader2 className="h-5 w-5 animate-spin text-mute" aria-hidden />
+          ) : county.text ? (
+            <span className="pop flex h-7 w-7 items-center justify-center rounded-full border-2 border-ink bg-go text-white">
+              <Check className="h-4 w-4" aria-hidden />
+            </span>
+          ) : null}
+        </li>
       </ul>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">

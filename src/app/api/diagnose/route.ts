@@ -5,6 +5,7 @@ import { handler, HttpError, jobsCol, userDoc } from "@/lib/admin";
 import { structured, type ImageInput } from "@/lib/ai";
 import { emailLayout, escapeHtml, sendEmail } from "@/lib/email";
 import { TRADE_IDS, TRADES, URGENCY } from "@/lib/trades";
+import type { HouseFacts, Permit } from "@/lib/house-types";
 import type { Diagnosis, UserProfile } from "@/lib/types";
 import type { JobDoc } from "@/lib/jobs-extra";
 
@@ -52,6 +53,37 @@ How to work:
 The job brief is the most important field. The homeowner sends it to real plumbers, electricians and other pros as their own words, so it has to read like a neighbor typed it on their phone. First person. 4 to 7 short sentences in one plain paragraph. Use contractions (I've, it's, I'd, haven't). Be specific about what and where. No greeting, no "I hope this finds you well", no sign-off, no thanks in advance, no bullet points, no headings. Cover: what the problem is and where, what was observed (from the photo and the description), what's already been done about it, and what the homeowner wants, which is a quote and the earliest time someone can come out. Mention their service-call fee preference and when they're free if given. Only for access details a pro needs that you don't know (gate code, pets, parking, where the equipment is), leave a short blank in square brackets like [gate code] for the homeowner to fill in. Don't use blanks for anything you were told. Don't include the home address. Good example of the voice: "I've got water bubbling up in my front yard near the meter box. It started last night and it's getting worse. I shut the water off at the street this morning."
 
 Voice for every field, not only the brief: write the way a tradesperson talks to a neighbor. Short plain sentences. Use contractions. Say the specific thing. Never use em dashes, en dashes or semicolons. No exclamation marks. No emojis. No "not just X but Y" constructions. No lists of three adjectives. No filler openers like "It's important to note" or "Keep in mind". Never use these words: seamless, effortless, elevate, unlock, streamline, robust, leverage, ensure, utilize, crucial, comprehensive, delve, navigate. If a sentence sounds like a brochure or a chatbot, rewrite it plainer.`;
+
+/** Short block of house facts for the prompt. Empty string when we know nothing. */
+function houseBlock(house?: HouseFacts, permits?: Permit[]): string {
+  if (!house) return "";
+  const facts = [
+    house.yearBuilt && `Built in ${house.yearBuilt}`,
+    house.sqft && `${house.sqft} sq ft`,
+    house.stories && `${house.stories} ${house.stories === 1 ? "story" : "stories"}`,
+    house.construction && `Walls: ${house.construction}`,
+    house.roofType && `Roof type: ${house.roofType}`,
+    house.roofYear && `Roof last done in ${house.roofYear}`,
+    house.heating && `Heating: ${house.heating}`,
+    house.cooling && `Cooling: ${house.cooling}`,
+    house.hvacYear && `AC / furnace installed in ${house.hvacYear}`,
+    house.waterHeaterYear && `Water heater installed in ${house.waterHeaterYear}`,
+    house.pipeMaterial && `Supply pipes: ${house.pipeMaterial}`,
+    house.electricalPanel && `Electrical panel: ${house.electricalPanel}`,
+    house.pool != null && (house.pool ? "Has a pool" : "No pool"),
+    house.notes && `Homeowner's notes on the house: ${house.notes.slice(0, 800)}`,
+  ].filter(Boolean) as string[];
+  const permitLines = (permits ?? [])
+    .slice(0, 8)
+    .map((p) => [p.date?.slice(0, 10), p.type, p.description, p.status].filter(Boolean).join(", "))
+    .filter(Boolean);
+  if (!facts.length && !permitLines.length) return "";
+  return [
+    "What we know about the house (from county records and the homeowner). Use what is relevant to this problem, for example the age of the house or the equipment, in the diagnosis and in the job brief (\"house was built in 1998\"). Skip what isn't relevant. Don't ask the homeowner for anything already listed here:",
+    ...facts.map((f) => `- ${f}`),
+    ...(permitLines.length ? ["Past permits on file:", ...permitLines.map((p) => `- ${p}`)] : []),
+  ].join("\n");
+}
 
 type Body = {
   jobId?: string;
@@ -116,6 +148,8 @@ export const POST = handler<Body>(async ({ uid, email, body }) => {
         ? `The photo is not attached this time. What you saw in it earlier (reuse these as the photo observations unless the new detail corrects them):\n${job.photoNotes}`
         : "No photo was provided. Leave photoObservations empty.",
   ];
+  const houseInfo = houseBlock(profile.house, profile.housePermits);
+  if (houseInfo) lines.push(houseInfo);
   if (isRecheck && job.diagnosis) {
     lines.push(
       `You diagnosed this earlier as "${job.diagnosis.title}" (${job.diagnosis.trade}, ${job.diagnosis.urgency}). The homeowner has now added detail. Re-check everything with it in mind and change your answer if the detail warrants it.`,
