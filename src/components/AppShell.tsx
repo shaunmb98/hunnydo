@@ -122,7 +122,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <ModeSwitch mode={mode} onPick={pickMode} className="hidden md:flex" />
             {mode === "home" && (
               <LinkButton href="/jobs/new" size="sm">
-                <Plus className="h-4 w-4" aria-hidden /> Something broke
+                <Plus className="h-4 w-4" aria-hidden />
+                <span className="whitespace-nowrap">
+                  <span className="sm:hidden">New job</span>
+                  <span className="hidden sm:inline">Something broke</span>
+                </span>
               </LinkButton>
             )}
             <button

@@ -91,7 +91,7 @@ export default function HomePage() {
             </Link>
           </div>
           {active.length ? (
-            <div className="grid gap-3 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {active.slice(0, 6).map((j) => (
                 <JobCard key={j.id} job={j} />
               ))}

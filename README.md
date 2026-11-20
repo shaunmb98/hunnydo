@@ -14,7 +14,7 @@ HunnyDo is the tool I wanted that day. It is for a homeowner with a problem, a p
 ## What you can do
 
 1. **Sign up** with your own email and password (Firebase Auth, no demo logins).
-2. **Enter your address.** The app looks up pros near you across eight trades through Google Places and ranks them.
+2. **Enter your address.** The app looks up pros near you through Google Places and ranks them.
 3. **Report a problem.** Take or upload a photo and say what you see. Claude looks at the photo and returns what it probably is, how urgent it is, what to do right now, whether you can fix it yourself, what a pro usually charges, the questions pros will ask, and red flags to watch for in quotes.
 4. **Get your job brief.** One write-up of the problem in your own voice, so you describe it once. You can edit it.
 5. **See who to call.** Pros for that trade, ranked by a score that explains itself. "Check who actually shows up" has Claude read each pro's Google reviews for signs they answer the phone and turn up on time.

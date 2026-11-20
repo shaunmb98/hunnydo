@@ -37,7 +37,7 @@ export function JobCard({ job }: { job: Job }) {
   return (
     <Link
       href={`/jobs/${job.id}`}
-      className="group flex items-stretch gap-3 rounded-2xl border-2 border-ink bg-white p-3 shadow-hard transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+      className="group flex min-w-0 items-stretch gap-3 rounded-2xl border-2 border-ink bg-white p-3 shadow-hard transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
     >
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 border-ink bg-honey-soft sm:h-24 sm:w-24">
         {job.photoUrl ? (

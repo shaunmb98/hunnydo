@@ -46,4 +46,5 @@ Each item below was clicked through in a real browser against the real services,
 2. Real business verification, then reviews from homeowners who hired through the app.
 3. Inbox and text integration so quotes arrive on their own.
 4. County and permit coverage beyond Maricopa.
-5. Maintenance reminders from what the app knows about the house: water heater age, roof age, filter changes.
+5. Home warranty integration. Many homeowners already pay for a warranty plan and don't know what it covers. The app would hold your plan, tell you at diagnosis time whether the repair is likely covered and what the service fee is, and open the claim with the warranty company before you call anyone else.
+6. Maintenance reminders from what the app knows about the house: water heater age, roof age, filter changes.
