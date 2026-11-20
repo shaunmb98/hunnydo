@@ -130,9 +130,22 @@ export const POST = handler<Body>(async ({ uid, email, body }) => {
   let description = ((body.description ?? "").trim() || job.description || "").slice(0, 6000);
   if (extraDetail) description = `${description}\n\nAdded later: ${extraDetail}`.trim();
 
-  let image = parseImage(body.image);
-  if (!image && !job.photoNotes) image = await storedPhoto(uid, job.photoPath);
-  if (!description && !image) throw new HttpError(400, "Add a photo or a few words about what's going on.");
+  let image: ImageInput | null = null;
+  try {
+    image = parseImage(body.image);
+    if (!image && !job.photoNotes) image = await storedPhoto(uid, job.photoPath);
+    if (!description && !image) throw new HttpError(400, "Add a photo or a few words about what's going on.");
+  } catch (err) {
+    // Record the failure on the job so the page shows a retry instead of spinning.
+    await ref
+      .update({
+        status: "diagnosed",
+        diagnosisError: err instanceof HttpError ? err.message : "We couldn't read that photo.",
+        updatedAt: Date.now(),
+      })
+      .catch(() => {});
+    throw err;
+  }
 
   const city = profile.home?.city || (profile.home?.address ? profile.home.address : "");
   const lines = [
@@ -185,7 +198,7 @@ export const POST = handler<Body>(async ({ uid, email, body }) => {
     });
 
     let emailed = false;
-    const to = email ?? profile.email;
+    const to = email;
     if (!job.diagnosis && to && profile.emailUpdates !== false) {
       const sent = await sendEmail({
         to,

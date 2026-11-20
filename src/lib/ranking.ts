@@ -8,9 +8,15 @@ const PRIOR_WEIGHT = 40; // how many reviews it takes to move halfway from the p
 
 /** Rating adjusted for review count, so 5.0 from 6 reviews does not beat 4.8 from 900. */
 export function adjustedRating(rating = 0, count = 0) {
-  if (!count) return PRIOR_RATING - 0.3;
-  return (count * rating + PRIOR_WEIGHT * PRIOR_RATING) / (count + PRIOR_WEIGHT);
+  const unknown = PRIOR_RATING - 0.3; // no reviews at all: slightly below an average business
+  if (!count) return unknown;
+  const adjusted = (count * rating + PRIOR_WEIGHT * PRIOR_RATING) / (count + PRIOR_WEIGHT);
+  // A handful of reviews shouldn't lift a business above one we know nothing about.
+  return count < 5 ? Math.min(unknown, adjusted) : adjusted;
 }
+
+// "Open now" is a snapshot from when we last asked Google. Past this age we stop trusting it.
+const OPEN_NOW_FRESH_MS = 90 * 60 * 1000;
 
 export interface Scored {
   score: number; // 0-100
@@ -24,7 +30,8 @@ export function scorePro(pro: Pro, ctx: { urgency?: Urgency } = {}): Scored {
   const urgent = ctx.urgency === "emergency";
 
   // Quality: 0-45 points. 3.5 stars adjusted or lower earns nothing.
-  const adj = adjustedRating(pro.rating, pro.reviewCount);
+  // Someone you added by hand has no star rating. Treat them as an average pro, not an unknown one.
+  const adj = pro.source === "manual" ? PRIOR_RATING + 0.3 : adjustedRating(pro.rating, pro.reviewCount);
   const quality = Math.max(0, Math.min(1, (adj - 3.5) / 1.4)) * 45;
   if (pro.rating && pro.reviewCount) {
     if (adj >= 4.6) reasons.push(`${pro.rating.toFixed(1)} stars across ${pro.reviewCount.toLocaleString()} reviews`);
@@ -52,10 +59,12 @@ export function scorePro(pro: Pro, ctx: { urgency?: Urgency } = {}): Scored {
 
   // Reachable right now: worth more in an emergency.
   let reach = 0;
-  if (pro.openNow) {
+  const fresh = !!pro.fetchedAt && Date.now() - pro.fetchedAt < OPEN_NOW_FRESH_MS;
+  const openNow = fresh ? pro.openNow : undefined;
+  if (openNow) {
     reach += urgent ? 12 : 5;
     reasons.push(urgent ? "Open right now" : "Open now");
-  } else if (pro.openNow === false && urgent) {
+  } else if (openNow === false && urgent) {
     cautions.push("Closed right now");
   }
   if (pro.phone) reach += 3;

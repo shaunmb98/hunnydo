@@ -51,7 +51,7 @@ export function toQuote(x: z.infer<typeof ExtractSchema>, rawText?: string): Quo
 }
 
 export async function loadJob(uid: string, jobId: unknown): Promise<Job> {
-  if (typeof jobId !== "string" || !jobId) throw new HttpError(400, "Which job is this for?");
+  if (typeof jobId !== "string" || !jobId || jobId.includes("/")) throw new HttpError(400, "Which job is this for?");
   const snap = await jobsCol(uid).doc(jobId).get();
   if (!snap.exists) throw new HttpError(404, "We couldn't find that job.");
   return { ...(snap.data() as Job), id: snap.id };

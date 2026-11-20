@@ -36,19 +36,37 @@ export async function requireUser(req: Request): Promise<{ uid: string; email?: 
   }
 }
 
-/** Wrap a route handler: auth, JSON body, consistent error shape. */
+// Every route here costs money (Claude or Google Places), so each signed-in user gets a per-minute budget.
+// In-memory is enough for a single small Cloud Run service; a shared store would replace it at scale.
+const RATE_LIMIT = 40;
+const hits = new Map<string, { windowStart: number; count: number }>();
+function checkRate(uid: string) {
+  const now = Date.now();
+  const h = hits.get(uid);
+  if (!h || now - h.windowStart > 60_000) {
+    hits.set(uid, { windowStart: now, count: 1 });
+    if (hits.size > 5000) for (const [k, v] of hits) if (now - v.windowStart > 60_000) hits.delete(k);
+    return;
+  }
+  if (++h.count > RATE_LIMIT) throw new HttpError(429, "You're going a little fast. Give it a minute and try again.");
+}
+
+/** Wrap a route handler: auth, rate limit, JSON body, consistent error shape. */
 export function handler<T>(
   fn: (ctx: { uid: string; email?: string; body: T; req: Request }) => Promise<unknown>,
 ) {
   return async (req: Request) => {
     try {
       const user = await requireUser(req);
-      const body = (req.method === "GET" ? {} : await req.json().catch(() => ({}))) as T;
+      checkRate(user.uid);
+      const raw = req.method === "GET" ? {} : await req.json().catch(() => ({}));
+      const body = (raw && typeof raw === "object" ? raw : {}) as T;
       const result = await fn({ ...user, body, req });
       return NextResponse.json(result ?? { ok: true });
     } catch (err) {
       const status = err instanceof HttpError ? err.status : 500;
-      const message = err instanceof Error ? err.message : "Something went wrong.";
+      // Only messages we wrote ourselves go back to the browser. Anything else stays in the server log.
+      const message = err instanceof HttpError ? err.message : "Something went wrong on our end. Try again.";
       if (status === 500) console.error("[api]", req.url, err);
       return NextResponse.json({ error: message }, { status });
     }

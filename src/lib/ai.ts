@@ -4,7 +4,10 @@ import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import type { z } from "zod";
 import { HttpError } from "./admin";
 
-const client = new Anthropic();
+// A diagnosis should never outlive the request that asked for it.
+const client = new Anthropic({ timeout: 75_000, maxRetries: 1 });
+// Prompts include text the user can edit (briefs, notes, pasted quotes). Cap what one call can send.
+const MAX_PROMPT_CHARS = 30_000;
 const MODEL = "claude-opus-5-5";
 
 export type ImageInput = {
@@ -31,7 +34,7 @@ export async function structured<S extends z.ZodType>(opts: {
         source: { type: "base64", media_type: img.mediaType, data: img.data },
       }),
     ),
-    { type: "text", text: opts.prompt },
+    { type: "text", text: opts.prompt.slice(0, MAX_PROMPT_CHARS) },
   ];
 
   // Fast mode roughly halves the wait on long answers. If it's rate limited or unavailable, run at normal speed.

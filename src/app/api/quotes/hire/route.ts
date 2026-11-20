@@ -65,7 +65,7 @@ export const POST = handler<{ jobId?: string; proId?: string; scheduledFor?: str
     await batch.commit();
 
     // Confirmation goes to the homeowner only. HunnyDo never emails the business.
-    const to = email ?? profile?.email;
+    const to = email;
     let emailed = false;
     if (to && !alreadyHired) {
       const phone = bid.proPhone ?? pro?.phone;

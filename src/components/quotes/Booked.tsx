@@ -1,7 +1,9 @@
 "use client";
-import { CalendarCheck, MessageSquare, Phone } from "lucide-react";
-import { Card, LinkButton } from "@/components/ui";
-import { money } from "@/lib/format";
+import { CalendarCheck, MessageSquare, Phone, Undo2 } from "lucide-react";
+import { useState } from "react";
+import { Button, Card, LinkButton } from "@/components/ui";
+import { api } from "@/lib/api-client";
+import { money, moneyRange } from "@/lib/format";
 import { smsHref, telHref, thanksNote, type BoardBid } from "@/lib/quotes-shared";
 import type { Job } from "@/lib/types";
 import { CopyButton } from "./bits";
@@ -11,6 +13,21 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
   const name = hired?.proName ?? job.hiredProName ?? "your pro";
   const title = job.diagnosis?.title ?? job.title;
   const q = hired?.quote;
+  const [undoing, setUndoing] = useState(false);
+  const [undoError, setUndoError] = useState("");
+  // A ranged quote stays a range until the pro gives a final number.
+  const ranged = q?.amountLow != null && q.amountHigh != null && q.amountLow !== q.amountHigh;
+  const price = ranged ? moneyRange(q?.amountLow, q?.amountHigh) : job.hiredAmount != null ? money(job.hiredAmount) : "Not settled";
+  async function undo() {
+    setUndoing(true);
+    setUndoError("");
+    try {
+      await api("/api/quotes/unhire", { jobId: job.id });
+    } catch (err) {
+      setUndoError(err instanceof Error ? err.message : "Couldn't undo that. Try again.");
+      setUndoing(false);
+    }
+  }
   return (
     <div className="space-y-5">
       <Card className="overflow-hidden">
@@ -27,7 +44,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
             </div>
             <div className="rounded-xl border-2 border-ink bg-honey-soft p-3">
               <dt className="text-xs font-extrabold uppercase tracking-wide text-ink-soft">Price</dt>
-              <dd className="font-display text-xl font-extrabold">{job.hiredAmount != null ? money(job.hiredAmount) : "Not settled"}</dd>
+              <dd className="font-display text-xl font-extrabold">{price}</dd>
             </div>
             <div className="rounded-xl border-2 border-ink bg-honey-soft p-3">
               <dt className="text-xs font-extrabold uppercase tracking-wide text-ink-soft">Warranty</dt>
@@ -56,6 +73,15 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
             {emailed === true && " We emailed you the details."}
             {emailed === false && " We couldn't send the confirmation email, so keep this page handy."}
           </p>
+          {job.status !== "done" && (
+            <div className="mt-4 flex flex-wrap items-center gap-3 border-t-2 border-dashed border-line pt-3">
+              <span className="text-sm text-ink-soft">Booked the wrong one, or plans changed?</span>
+              <Button variant="ghost" size="sm" onClick={undo} loading={undoing}>
+                <Undo2 className="h-4 w-4" aria-hidden /> Undo booking
+              </Button>
+              {undoError && <span className="text-sm font-semibold text-stop">{undoError}</span>}
+            </div>
+          )}
         </div>
       </Card>
 
