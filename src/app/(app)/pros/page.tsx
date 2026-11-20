@@ -30,7 +30,7 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       aria-pressed={on}
       onClick={onClick}
       className={cx(
-        "inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded border border-line px-3 py-1.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
+        "inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-line px-3 py-1.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
         on ? "bg-honey" : "bg-white hover:bg-honey-soft",
       )}
     >
@@ -149,7 +149,7 @@ function Directory() {
           aria-label="More services"
           value=""
           onChange={(e) => e.target.value && pick(e.target.value as TradeId)}
-          className="shrink-0 cursor-pointer rounded border border-line bg-white px-3 py-1.5 text-sm font-bold"
+          className="shrink-0 cursor-pointer rounded-full border border-line bg-white px-3 py-1.5 text-sm font-bold"
         >
           <option value="">More services</option>
           {MORE_TRADES.filter((tr) => !counts[tr.id] && active !== tr.id).map((tr) => (

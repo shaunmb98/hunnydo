@@ -272,7 +272,7 @@ export default function NewJobPage() {
                 key={ex}
                 type="button"
                 onClick={() => addExample(ex)}
-                className="cursor-pointer rounded border border-line bg-white px-3 py-1 text-sm font-semibold hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+                className="cursor-pointer rounded-full border border-line bg-white px-3 py-1 text-sm font-semibold hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
               >
                 {ex}
               </button>

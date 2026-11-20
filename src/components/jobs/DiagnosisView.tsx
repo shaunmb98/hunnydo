@@ -219,10 +219,10 @@ Do this now
       </Card>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Card flat className="p-4 sm:p-5">
-          <h2 className="text-lg font-bold">What a pro usually charges</h2>
+        <Card className="border-transparent bg-ink p-5 text-white sm:p-6">
+          <h2 className="text-sm font-bold text-honey">What a pro usually charges</h2>
           <p className="mt-1 font-display text-3xl font-bold sm:text-4xl">{moneyRange(d.costLow, d.costHigh)}</p>
-          <p className="mt-2 leading-relaxed text-ink-soft">{d.costNotes}</p>
+          <p className="mt-2 leading-relaxed text-white/75">{d.costNotes}</p>
         </Card>
         <Section icon={Wrench} title="Can you fix it yourself?">
           <Badge tone={d.diyFeasible ? "green" : "red"}>{d.diyFeasible ? "Doable" : "Call a pro"}</Badge>

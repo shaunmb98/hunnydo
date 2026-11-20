@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo } from "next/font/google";
+import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
 
-// One webfont, for headings. Body text uses whatever the device already has.
-const display = Archivo({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"] });
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"] });
+const body = Figtree({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
   title: "HunnyDo: fix it once, keep your crew",
@@ -16,7 +16,7 @@ export const viewport: Viewport = { themeColor: "#16161A", width: "device-width"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={display.variable}>
+    <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen antialiased">
         <AuthProvider>{children}</AuthProvider>
       </body>

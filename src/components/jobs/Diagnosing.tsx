@@ -31,7 +31,7 @@ export function Diagnosing({ photoUrl, description }: { photoUrl?: string; descr
               <li key={line} className={cx("flex items-center gap-2.5 font-semibold", i > step && "text-mute")}>
                 <span
                   className={cx(
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded border border-line",
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line",
                     i < step ? "bg-go text-white" : i === step ? "bg-honey" : "border-line bg-white",
                   )}
                 >

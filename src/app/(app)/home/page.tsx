@@ -48,15 +48,15 @@ export default function HomePage() {
         </p>
       </div>
 
-      <Card className="overflow-hidden">
-        <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+      <Card className="overflow-hidden border-transparent bg-honey">
+        <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div>
-            <h2 className="text-2xl font-bold leading-tight">Something broke?</h2>
-            <p className="mt-1 max-w-lg text-ink-soft">
+            <h2 className="text-3xl font-bold leading-tight sm:text-4xl">Something broke?</h2>
+            <p className="mt-1.5 max-w-lg text-lg text-ink/80">
               Take a photo and find out what it probably is and what it usually costs.
             </p>
           </div>
-          <LinkButton href="/jobs/new" size="lg" className="shrink-0">
+          <LinkButton href="/jobs/new" variant="dark" size="lg" className="shrink-0">
             <Camera className="h-5 w-5" aria-hidden /> Take a photo
           </LinkButton>
         </div>
@@ -130,7 +130,7 @@ export default function HomePage() {
               >
                 <span
                   className={cx(
-                    "absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded border border-line",
+                    "absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-line",
                     has ? "bg-go text-white" : "bg-white text-ink",
                   )}
                 >

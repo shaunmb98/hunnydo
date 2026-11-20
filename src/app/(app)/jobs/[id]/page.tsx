@@ -196,18 +196,18 @@ export default function JobPage() {
         <>
           <DiagnosisView job={job} uid={user.uid} />
           {job.status !== "done" && !job.hiredProName && (
-            <Card className="flex flex-wrap items-center justify-between gap-4 p-5">
+            <Card className="flex flex-wrap items-center justify-between gap-4 border-transparent bg-honey p-6">
               <div>
-                <h2 className="text-xl font-bold">
+                <h2 className="text-2xl font-bold">
                   {job.bidCount ? "Back to your quotes" : `Now find a ${tradeInfo(job.trade).pro.toLowerCase()}`}
                 </h2>
-                <p className="mt-1 text-ink-soft">
+                <p className="mt-1 text-ink/80">
                   {job.bidCount
                     ? "See who you've asked and what they said."
                     : "We'll rank who's nearby and write the message for you. You decide who gets it."}
                 </p>
               </div>
-              <Button size="lg" onClick={() => showTab("quotes")}>
+              <Button variant="dark" size="lg" onClick={() => showTab("quotes")}>
                 {job.bidCount ? "Open quotes" : "See who to call"} <ArrowRight className="h-5 w-5" aria-hidden />
               </Button>
             </Card>

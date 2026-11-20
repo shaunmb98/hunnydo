@@ -32,11 +32,11 @@ function Progress({ step }: { step: Step }) {
         const current = n === step;
         return (
           <li key={label} className={cx("flex items-center", i > 0 && "flex-1")} aria-current={current ? "step" : undefined}>
-            {i > 0 && <span className={cx("mx-2 h-1 flex-1 rounded border border-line", done || current ? "bg-honey" : "bg-white")} />}
+            {i > 0 && <span className={cx("mx-2 h-1 flex-1 rounded-full border border-line", done || current ? "bg-honey" : "bg-white")} />}
             <span className="flex items-center gap-2">
               <span
                 className={cx(
-                  "flex h-9 w-9 shrink-0 items-center justify-center rounded border border-line font-display text-base font-bold",
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line font-display text-base font-bold",
                   done ? "bg-ink text-white" : current ? "bg-honey" : "bg-white text-mute",
                 )}
               >
@@ -291,7 +291,7 @@ function ScoutStep({
         <span>{home?.address ?? "Pinning your address on the map"}</span>
       </p>
 
-      <div className="mt-5 h-3 overflow-hidden rounded border border-line bg-white" aria-hidden>
+      <div className="mt-5 h-3 overflow-hidden rounded-full border border-line bg-white" aria-hidden>
         <div className="h-full bg-honey transition-all duration-500" style={{ width: `${Math.max(6, (settled / TRADES.length) * 100)}%` }} />
       </div>
 
@@ -320,7 +320,7 @@ function ScoutStep({
                 </span>
               </span>
               {r.state === "done" ? (
-                <span className=" flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
+                <span className=" flex h-7 w-7 items-center justify-center rounded-full border border-line bg-go text-white">
                   <Check className="h-4 w-4" aria-hidden />
                 </span>
               ) : r.state === "failed" ? (
@@ -349,7 +349,7 @@ function ScoutStep({
           {county.state === "looking" ? (
             <Loader2 className="h-5 w-5 animate-spin text-mute" aria-hidden />
           ) : county.text ? (
-            <span className=" flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
+            <span className=" flex h-7 w-7 items-center justify-center rounded-full border border-line bg-go text-white">
               <Check className="h-4 w-4" aria-hidden />
             </span>
           ) : null}
