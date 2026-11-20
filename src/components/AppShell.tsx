@@ -58,7 +58,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (loading) return;
-    if (!user) router.replace("/login");
+    if (!user) router.replace(mode === "biz" ? `/login?next=${encodeURIComponent(path)}` : "/login");
     else if (mode === "biz") {
       if (!hasBiz && path !== "/biz/claim") router.replace("/biz/claim");
     } else if (!profile?.home) router.replace("/onboarding");

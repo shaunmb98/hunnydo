@@ -561,6 +561,12 @@ export default function OnboardingPage() {
         {step === 1 && (
           <p className="mt-5 text-center text-sm text-mute">
             Takes about ten seconds. We never contact a business for you.
+            <br />
+            Here for your business instead?{" "}
+            <Link href="/biz/claim" className="font-bold text-ink underline decoration-2 underline-offset-2">
+              Claim it
+            </Link>
+            . You can add a home later.
           </p>
         )}
       </div>

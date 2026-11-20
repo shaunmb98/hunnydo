@@ -123,7 +123,7 @@ export default function Landing() {
               with a photo and a full write-up, so you can price it before you pick up the phone.
             </p>
           </div>
-          <LinkButton href="/login" variant="outline" size="lg">Claim my business</LinkButton>
+          <LinkButton href="/login?next=/biz/claim" variant="outline" size="lg">Claim my business</LinkButton>
         </Card>
       </section>
 

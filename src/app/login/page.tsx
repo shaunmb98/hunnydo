@@ -27,6 +27,8 @@ function LoginForm() {
   const params = useSearchParams();
   const { user, profile, loading } = useAuth();
   const [mode, setMode] = useState<"signup" | "signin">(params.get("mode") === "signin" ? "signin" : "signup");
+  const next = params.get("next") ?? "";
+  const forPro = next.startsWith("/biz");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,8 +37,12 @@ function LoginForm() {
   const [notice, setNotice] = useState("");
 
   useEffect(() => {
-    if (!loading && user) router.replace(profile?.home ? "/home" : "/onboarding");
-  }, [loading, user, profile, router]);
+    if (loading || !user) return;
+    // Pros arrive with ?next=/biz/claim and never need a home address. Only in-app business paths are honored.
+    if (next.startsWith("/biz")) return router.replace(next);
+    if ((profile as { businessId?: string } | null)?.businessId && !profile?.home) return router.replace("/biz");
+    router.replace(profile?.home ? "/home" : "/onboarding");
+  }, [loading, user, profile, router, next]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,10 +81,14 @@ function LoginForm() {
       </Link>
       <Card className="w-full max-w-md p-6 sm:p-8">
         <h1 className="text-2xl font-extrabold">
-          {mode === "signup" ? "Start your home's crew list" : "Welcome back"}
+          {mode === "signup" ? (forPro ? "Set up your business" : "Start your home's crew list") : "Welcome back"}
         </h1>
         <p className="mt-1 text-ink-soft">
-          {mode === "signup" ? "Free. Takes about a minute." : "Your jobs and your crew are waiting."}
+          {mode === "signup"
+            ? forPro
+              ? "Free. Make an account, then find your listing."
+              : "Free. Takes about a minute."
+            : "Your jobs and your crew are waiting."}
         </p>
         <form onSubmit={submit} className="mt-5 space-y-4">
           {mode === "signup" && (
