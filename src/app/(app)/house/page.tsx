@@ -110,6 +110,8 @@ export default function HousePage() {
 
   const hasCounty = house?.source === "county";
   const hasWeb = house?.source === "web";
+  // "Found online" only when the search turned up something about this house, not just the county's name.
+  const webFound = hasWeb && [house?.yearBuilt, house?.sqft, house?.lotSqft, house?.stories, house?.lastSaleYear].some((v) => v != null);
   const webFound = hasWeb && Boolean(house?.yearBuilt || house?.sqft || house?.lotSqft || house?.stories || house?.lastSaleYear);
   const webSources = hasWeb ? (house?.sources ?? []).filter((s) => s.url.startsWith("https://")) : [];
   const assessorUrl = hasWeb && house?.assessorUrl?.startsWith("https://") ? house.assessorUrl : "";
@@ -126,9 +128,11 @@ export default function HousePage() {
         <div className="space-y-6">
           <Card className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-xl font-extrabold">{hasWeb && !checking ? "Found online" : "What the county knows"}</h2>
+              <h2 className="text-xl font-extrabold">
+                {webFound && !checking ? "Found online" : hasWeb && !checking ? "County records" : "What the county knows"}
+              </h2>
               {hasCounty && <Badge tone="blue">Public record</Badge>}
-              {hasWeb && !checking && <Badge tone="amber">Unconfirmed</Badge>}
+              {webFound && !checking && <Badge tone="amber">Unconfirmed</Badge>}
             </div>
 
             {hasCounty ? (

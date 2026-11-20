@@ -186,7 +186,7 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
               ? "No match yet. Keep typing, with the house number and street."
               : show
                 ? "Pick your address from the list."
-                : "We only use this to find pros near you."}
+                : "We use it to find pros near you and to look up public records for the house."}
         </p>
         <div className="mt-2">
           <ErrorNote>{error}</ErrorNote>
