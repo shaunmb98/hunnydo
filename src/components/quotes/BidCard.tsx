@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/components/AuthProvider";
 import { deleteDoc, updateDoc } from "firebase/firestore";
 import { ChevronDown, Phone, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -34,6 +35,9 @@ export function BidCard({
   onHire: (bid: BoardBid) => void;
 }) {
   const meta = STATUS_META[bid.status];
+  const { profile } = useAuth();
+  // Requests written before the callback number was saved still carry a placeholder. Fill it on the way out.
+  const fill = (t?: string) => (t && profile?.phone ? t.split("[your number]").join(profile.phone) : (t ?? ""));
   const [open, setOpen] = useState(bid.status === "drafted");
   const [message, setMessage] = useState(bid.message ?? "");
   const [textMessage, setTextMessage] = useState(bid.textMessage ?? "");
@@ -81,8 +85,8 @@ export function BidCard({
   const q = bid.quote;
   const followUp = !locked && needsFollowUp(bid);
   const canLog = !locked && (bid.status === "drafted" || bid.status === "contacted" || bid.status === "no_response");
-  const body = message || bid.message || "";
-  const sms = textMessage || body;
+  const body = fill(message || bid.message || "");
+  const sms = fill(textMessage) || body;
 
   return (
     <Card flat={bid.status === "declined"} className={bid.status === "declined" ? "min-w-0 bg-paper p-4" : "min-w-0 p-4 sm:p-5"}>
@@ -128,7 +132,14 @@ export function BidCard({
         <div className="mt-3 rounded-md border border-line bg-go-soft px-3 py-2">
           <p className="font-display text-2xl font-bold">{moneyRange(q.amountLow, q.amountHigh) || "Price not given"}</p>
           <p className="text-sm text-ink-soft">
-            {[q.availability, q.warranty && `Warranty: ${q.warranty}`].filter(Boolean).join(" · ") || "No timing given yet"}
+            {[
+              q.availability,
+              q.serviceFee != null &&
+                `$${q.serviceFee} service call${q.serviceFeeWaivedIfHired ? ", comes off the bill" : q.serviceFeeWaivedIfHired === false ? ", charged either way" : ""}`,
+              q.warranty && `Warranty: ${q.warranty}`,
+            ]
+              .filter(Boolean)
+              .join(" · ") || "No timing given yet"}
           </p>
         </div>
       )}
@@ -159,7 +170,7 @@ Their website
               )}
             </>
           )}
-          {bid.callScript && <CopyButton text={bid.callScript} variant="ghost">Copy call script</CopyButton>}
+          {bid.callScript && <CopyButton text={fill(bid.callScript)} variant="ghost">Copy call script</CopyButton>}
         </div>
       )}
       {!bid.proPhone && !bid.proEmail && bid.status === "drafted" && (
@@ -209,7 +220,7 @@ Their website
                   <p className="mb-1 text-xs font-bold text-mute">
                     If they pick up, or for a voicemail
                   </p>
-                  <p className="text-[15px] leading-relaxed">{bid.callScript}</p>
+                  <p className="text-[15px] leading-relaxed">{fill(bid.callScript)}</p>
                 </div>
               )}
             </div>

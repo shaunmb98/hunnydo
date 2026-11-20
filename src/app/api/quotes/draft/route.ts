@@ -16,7 +16,7 @@ Write ONE version that works for any business. Wherever the business name belong
 - subject: under 70 characters, just says what the job is.
 - message: 120-180 words in two or three short paragraphs. Start with "Hi {{pro}}," then say what's wrong using the brief, say when I'm around, and ask in plain sentences for a rough price or range, the soonest they could come out, whether they charge a service-call fee and if it comes off the bill when I hire them, and whether they're licensed and insured. Say I can send photos.
 - textMessage: under 260 characters. The same ask boiled down for a text. Starts with "Hi {{pro}}".
-- callScript: about 20 seconds out loud (50-65 words), one paragraph, the way a person actually talks on the phone. Works when someone picks up or as a voicemail. Ends by asking them to call or text back with a rough price and when they could come out. Write [your number] where the callback number goes.`;
+- callScript: about 20 seconds out loud (50-65 words), one paragraph, the way a person actually talks on the phone. Works when someone picks up or as a voicemail. Ends by asking them to call or text back with a rough price and when they could come out. Use my callback number if one is given. If none is given, write [your number] in its place.`;
 
 /** POST /api/quotes/draft {jobId, proIds} -> writes one drafted bid per pro, returns {created, skipped, bidCount}. */
 export const POST = handler<{ jobId?: string; proIds?: string[] }>(async ({ uid, body }) => {
@@ -52,6 +52,7 @@ export const POST = handler<{ jobId?: string; proIds?: string[] }>(async ({ uid,
       `When I'm available: ${job.availability?.trim() || "flexible, not specified"}`,
       `Service-call fee: ${feePreference(job)}`,
       `My first name: ${firstName ?? "not given"}`,
+      `My callback number: ${profile?.phone?.trim() ? profile.phone.trim().slice(0, 30) : "not given, write [your number]"}`,
     ].join("\n\n"),
   });
 

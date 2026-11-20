@@ -50,6 +50,7 @@ export interface Home {
 export interface UserProfile {
   email: string;
   name?: string;
+  phone?: string; // where pros should call or text back
   home?: Home;
   onboardedAt?: number;
   prosFetchedAt?: number;
