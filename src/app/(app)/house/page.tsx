@@ -110,8 +110,6 @@ export default function HousePage() {
 
   const hasCounty = house?.source === "county";
   const hasWeb = house?.source === "web";
-  // "Found online" only when the search turned up something about this house, not just the county's name.
-  const webFound = hasWeb && [house?.yearBuilt, house?.sqft, house?.lotSqft, house?.stories, house?.lastSaleYear].some((v) => v != null);
   const webFound = hasWeb && Boolean(house?.yearBuilt || house?.sqft || house?.lotSqft || house?.stories || house?.lastSaleYear);
   const webSources = hasWeb ? (house?.sources ?? []).filter((s) => s.url.startsWith("https://")) : [];
   const assessorUrl = hasWeb && house?.assessorUrl?.startsWith("https://") ? house.assessorUrl : "";
