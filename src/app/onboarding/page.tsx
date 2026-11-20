@@ -4,6 +4,7 @@ import { ArrowRight, Check, Loader2, MapPin, RotateCw, TriangleAlert } from "luc
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { TradeIcon } from "@/components/pros/TradeIcon";
 import { useAuth } from "@/components/AuthProvider";
 import { AddProForm } from "@/components/pros/AddProForm";
 import { Badge, Button, Card, ErrorNote, LinkButton, Logo, ScoreDial, Spinner, Stars } from "@/components/ui";
@@ -296,9 +297,7 @@ function ScoutStep({
                 r.state === "done" ? "border-ink bg-white" : r.state === "failed" ? "border-warn/50 bg-warn-soft" : "border-line bg-white",
               )}
             >
-              <span className="text-2xl" aria-hidden>
-                {t.emoji}
-              </span>
+              <TradeIcon id={t.id} tile />
               <span className="min-w-0 flex-1">
                 <span className="block text-[15px] font-bold leading-tight">{t.label}</span>
                 <span className={cx("block text-sm", r.state === "done" ? "font-semibold text-go" : r.state === "failed" ? "text-warn" : "text-mute")}>
@@ -389,9 +388,7 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
                 href={top ? `/pros/${top.pro.id}` : `/pros?trade=${t.id}`}
                 className="flex h-full items-center gap-3 rounded-xl border-2 border-ink bg-white px-3 py-2.5 shadow-hard-sm transition-colors hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
               >
-                <span className="text-2xl" aria-hidden>
-                  {t.emoji}
-                </span>
+                <TradeIcon id={t.id} tile />
                 <span className="min-w-0 flex-1">
                   <span className="block text-xs font-bold uppercase tracking-wide text-mute">
                     {t.label} · {count}

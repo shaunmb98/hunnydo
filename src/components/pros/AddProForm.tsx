@@ -58,7 +58,7 @@ export function AddProForm({
           <select className={selectCls} value={trade} onChange={(e) => setTrade(e.target.value as TradeId)}>
             {TRADES.map((t) => (
               <option key={t.id} value={t.id}>
-                {t.emoji} {t.label}
+                {t.label}
               </option>
             ))}
           </select>
