@@ -1,7 +1,7 @@
 "use client";
 import { deleteDoc, deleteField, getDocs, updateDoc } from "firebase/firestore";
 import { deleteObject, ref as storageRef } from "firebase/storage";
-import { ArrowLeft, CheckCircle2, RotateCcw, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,7 +13,8 @@ import { Button, Card, ErrorNote, LinkButton, Spinner } from "@/components/ui";
 import { api } from "@/lib/api-client";
 import { bidsRef, jobRef, useJob } from "@/lib/db";
 import { storage } from "@/lib/firebase";
-import { money } from "@/lib/format";
+import { cx, money } from "@/lib/format";
+import { trade as tradeInfo } from "@/lib/trades";
 import type { JobDoc } from "@/lib/jobs-extra";
 
 const STALE_MS = 150_000;
@@ -29,6 +30,8 @@ export default function JobPage() {
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
   const [, tick] = useState(0);
+  // Two views of one job: what's wrong, and who's quoting. Open on quotes once any exist.
+  const [tab, setTab] = useState<"diagnosis" | "quotes" | null>(null);
 
   // Re-render every so often while diagnosing so a stuck job can offer a retry.
   const diagnosing = job?.status === "diagnosing" && !job.diagnosis;
@@ -52,6 +55,11 @@ export default function JobPage() {
   }
 
   const ref = jobRef(user.uid, job.id);
+  const view = tab ?? (job.bidCount ? "quotes" : "diagnosis");
+  const showTab = (t: "diagnosis" | "quotes") => {
+    setTab(t);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const stale = diagnosing && Date.now() - (job.updatedAt || job.createdAt) > STALE_MS;
   const failed = !job.diagnosis && !diagnosing;
 
@@ -155,8 +163,58 @@ export default function JobPage() {
         </Card>
       )}
 
-      {job.diagnosis && <DiagnosisView job={job} uid={user.uid} />}
-      {job.diagnosis && <QuoteBoard job={job} />}
+      {job.diagnosis && (
+        <div role="tablist" className="grid grid-cols-2 gap-1 rounded-2xl border-2 border-ink bg-white p-1 sm:inline-grid sm:min-w-[440px]">
+          {(
+            [
+              ["diagnosis", "What's wrong", ""],
+              ["quotes", "Pros and quotes", job.quoteCount ? `${job.quoteCount} in` : job.bidCount ? `${job.bidCount} asked` : ""],
+            ] as const
+          ).map(([key, label, count]) => (
+            <button
+              key={key}
+              role="tab"
+              aria-selected={view === key}
+              onClick={() => showTab(key)}
+              className={cx(
+                "flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[15px] font-bold cursor-pointer",
+                view === key ? "bg-ink text-white" : "text-ink-soft hover:bg-ink/5",
+              )}
+            >
+              {label}
+              {count && (
+                <span className={cx("rounded-full px-2 py-0.5 text-xs", view === key ? "bg-honey text-ink" : "bg-paper")}>
+                  {count}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {job.diagnosis && view === "diagnosis" && (
+        <>
+          <DiagnosisView job={job} uid={user.uid} />
+          {job.status !== "done" && !job.hiredProName && (
+            <Card className="flex flex-wrap items-center justify-between gap-4 bg-honey p-5 sm:p-6">
+              <div>
+                <h2 className="text-2xl font-extrabold">
+                  {job.bidCount ? "Back to your quotes" : `Now find a ${tradeInfo(job.trade).pro.toLowerCase()}`}
+                </h2>
+                <p className="mt-1">
+                  {job.bidCount
+                    ? "See who you've asked and what they said."
+                    : "We'll rank who's nearby and write the message for you. You decide who gets it."}
+                </p>
+              </div>
+              <Button variant="dark" size="lg" onClick={() => showTab("quotes")}>
+                {job.bidCount ? "Open quotes" : "See who to call"} <ArrowRight className="h-5 w-5" aria-hidden />
+              </Button>
+            </Card>
+          )}
+        </>
+      )}
+      {job.diagnosis && view === "quotes" && <QuoteBoard job={job} />}
 
       <ErrorNote>{error}</ErrorNote>
 
