@@ -1,6 +1,6 @@
 "use client";
 import { setDoc } from "firebase/firestore";
-import { Check, RotateCw } from "lucide-react";
+import { Check, ExternalLink, RotateCw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { Badge, Button, Card, ErrorNote, Field, Input, PageHeader, Spinner, Textarea } from "@/components/ui";
@@ -50,18 +50,20 @@ export default function HousePage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [checking, setChecking] = useState(false);
-  const [coverage, setCoverage] = useState<HouseLookup["coverage"] | null>(house?.source === "county" ? "county" : null);
+  const [coverage, setCoverage] = useState<HouseLookup["coverage"] | null>(
+    house?.source === "county" || house?.source === "web" ? house.source : null,
+  );
   const [error, setError] = useState("");
   const asked = useRef(false);
 
-  const check = async () => {
+  const check = async (force = false) => {
     setChecking(true);
     setError("");
     try {
-      const res = await api<HouseLookup>("/api/house");
+      const res = await api<HouseLookup>("/api/house", force ? { force: true } : {});
       setCoverage(res.coverage);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Couldn't reach the county records. Try again in a bit.");
+      setError(err instanceof Error ? err.message : "Couldn't reach the records. Try again in a bit.");
     } finally {
       setChecking(false);
     }
@@ -69,7 +71,7 @@ export default function HousePage() {
 
   // First visit with nothing on file: look once on our own.
   useEffect(() => {
-    if (asked.current || !user || house?.source === "county") return;
+    if (asked.current || !user || house?.source === "county" || house?.source === "web") return;
     asked.current = true;
     void check();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +109,11 @@ export default function HousePage() {
   };
 
   const hasCounty = house?.source === "county";
-  const none = coverage === "none" && !hasCounty;
+  const hasWeb = house?.source === "web";
+  const webFound = hasWeb && Boolean(house?.yearBuilt || house?.sqft || house?.lotSqft || house?.stories || house?.lastSaleYear);
+  const webSources = hasWeb ? (house?.sources ?? []).filter((s) => s.url.startsWith("https://")) : [];
+  const assessorUrl = hasWeb && house?.assessorUrl?.startsWith("https://") ? house.assessorUrl : "";
+  const none = coverage === "none" && !hasCounty && !hasWeb;
 
   return (
     <>
@@ -120,8 +126,9 @@ export default function HousePage() {
         <div className="space-y-6">
           <Card className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-xl font-extrabold">What the county knows</h2>
+              <h2 className="text-xl font-extrabold">{hasWeb && !checking ? "Found online" : "What the county knows"}</h2>
               {hasCounty && <Badge tone="blue">Public record</Badge>}
+              {hasWeb && !checking && <Badge tone="amber">Unconfirmed</Badge>}
             </div>
 
             {hasCounty ? (
@@ -151,7 +158,61 @@ export default function HousePage() {
                 )}
               </>
             ) : checking ? (
-              <Spinner label="Checking county records" />
+              <Spinner label="Searching public records. This can take up to a minute." />
+            ) : hasWeb ? (
+              <>
+                {webFound ? (
+                  <>
+                    <p className="mt-0.5 text-sm text-ink-soft">
+                      These came from public listings and records found by search
+                      {house?.fetchedAt ? ` on ${new Date(house.fetchedAt).toLocaleDateString("en-US")}` : ""}. They can be
+                      wrong, so check them against the official record.
+                    </p>
+                    <dl className="mt-4 grid grid-cols-2 gap-2.5">
+                      <Fact label="Year built" value={house?.yearBuilt} />
+                      <Fact label="Living space" value={house?.sqft ? `${house.sqft.toLocaleString("en-US")} sq ft` : null} />
+                      <Fact label="Lot" value={house?.lotSqft ? `${house.lotSqft.toLocaleString("en-US")} sq ft` : null} />
+                      <Fact label="Stories" value={house?.stories} />
+                      <Fact label="Last sold" value={house?.lastSaleYear} />
+                      <Fact label="County" value={house?.county ? [house.county, house.state].filter(Boolean).join(", ") : null} />
+                    </dl>
+                  </>
+                ) : (
+                  <p className="mt-2 text-ink-soft">
+                    We searched and didn&apos;t find anything that names your address
+                    {house?.county ? ` in ${[house.county, house.state].filter(Boolean).join(", ")}` : ""}. The form still
+                    works, and what you type in gets used the same way.
+                  </p>
+                )}
+                {assessorUrl && (
+                  <div className="mt-4 rounded-xl border-2 border-ink bg-honey-soft px-3.5 py-3">
+                    <a
+                      href={assessorUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 font-extrabold underline underline-offset-2"
+                    >
+                      Look up your home at the {house?.assessorName ?? "county assessor"}
+                      <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+                    </a>
+                    <p className="text-sm text-ink-soft">That&apos;s the official record.</p>
+                  </div>
+                )}
+                {webFound && webSources.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="text-xs font-bold uppercase tracking-wide text-mute">Where this came from</h3>
+                    <ul className="mt-1 space-y-1 text-sm">
+                      {webSources.map((s) => (
+                        <li key={s.url}>
+                          <a href={s.url} target="_blank" rel="noreferrer" className="break-words font-semibold underline underline-offset-2">
+                            {s.title}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
             ) : none ? (
               <p className="mt-2 text-ink-soft">
                 Public records for your county aren&apos;t hooked up yet. The form still works, and what you type in
@@ -162,8 +223,8 @@ export default function HousePage() {
             )}
 
             <div className="mt-4">
-              <Button variant="outline" size="sm" onClick={check} loading={checking}>
-                {!checking && <RotateCw className="h-4 w-4" aria-hidden />} Check county records again
+              <Button variant="outline" size="sm" onClick={() => check(true)} loading={checking}>
+                {!checking && <RotateCw className="h-4 w-4" aria-hidden />} {hasWeb ? "Check again" : "Check county records again"}
               </Button>
             </div>
           </Card>

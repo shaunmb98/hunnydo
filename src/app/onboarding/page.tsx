@@ -247,9 +247,15 @@ function ScoutStep({
           return;
         }
       }
-      // County records ride alongside. If they fail or take a while, nobody waits on them.
+      // County records ride alongside. Outside Maricopa this is a web search that can take 20 to 40 seconds,
+      // so it never counts toward finishing this step.
       api<HouseLookup>("/api/house")
-        .then((res) => setCounty({ state: "done", text: res.coverage === "county" ? houseSummary(res.facts) || "Parcel found" : "" }))
+        .then((res) => {
+          const summary = houseSummary(res.facts);
+          const text =
+            res.coverage === "county" ? summary || "Parcel found" : res.coverage === "web" && summary ? `${summary} (found online)` : "";
+          setCounty({ state: "done", text });
+        })
         .catch(() => setCounty({ state: "done" }));
       await scout(TRADES.map((t) => t.id));
     })();
@@ -340,7 +346,7 @@ function ScoutStep({
           <span className="min-w-0 flex-1">
             <span className="block text-[15px] font-bold leading-tight">County records</span>
             <span className={cx("block text-sm", county.text ? "font-semibold text-go" : "text-mute")}>
-              {county.state === "looking" ? "Looking..." : county.text || "Not available for this county yet"}
+              {county.state === "looking" ? "Searching public records" : county.text || "Nothing found yet"}
             </span>
           </span>
           {county.state === "looking" ? (

@@ -57,10 +57,12 @@ Voice for every field, not only the brief: write the way a tradesperson talks to
 /** Short block of house facts for the prompt. Empty string when we know nothing. */
 function houseBlock(house?: HouseFacts, permits?: Permit[]): string {
   if (!house) return "";
+  // Web search results haven't been checked against the county, so the model should treat them as a hint.
+  const web = house.source === "web" ? " (unconfirmed, from online listings)" : "";
   const facts = [
-    house.yearBuilt && `Built in ${house.yearBuilt}`,
-    house.sqft && `${house.sqft} sq ft`,
-    house.stories && `${house.stories} ${house.stories === 1 ? "story" : "stories"}`,
+    house.yearBuilt && `Built in ${house.yearBuilt}${web}`,
+    house.sqft && `${house.sqft} sq ft${web}`,
+    house.stories && `${house.stories} ${house.stories === 1 ? "story" : "stories"}${web}`,
     house.construction && `Walls: ${house.construction}`,
     house.roofType && `Roof type: ${house.roofType}`,
     house.roofYear && `Roof last done in ${house.roofYear}`,
@@ -79,7 +81,7 @@ function houseBlock(house?: HouseFacts, permits?: Permit[]): string {
     .filter(Boolean);
   if (!facts.length && !permitLines.length) return "";
   return [
-    "What we know about the house (from county records and the homeowner). Use what is relevant to this problem, for example the age of the house or the equipment, in the diagnosis and in the job brief (\"house was built in 1998\"). Skip what isn't relevant. Don't ask the homeowner for anything already listed here:",
+    `What we know about the house (${web ? "from online listings and the homeowner" : "from county records and the homeowner"}).${web ? " Anything marked unconfirmed came from a web search and can be wrong. Treat it as a hint, and say \"about\" or \"I think\" if you mention it in the job brief." : ""} Use what is relevant to this problem, for example the age of the house or the equipment, in the diagnosis and in the job brief ("house was built in 1998"). Skip what isn't relevant. Don't ask the homeowner for anything already listed here:`,
     ...facts.map((f) => `- ${f}`),
     ...(permitLines.length ? ["Past permits on file:", ...permitLines.map((p) => `- ${p}`)] : []),
   ].join("\n");
