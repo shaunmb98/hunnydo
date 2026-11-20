@@ -53,7 +53,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl">Something broke?</h2>
             <p className="mt-1.5 max-w-lg text-lg text-ink/80">
-              Take a photo and find out what it probably is and what it usually costs.
+              Take a photo. You don't need to know what the part is called, and you only have to explain it once.
             </p>
           </div>
           <LinkButton href="/jobs/new" variant="dark" size="lg" className="shrink-0">
@@ -92,7 +92,7 @@ export default function HomePage() {
             </div>
           ) : (
             <p className="rounded-md border border-dashed border-line bg-white px-4 py-6 text-center text-ink-soft">
-              No open jobs.
+              Nothing's broken right now. Give it a week.
             </p>
           )}
         </section>
