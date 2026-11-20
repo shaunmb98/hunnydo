@@ -248,8 +248,6 @@ export function EmptyState({
   action,
 }: {
   icon?: ReactNode;
-  /** @deprecated use icon */
-  emoji?: string;
   title: string;
   body: string;
   action?: ReactNode;
