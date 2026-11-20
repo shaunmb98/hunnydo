@@ -19,7 +19,7 @@ const DiagnosisSchema = z.object({
   summary: z.string().describe("2 to 4 plain-English sentences on what is going on. If the photo does not show a home repair problem, say so plainly here."),
   likelyCause: z.string().describe("The single most likely cause, with a short why. Mention a runner-up cause if it is a real possibility."),
   trade: z.enum(TRADE_IDS).describe("The trade that should be called first."),
-  urgency: z.enum(["emergency", "soon", "routine"]),
+  urgency: z.enum(["emergency", "soon", "routine"]).describe("emergency = active flooding, no water or power to the house, gas smell, sparking, sewage backing up, no heat or cooling in dangerous weather: needs someone today. soon = getting worse or causing damage slowly, like a steady drip or a breaker that keeps tripping: this week. routine = annoying but stable. Do not call a slow drip an emergency."),
   urgencyReason: z.string().describe("One sentence on why it is that urgent, including what happens if it sits."),
   confidence: z.enum(["low", "medium", "high"]),
   photoObservations: z.array(z.string()).describe("What you can actually see in the photo, one concrete observation each. Empty if there is no photo and no earlier observations."),
@@ -128,7 +128,7 @@ export const POST = handler<Body>(async ({ uid, email, body }) => {
       prompt: lines.join("\n\n"),
       schema: DiagnosisSchema,
       images: image ? [image] : undefined,
-      effort: "medium",
+      effort: "low",
     });
     let costLow = Math.max(0, Math.round(diagnosis.costLow));
     let costHigh = Math.max(0, Math.round(diagnosis.costHigh));
