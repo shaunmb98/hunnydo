@@ -19,7 +19,7 @@ export default function CrewPage() {
   const [justAdded, setJustAdded] = useState("");
 
   const crew = useMemo(() => pros.filter((p) => p.inCrew).sort((a, b) => a.name.localeCompare(b.name)), [pros]);
-  const byTrade = useMemo(() => TRADES.map((t) => ({ trade: t, members: crew.filter((p) => p.trade === t.id) })), [crew]);
+  const byTrade = useMemo(() => TRADES.map((t) => ({ trade: t, members: crew.filter((p) => p.trade === t.id) })).filter((g) => g.trade.core || g.members.length), [crew]);
   const covered = byTrade.filter((g) => g.members.length).length;
 
   if (!user || loading) return <Spinner label="Gathering your crew" />;

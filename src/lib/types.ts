@@ -7,6 +7,7 @@
 import type { HouseFacts, Permit } from "./house-types";
 
 export type TradeId =
+  // The eight looked up for every home at sign-up
   | "plumbing"
   | "electrical"
   | "hvac"
@@ -14,7 +15,27 @@ export type TradeId =
   | "appliance"
   | "handyman"
   | "pest"
-  | "landscaping";
+  | "landscaping"
+  // Looked up the first time a home needs them
+  | "dryer_vent"
+  | "garage_door"
+  | "pool"
+  | "locksmith"
+  | "painting"
+  | "flooring"
+  | "windows"
+  | "cleaning"
+  | "carpet"
+  | "chimney"
+  | "gutters"
+  | "tree"
+  | "fencing"
+  | "concrete"
+  | "water_damage"
+  | "septic"
+  | "solar"
+  | "junk"
+  | "remodel";
 
 export type Urgency = "emergency" | "soon" | "routine";
 

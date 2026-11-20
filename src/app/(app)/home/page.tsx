@@ -7,7 +7,7 @@ import { TradeIcon } from "@/components/jobs/TradeIcon";
 import { Card, LinkButton, Spinner } from "@/components/ui";
 import { useJobs, usePros } from "@/lib/db";
 import { cx } from "@/lib/format";
-import { TRADES } from "@/lib/trades";
+import { CORE_TRADES as TRADES } from "@/lib/trades";
 
 const STEPS = [
   { icon: Camera, title: "Snap what broke", body: "Take a photo or type a few words. You'll hear what it probably is, and whether it can wait or you need to act now." },

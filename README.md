@@ -7,7 +7,7 @@ Snap a photo of what broke. Get a diagnosis, the local pros most likely to show 
 
 ## Why I built this
 
-My main water line broke. I spent hours calling plumbers who didn't pick up, explaining the same problem to each one who did, and keeping track of quotes in my head. After it was fixed I wanted to hold on to the people who did right by me, and I had nowhere to put them.
+My main water line broke. I spent hours calling plumbers who didn't pick up, explaining the same problem to each one who did, and trying to keep everyone's quotes and schedules straight. After it was fixed I wanted to hold on to the people who did right by me, and I had nowhere to put them.
 
 HunnyDo is the tool I wanted that day. It is for a homeowner with a problem, a phone, and no idea who to call.
 

@@ -54,7 +54,8 @@ export const POST = handler<Body>(async ({ uid, body }) => {
     includes: input.includes.split(/\n|;/).map((s) => s.trim()).filter(Boolean),
     excludes: [],
     warranty: input.warranty || undefined,
-    licensedInsured: business.licenseNumber ? true : undefined,
+    // A typed-in license number is self-reported, so it does not count as verified licensing.
+    licensedInsured: undefined,
     notes: input.notes || undefined,
   };
 

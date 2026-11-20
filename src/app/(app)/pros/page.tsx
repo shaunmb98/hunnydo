@@ -2,7 +2,7 @@
 import { Globe, Phone, RotateCw, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Empty, TradeIcon } from "@/components/pros/TradeIcon";
 import { useAuth } from "@/components/AuthProvider";
 import { CrewButton } from "@/components/pros/CrewButton";
@@ -12,7 +12,7 @@ import { usePros } from "@/lib/db";
 import { cx, timeAgo } from "@/lib/format";
 import { plural, telHref } from "@/lib/pros-client";
 import { rankPros } from "@/lib/ranking";
-import { TRADES, TRADE_IDS, trade as tradeInfo } from "@/lib/trades";
+import { CORE_TRADES, MORE_TRADES, TRADES, TRADE_IDS, trade as tradeInfo } from "@/lib/trades";
 import type { TradeId } from "@/lib/types";
 
 type Sort = "match" | "rating" | "closest" | "reviews";
@@ -78,6 +78,15 @@ function Directory() {
     return list;
   }, [pros, active, q, sort, openNow, crewOnly]);
 
+  // Services outside the core eight aren't looked up at sign-up. Fetch one the first time it's opened.
+  const tried = useRef(new Set<string>());
+  useEffect(() => {
+    if (loading || active === "all" || counts[active] || tried.current.has(active)) return;
+    tried.current.add(active);
+    void refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, active, counts]);
+
   function pick(t: TradeId | "all") {
     setNote("");
     setError("");
@@ -85,7 +94,8 @@ function Directory() {
   }
 
   async function refresh() {
-    const ids = active === "all" ? TRADES.map((t) => t.id) : [active];
+    // "All" refreshes the core trades plus any others this home has already looked up.
+    const ids = active === "all" ? TRADES.filter((t) => t.core || counts[t.id]).map((t) => t.id) : [active];
     setRefreshing(true);
     setError("");
     setNote("");
@@ -129,12 +139,25 @@ function Directory() {
         <Chip on={active === "all"} onClick={() => pick("all")}>
           All <span className="font-medium text-ink-soft">{pros.length}</span>
         </Chip>
-        {TRADES.map((tr) => (
+        {TRADES.filter((tr) => tr.core || counts[tr.id] || active === tr.id).map((tr) => (
           <Chip key={tr.id} on={active === tr.id} onClick={() => pick(tr.id)}>
             <TradeIcon id={tr.id} /> {tr.label}{" "}
             <span className="font-medium text-ink-soft">{counts[tr.id] ?? 0}</span>
           </Chip>
         ))}
+        <select
+          aria-label="More services"
+          value=""
+          onChange={(e) => e.target.value && pick(e.target.value as TradeId)}
+          className="shrink-0 cursor-pointer rounded-full border-2 border-ink bg-white px-3 py-1.5 text-sm font-bold"
+        >
+          <option value="">More services</option>
+          {MORE_TRADES.filter((tr) => !counts[tr.id] && active !== tr.id).map((tr) => (
+            <option key={tr.id} value={tr.id}>
+              {tr.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-center">

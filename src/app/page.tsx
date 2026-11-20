@@ -1,7 +1,7 @@
 import { Camera, ClipboardCheck, PhoneCall, Users } from "lucide-react";
 import { Badge, Card, LinkButton, Logo } from "@/components/ui";
 import { TradeIcon } from "@/components/TradeIcon";
-import { TRADES } from "@/lib/trades";
+import { CORE_TRADES as TRADES, MORE_TRADES } from "@/lib/trades";
 
 const STEPS = [
   { icon: Camera, title: "Snap what broke", body: "Take a photo and say what you see. HunnyDo tells you what it probably is, and whether it can wait or you need to act now." },
@@ -97,11 +97,15 @@ export default function Landing() {
             </Card>
           ))}
         </div>
+        <p className="mt-5 text-ink-soft">
+          <span className="font-bold text-ink">Also covered:</span>{" "}
+          {MORE_TRADES.map((t) => t.label.toLowerCase()).join(", ")}.
+        </p>
         <Card className="mt-10 bg-honey p-6 sm:p-8">
           <h2 className="text-2xl font-extrabold sm:text-3xl">Why this exists</h2>
           <p className="mt-2 max-w-3xl text-lg">
             My main water line broke. I spent hours calling plumbers who didn&apos;t pick up, explaining the same
-            problem over and over, and tracking quotes on the back of an envelope. HunnyDo is the tool I wanted that
+            problem over and over, and trying to keep everyone&apos;s quotes and schedules straight. HunnyDo is the tool I wanted that
             day.
           </p>
           <div className="mt-5">

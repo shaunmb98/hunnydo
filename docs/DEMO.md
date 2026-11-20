@@ -2,7 +2,7 @@
 
 Use the deployed app and a fresh account so the onboarding is on screen.
 
-**0:00 Why (30 seconds).** The landing page. Tell the water line story: hours of calls, the same explanation over and over, quotes tracked in your head, and nowhere to keep the good plumber afterward.
+**0:00 Why (30 seconds).** The landing page. Tell the water line story: hours of calls, the same explanation over and over, quotes and schedules to keep straight, and nowhere to keep the good plumber afterward.
 
 **0:30 Sign up and onboard (40 seconds).** Create an account. Type your address, pick it from the list, and watch the eight trades fill in. Point out the county records row (year built, square footage) and the top-ranked pro per trade.
 

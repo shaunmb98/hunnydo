@@ -14,7 +14,7 @@ import { cx } from "@/lib/format";
 import { houseSummary, type HouseLookup } from "@/lib/house-types";
 import { plural } from "@/lib/pros-client";
 import { rankPros } from "@/lib/ranking";
-import { TRADES } from "@/lib/trades";
+import { CORE_TRADES as TRADES } from "@/lib/trades";
 import type { Home, TradeId } from "@/lib/types";
 
 type Step = 1 | 2 | 3;
