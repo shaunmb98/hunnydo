@@ -191,7 +191,8 @@ export interface Bid {
   followUpAt?: number;
   notes?: string;
   events: BidEvent[];
-  source?: "board"; // set when the pro sent this bid through the job board
+  source?: "board";
+  claimVerified?: boolean; // board bids only: has the business proved it owns the listing? // set when the pro sent this bid through the job board
   createdAt: number;
   updatedAt: number;
 }

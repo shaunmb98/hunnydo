@@ -69,6 +69,10 @@ export const POST = handler<Body>(async ({ uid, body }) => {
     if (prev && (prev.status === "hired" || prev.status === "declined")) {
       throw new HttpError(409, "The homeowner has already decided on this one.");
     }
+    // If the homeowner already reached out to this business on their own, that thread is theirs. Don't replace it.
+    if (prev && prev.source !== "board") {
+      throw new HttpError(409, "This homeowner is already talking to your business directly, so there's no need to bid here.");
+    }
     const hadQuote = !!prev?.quote;
     const bid: Bid = {
       ...(prev ?? {}),
@@ -82,6 +86,7 @@ export const POST = handler<Body>(async ({ uid, body }) => {
       status: "quoted",
       quote,
       source: "board",
+      claimVerified: business.verified === true,
       events: [...(prev?.events ?? []), { at: now, text: prev ? "Bid updated from the job board" : "Bid came in from the job board" }],
       createdAt: prev?.createdAt ?? now,
       updatedAt: now,

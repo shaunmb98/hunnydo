@@ -21,15 +21,18 @@ export const POST = handler<{ placeId?: string; trades?: unknown; radiusMi?: unk
 
   const ref = businessesCol().doc(placeId);
   const business = await adminDb.runTransaction(async (tx) => {
-    const [existing, user] = await Promise.all([tx.get(ref), tx.get(userDoc(uid))]);
+    const existing = await tx.get(ref);
     if (existing.exists) {
       if (existing.data()?.ownerUid !== uid) {
         throw new HttpError(409, "Someone else has already claimed this listing. If it's yours, email us and we'll sort it out.");
       }
       return existing.data() as Business;
     }
-    const current = user.data()?.businessId;
-    if (current && current !== placeId) throw new HttpError(409, "This login already has a business. One business per login for now.");
+    // The user doc is client-writable, so the check reads the businesses collection, which isn't.
+    const mine = await tx.get(businessesCol().where("ownerUid", "==", uid).limit(1));
+    if (!mine.empty && mine.docs[0].id !== placeId) {
+      throw new HttpError(409, "This login already has a business. One business per login for now.");
+    }
     const doc: Business = {
       ownerUid: uid,
       placeId,

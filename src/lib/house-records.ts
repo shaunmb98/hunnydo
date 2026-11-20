@@ -110,7 +110,7 @@ export async function lookupHouse(home: Pick<Home, "lat" | "lng">): Promise<Hous
 
   try {
     // Geocoded points sometimes land on the street or the curb, so widen the search once.
-    const attrs = (await queryParcel(lat, lng)) ?? (await queryParcel(lat, lng, 30));
+    const attrs = (await queryParcel(lat, lng)) ?? (await queryParcel(lat, lng, 12));
     if (!attrs) return none;
     // No open per-address permit source was found for Maricopa cities (see the spike doc).
     const permits: Permit[] = [];

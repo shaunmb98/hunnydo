@@ -93,6 +93,11 @@ export function BidCard({
             <Stars rating={bid.proRating} count={bid.proReviewCount} />
             {bid.proPhone && <span>{bid.proPhone}</span>}
             {bid.source === "board" && <Badge tone="blue">From the job board</Badge>}
+            {bid.source === "board" && !bid.claimVerified && (
+              <span title="Whoever sent this bid claimed the listing but hasn't proved they own it yet. Call the number on the listing to confirm.">
+                <Badge tone="amber">Not verified yet</Badge>
+              </span>
+            )}
           </div>
         </div>
         <div className="text-right">

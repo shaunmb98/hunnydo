@@ -22,8 +22,8 @@ export const POST = handler<Body>(async ({ uid, body }) => {
     about: body.about === undefined ? business.about : text(body.about, 1200),
     trades,
     radiusMi: Math.min(100, Math.max(1, amount(body.radiusMi, 500) ?? business.radiusMi)),
-    serviceFee: fee ?? null,
-    serviceFeeCredited: !!body.serviceFeeCredited,
+    serviceFee: body.serviceFee === undefined ? (business.serviceFee ?? null) : (fee ?? null),
+    serviceFeeCredited: body.serviceFeeCredited === undefined ? !!business.serviceFeeCredited : !!body.serviceFeeCredited,
     licenseNumber: body.licenseNumber === undefined ? business.licenseNumber : text(body.licenseNumber, 60),
     updatedAt: Date.now(),
   };
