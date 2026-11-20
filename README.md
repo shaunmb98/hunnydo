@@ -23,6 +23,11 @@ HunnyDo is the tool I wanted that day. It is for a homeowner with a problem, a p
 8. **Compare and decide.** Quotes side by side, checked against the expected price range, with an optional second opinion on which to pick and what to ask first.
 9. **Hire.** One pro is marked hired, the rest get a polite "went another way" note you can send, and you get a confirmation email.
 10. **Keep your crew.** Hired pros land in My crew with notes and history. You can add people you already trust.
+11. **Know your house.** My house pulls year built, size and parcel number from county records where they are open (Maricopa County, Arizona so far) and keeps the things only you know, like pipe material and the age of the water heater. The diagnosis uses them.
+
+There is a second side too. With the same login you can switch to **My business**, claim your Google listing, see jobs that nearby homeowners opened to bids, and bid on them. The bid shows up on the homeowner's quote board beside the quotes they gathered themselves.
+
+It covers 27 home services. Pros for the eight most common are loaded at sign-up, and the rest load the first time you need them. It works for any US address, and it was also tested in London and Toronto.
 
 ## How the ranking works
 
