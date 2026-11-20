@@ -33,7 +33,7 @@ Each item below was clicked through in a real browser against the real services,
 - **County records are direct for Maricopa County, Arizona only.** Every county runs its own system. Elsewhere the app searches for the home's county and links to the official assessor page. In testing it found the right office each time but rarely any facts for the exact address, and it does not borrow a neighbor's numbers. National coverage needs a paid data source.
 - **No permit history yet.** There is no open, per-address permit source for Phoenix or Scottsdale that I could find. Notes are in `house-records-spike.md`.
 - **Wall type, roof type and pool are empty.** The county's public map layer does not carry them. Its token-based API does.
-- **The app does not contact pros for you.** By design for now: you send every message yourself. Voice agents that place the calls and book the visit were the original idea and are the next big piece.
+- **The app does not contact pros for you yet.** For now you send every message yourself. Having HunnyDo send the emails, texts and calls on your behalf is the next big piece.
 - **No inbox connection.** You paste replies in. Reading them straight from email is future work.
 - **Quotes are in US dollars and distances in miles** everywhere, including outside the US.
 - **Rate limiting is per server instance**, held in memory. Fine for one small service, not for scale.
@@ -42,7 +42,7 @@ Each item below was clicked through in a real browser against the real services,
 
 ## What I would build next
 
-1. Voice agents that call the shortlisted pros with the job brief, collect a price and a time, and put the result on the quote board.
+1. HunnyDo reaches out for you. Today you send every message yourself. The plan is for the app to send the emails and texts, fill in a pro's contact form, and place the calls on your behalf: a voice agent rings the shortlisted pros with the job brief, collects a price and a time, books the visit, and puts the result on your quote board. You approve who gets contacted and can step in at any point.
 2. Real business verification, then reviews from homeowners who hired through the app.
 3. Inbox and text integration so quotes arrive on their own.
 4. County and permit coverage beyond Maricopa.
