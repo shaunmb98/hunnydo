@@ -51,3 +51,17 @@ Every county runs its own system with its own field names, so going county by co
 1. Ship Maricopa now (done here) plus the form for what no record has.
 2. Request the Maricopa Assessor API token for wall type, roof type and pool.
 3. For permits and other counties, trial a paid source (Shovels for permits, ATTOM for assessor data) before building more county scrapers.
+
+## Web search fallback for other counties
+
+Added after the spike. Code is in `src/lib/house-search.ts`, called from `src/app/api/house/route.ts`.
+
+What it does: when a home is outside Maricopa County, the app asks Claude (with Anthropic's web search tool, up to 4 searches) which county the address is in, where that county's assessor property search lives, and whether any page states the year built, living area, lot size, stories or last sale year for that exact address. A second Claude call copies the answer into fields. The code then drops values outside sane ranges and any link that isn't https.
+
+Things to know:
+- It is best effort and unconfirmed. Values mostly come from listing sites, which can be out of date or wrong. The page labels them "Found online" with an "Unconfirmed" badge, lists the sources, and links to the county assessor's own search page as the official record. Diagnoses get these facts marked as unconfirmed.
+- The street address is sent to Anthropic, and Anthropic's web search runs queries that contain it. Nothing else about the user goes along. The prompt tells the model not to report owner names. This should be in the privacy note before launch.
+- It takes roughly 20 to 60 seconds and costs two Claude calls plus search fees, so results are cached for 7 days per home. "Check again" forces a new search.
+- The lookup now stores the coordinates it was for. When the home changes, the old home's record fields are cleared before the new ones go in. Fields the homeowner typed are kept.
+- Often it finds the county and the assessor link but no facts. That is still useful: the link gets the homeowner to the official record in one tap.
+- No permits from this path.

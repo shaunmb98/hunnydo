@@ -16,9 +16,18 @@ export interface HouseFacts {
   parcelNumber?: string;
   subdivision?: string;
   lastSaleYear?: number;
-  source: "county" | "manual";
+  source: "county" | "web" | "manual";
   sourceName?: string;
   fetchedAt?: number;
+  // The coordinates the last lookup was for, so a move clears the old home's records.
+  lookupLat?: number;
+  lookupLng?: number;
+  // Filled by the web search fallback (source "web"). Unconfirmed.
+  county?: string;
+  state?: string;
+  assessorUrl?: string;
+  assessorName?: string;
+  sources?: { title: string; url: string }[];
   // Typed in by the homeowner. County lookups never overwrite these.
   pipeMaterial?: string;
   waterHeaterYear?: number;
@@ -39,7 +48,7 @@ export interface Permit {
 export interface HouseLookup {
   facts: HouseFacts;
   permits: Permit[];
-  coverage: "county" | "none";
+  coverage: "county" | "web" | "none";
 }
 
 /** Fields the homeowner fills in. A county refresh leaves them alone. */
