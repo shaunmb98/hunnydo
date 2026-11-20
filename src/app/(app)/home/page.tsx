@@ -53,7 +53,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl">Something broke?</h2>
             <p className="mt-1.5 max-w-lg text-lg text-ink/80">
-              Take a photo. You don't need to know what the part is called, and you only have to explain it once.
+              Take a photo. We'll tell you what broke and who to call.
             </p>
           </div>
           <LinkButton href="/jobs/new" variant="dark" size="lg" className="shrink-0">
