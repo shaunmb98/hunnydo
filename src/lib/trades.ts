@@ -11,12 +11,12 @@ export interface TradeInfo {
 export const TRADES: TradeInfo[] = [
   { id: "plumbing", label: "Plumbing", pro: "Plumber", query: "plumber", examples: "Leaks, water heaters, drains, main lines" },
   { id: "electrical", label: "Electrical", pro: "Electrician", query: "electrician", examples: "Breakers, outlets, wiring, panels" },
-  { id: "hvac", label: "Heating & Air", pro: "HVAC tech", query: "HVAC air conditioning heating repair", examples: "AC not cooling, furnace, thermostat" },
+  { id: "hvac", label: "Heating & air", pro: "HVAC tech", query: "HVAC air conditioning heating repair", examples: "AC not cooling, furnace, thermostat" },
   { id: "roofing", label: "Roofing", pro: "Roofer", query: "roofing contractor roof repair", examples: "Leaks, missing shingles, tile, gutters" },
   { id: "appliance", label: "Appliances", pro: "Appliance tech", query: "appliance repair", examples: "Washer, dryer, fridge, dishwasher, oven" },
   { id: "handyman", label: "Handyman", pro: "Handyman", query: "handyman", examples: "Drywall, doors, fixtures, odd jobs" },
-  { id: "pest", label: "Pest Control", pro: "Pest control", query: "pest control", examples: "Termites, scorpions, rodents, ants" },
-  { id: "landscaping", label: "Yard & Irrigation", pro: "Landscaper", query: "landscaping irrigation repair", examples: "Sprinklers, trees, drainage, yard cleanup" },
+  { id: "pest", label: "Pest control", pro: "Pest control", query: "pest control", examples: "Termites, scorpions, rodents, ants" },
+  { id: "landscaping", label: "Yard & irrigation", pro: "Landscaper", query: "landscaping irrigation repair", examples: "Sprinklers, trees, drainage, yard cleanup" },
 ];
 
 export const TRADE_IDS = TRADES.map((t) => t.id) as [TradeId, ...TradeId[]];
