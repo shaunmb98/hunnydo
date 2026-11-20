@@ -177,13 +177,13 @@ export default function JobPage() {
               aria-selected={view === key}
               onClick={() => showTab(key)}
               className={cx(
-                "flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[15px] font-bold cursor-pointer",
+                "flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-[15px] font-bold leading-tight cursor-pointer",
                 view === key ? "bg-ink text-white" : "text-ink-soft hover:bg-ink/5",
               )}
             >
               {label}
               {count && (
-                <span className={cx("rounded-sm px-1.5 py-0.5 text-xs", view === key ? "bg-white/20" : "bg-paper")}>
+                <span className={cx("whitespace-nowrap rounded-md px-1.5 py-0.5 text-xs", view === key ? "bg-white/20" : "bg-paper")}>
                   {count}
                 </span>
               )}
