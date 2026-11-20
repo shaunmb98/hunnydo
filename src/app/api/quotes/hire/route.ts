@@ -97,7 +97,7 @@ export const POST = handler<{ jobId?: string; proId?: string; scheduledFor?: str
           )
           .join("")}</table>
 ${list("What's included", q?.includes)}${list("Not included", q?.excludes)}
-<p style="margin:16px 0 0;color:#4B4B57">${escapeHtml(bid.proName)} has been added to your crew, so they're one tap away next time.</p>`,
+<p style="margin:16px 0 0;color:#4B4B57">${escapeHtml(bid.proName)} is in your crew now, so they're one tap away next time.</p>`,
       );
       const text = [
         `You're booked with ${bid.proName} for ${title}.`,

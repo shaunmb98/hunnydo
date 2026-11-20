@@ -95,7 +95,7 @@ export default function CrewPage() {
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-ink bg-honey shadow-hard-sm" aria-hidden>
               <Users className="h-8 w-8" />
             </div>
-            <h2 className="mt-3 text-2xl font-extrabold">Your crew is empty. For now.</h2>
+            <h2 className="mt-3 text-2xl font-extrabold">Your crew is empty for now.</h2>
             <p className="mx-auto mt-2 max-w-md text-ink-soft">
               When a pro does right by you, save them here. Next time something breaks you call one number instead of
               fifteen.

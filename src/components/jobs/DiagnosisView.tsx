@@ -272,7 +272,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
         <h2 className="flex items-center gap-2 text-lg font-extrabold">
           <RefreshCw className="h-5 w-5" aria-hidden /> Add a detail and re-check
         </h2>
-        <p className="text-sm text-ink-soft">Remembered something? The age of the unit, a noise, what you&apos;ve tried. It all sharpens the answer.</p>
+        <p className="text-sm text-ink-soft">Remembered something? The age of the unit, a noise or what you&apos;ve tried can change the answer.</p>
         <Textarea
           className="mt-3"
           value={detail}

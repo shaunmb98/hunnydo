@@ -196,7 +196,7 @@ export default function NewJobPage() {
               <ErrorNote>{photoError}</ErrorNote>
             </div>
           )}
-          <p className="mt-1.5 text-xs text-mute">No photo? No problem. A description on its own works too.</p>
+          <p className="mt-1.5 text-xs text-mute">No photo? A description on its own works too.</p>
         </div>
 
         <div>

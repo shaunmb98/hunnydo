@@ -146,7 +146,7 @@ export function Matches({
         action={
           <Button variant="outline" size="sm" onClick={checkShowUps} loading={checking.size > 0}>
             {checking.size === 0 && <Radar className="h-4 w-4" aria-hidden />}
-            Check who actually shows up
+            Check who shows up
           </Button>
         }
       />

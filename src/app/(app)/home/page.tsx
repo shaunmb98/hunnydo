@@ -10,7 +10,7 @@ import { cx } from "@/lib/format";
 import { TRADES } from "@/lib/trades";
 
 const STEPS = [
-  { icon: Camera, title: "Snap what broke", body: "Take a photo or type a few words. You'll hear what it probably is, how urgent it is and what to do right now." },
+  { icon: Camera, title: "Snap what broke", body: "Take a photo or type a few words. You'll hear what it probably is, and whether it can wait or you need to act now." },
   { icon: PhoneCall, title: "Send one write-up", body: "You get a job brief in your own words. Send the same one to every pro, so you only explain it once." },
   { icon: ClipboardCheck, title: "Line up the quotes", body: "Keep each quote next to the others, pick one, and save the good pros to your crew." },
 ];

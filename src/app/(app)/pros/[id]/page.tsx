@@ -174,7 +174,7 @@ export default function ProDetailPage() {
               <p className="mt-1 text-[15px] text-ink-soft">
                 {pro.source === "google"
                   ? "Stars don't tell you who answers the phone. We'll read their reviews and pull out what people say about callbacks, quotes and showing up on time."
-                  : "You added this one yourself, so there are no Google reviews to read. Your notes are the review."}
+                  : "You added this one yourself, so there are no Google reviews to read. Go by your own notes."}
               </p>
               {pro.source === "google" && (
                 <Button className="mt-4" onClick={analyze} loading={analyzing}>
