@@ -1,6 +1,6 @@
 "use client";
 import { signOut } from "firebase/auth";
-import { ClipboardList, Home, LogOut, Plus, Search, Users } from "lucide-react";
+import { ClipboardList, Home, LogOut, NotebookText, Plus, Search, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ const NAV = [
   { href: "/jobs", label: "Jobs", icon: ClipboardList },
   { href: "/pros", label: "Find pros", icon: Search },
   { href: "/crew", label: "My crew", icon: Users },
+  { href: "/house", label: "My house", icon: NotebookText },
 ];
 
 /** Signed-in frame: guards auth + onboarding, top nav on desktop, tab bar on phones. */
@@ -77,7 +78,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <main className="mx-auto max-w-6xl px-4 py-6 sm:py-8">{children}</main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t-2 border-ink bg-white md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t-2 border-ink bg-white md:hidden">
         {NAV.map((n) => (
           <Link
             key={n.href}

@@ -4,6 +4,8 @@
 //   users/{uid}/jobs/{jobId}          -> Job
 //   users/{uid}/jobs/{jobId}/bids/{proId} -> Bid
 
+import type { HouseFacts, Permit } from "./house-types";
+
 export type TradeId =
   | "plumbing"
   | "electrical"
@@ -31,6 +33,8 @@ export interface UserProfile {
   onboardedAt?: number;
   prosFetchedAt?: number;
   emailUpdates?: boolean;
+  house?: HouseFacts;
+  housePermits?: Permit[];
 }
 
 export interface Review {
