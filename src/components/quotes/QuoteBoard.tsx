@@ -70,7 +70,7 @@ export function QuoteBoard({ job }: { job: Job }) {
             sub={
               booked
                 ? undefined
-                : "Send each request from your own phone or email, then tell us how it went. One write-up, no repeating yourself."
+                : "Send each request from your own phone or email, then tell us how it went. It's one write-up, so you don't repeat yourself."
             }
             action={
               !booked &&

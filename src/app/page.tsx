@@ -4,8 +4,8 @@ import { TradeIcon } from "@/components/TradeIcon";
 import { TRADES } from "@/lib/trades";
 
 const STEPS = [
-  { icon: Camera, title: "Snap what broke", body: "Take a photo and say what you see. HunnyDo tells you what it probably is, how urgent it is, and what to do right now." },
-  { icon: PhoneCall, title: "Reach the pros who pick up", body: "Local pros ranked by reviews, distance and how often people say they actually showed up. One write-up goes to all of them." },
+  { icon: Camera, title: "Snap what broke", body: "Take a photo and say what you see. HunnyDo tells you what it probably is, and whether it can wait or you need to act now." },
+  { icon: PhoneCall, title: "Reach the pros who pick up", body: "Local pros ranked by reviews, distance and how often people say they showed up. One write-up goes to all of them." },
   { icon: ClipboardCheck, title: "Line up the quotes", body: "Paste in what each pro told you. See price, timing and fine print side by side, then pick one." },
   { icon: Users, title: "Keep your crew", body: "The people who did right by you stay on your list, with notes and history, for the next time something breaks." },
 ];
@@ -30,8 +30,8 @@ export default function Landing() {
             Describe it <span className="marker">once.</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-ink-soft">
-            Snap a photo. HunnyDo works out what&apos;s wrong, finds the local pros most likely to show up, and keeps
-            every quote in one place. When the job is done, the good ones stay in your crew.
+            Snap a photo. HunnyDo works out what&apos;s wrong and finds the local pros most likely to show up. Your quotes
+            stay in one place, and when the job is done the good pros stay in your crew.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <LinkButton href="/login" size="lg">Start with your address</LinkButton>
