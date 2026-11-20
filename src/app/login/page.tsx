@@ -81,14 +81,14 @@ function LoginForm() {
       </Link>
       <Card className="w-full max-w-md p-6 sm:p-8">
         <h1 className="text-2xl font-bold">
-          {mode === "signup" ? (forPro ? "Set up your business" : "Start your home's crew list") : "Sign in"}
+          {mode === "signup" ? (forPro ? "Put your business on HunnyDo" : "Let's get it fixed") : "Welcome back"}
         </h1>
         <p className="mt-1 text-ink-soft">
           {mode === "signup"
             ? forPro
-              ? "Make an account, then find your listing."
-              : "You'll add your address next."
-            : ""}
+              ? "Make an account, then find your Google listing. Jobs near you show up after that."
+              : "Make an account, add your address, and we'll line up the pros near you."
+            : "Your jobs, your quotes and your crew are where you left them."}
         </p>
         <form onSubmit={submit} className="mt-5 space-y-4">
           {mode === "signup" && (

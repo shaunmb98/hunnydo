@@ -11,7 +11,7 @@ const body = Figtree({ subsets: ["latin"], variable: "--font-body" });
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "HunnyDo: fix it once, keep your crew",
+  title: "HunnyDo: get it fixed without the phone tag",
   description:
     "Something broke and you don't own the right wrench. Snap a photo. HunnyDo works out what's wrong, finds the local pros most likely to show up, and keeps every quote in one place.",
 };
