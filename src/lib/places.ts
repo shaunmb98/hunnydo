@@ -45,7 +45,6 @@ export async function autocompleteAddress(input: string) {
   }>("/places:autocomplete", null, {
     input,
     includedPrimaryTypes: ["street_address", "premise", "subpremise"],
-    includedRegionCodes: ["us"],
   });
   return (data.suggestions ?? [])
     .filter((s) => s.placePrediction)
@@ -59,7 +58,10 @@ export async function resolveHome(placeId: string): Promise<Home> {
     location: { latitude: number; longitude: number };
     addressComponents?: { longText: string; types: string[] }[];
   }>(`/places/${placeId}`, "formattedAddress,location,addressComponents");
-  const city = p.addressComponents?.find((c) => c.types.includes("locality"))?.longText;
+  // "locality" covers most US addresses. Other places file the town under a different type (London uses postal_town).
+  const part = (type: string) => p.addressComponents?.find((c) => c.types.includes(type))?.longText;
+  const city =
+    part("locality") ?? part("postal_town") ?? part("sublocality") ?? part("administrative_area_level_3") ?? part("administrative_area_level_2");
   return {
     address: p.formattedAddress,
     city,
@@ -109,7 +111,8 @@ const LIST_FIELDS = [
 export async function searchPros(tradeId: TradeId, home: Home): Promise<Pro[]> {
   const t = tradeInfo(tradeId);
   const data = await g<{ places?: GPlace[] }>("/places:searchText", LIST_FIELDS, {
-    textQuery: `${t.query} near ${home.address}`,
+    // Search by town, not street address: a full address makes Google match too narrowly.
+    textQuery: `${t.query} near ${home.city ?? home.address}`,
     maxResultCount: 20,
     locationBias: {
       circle: { center: { latitude: home.lat, longitude: home.lng }, radius: 25000 },

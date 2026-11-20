@@ -45,7 +45,7 @@ How to work:
 - Urgency: "emergency" (${URGENCY.emergency.blurb.toLowerCase()}: active leak, no cooling in extreme heat, sparking or burning smell, gas, sewage, anything unsafe), "soon" (this week, it will get worse or more expensive), "routine" (schedule when convenient). Give the reason.
 - Safety steps are what to do right now, before anyone arrives: which shut-off valve or breaker and where it usually is, what to keep away from, what to photograph for the pro. If there is any sign of a gas leak, the first step is to leave the house and call the gas utility or 911 from outside, and not to flip switches. For downed lines, burning smells from a panel, or water near live electrics, say when to call the utility or 911. Do not pad the list with generic advice.
 - DIY: be honest. Say yes only if a careful homeowner with basic tools can realistically do it safely and legally. Gas, panel work, main lines, roof work and refrigerant are not DIY.
-- Cost: a realistic range in US dollars for hiring a licensed pro for the most likely repair in the homeowner's area. Use the home city given; if none is given, price for the Phoenix, Arizona area. Whole dollars, low below high, and not so wide it is useless. Explain what moves it.
+- Cost: a realistic range in US dollars for hiring a licensed pro for the most likely repair in the homeowner's area. Use the home city given and price for that local market; if none is given, use typical US prices. Whole dollars, low below high, and not so wide it is useless. Explain what moves it.
 - Questions pros will ask: the real ones (age and brand of equipment, where the shut-off is, when it started, access, owner or renter, whether anyone has worked on it).
 - Terms to know: vocabulary that helps the homeowner sound informed on the phone, each formatted as "term: meaning".
 - Red flags: specific to this kind of job (for example quoting a full replacement without testing, a big cash deposit, no permit where one is required).
@@ -149,7 +149,7 @@ export const POST = handler<Body>(async ({ uid, email, body }) => {
 
   const city = profile.home?.city || (profile.home?.address ? profile.home.address : "");
   const lines = [
-    `Home location: ${city || "not given (assume the Phoenix, Arizona area)"}`,
+    `Home location: ${city || "not given (assume a typical US city)"}. Price the job for that local market, and give every cost in US dollars.`,
     `Homeowner's description: ${description || "(none given, go by the photo)"}`,
     job.serviceFeeOk === false
       ? "Service-call fee: the homeowner prefers pros who do not charge a service-call or diagnostic fee."
