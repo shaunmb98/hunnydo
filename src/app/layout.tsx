@@ -9,7 +9,7 @@ const body = Figtree({ subsets: ["latin"], variable: "--font-body" });
 export const metadata: Metadata = {
   title: "HunnyDo: fix it once, keep your crew",
   description:
-    "Snap a photo of what broke. HunnyDo diagnoses it, finds the local pros most likely to show up, and keeps every quote in one place.",
+    "Something broke and you don't own the right wrench. Snap a photo. HunnyDo works out what's wrong, finds the local pros most likely to show up, and keeps every quote in one place.",
 };
 
 export const viewport: Viewport = { themeColor: "#16161A", width: "device-width", initialScale: 1 };

@@ -6,7 +6,7 @@ import { CORE_TRADES, MORE_TRADES } from "@/lib/trades";
 const STEPS = [
   {
     title: "Take a photo of what broke",
-    body: "Add a sentence about what you're seeing. You get back what it probably is, whether it can wait, what to do right now and what it usually costs.",
+    body: "Add a sentence about what you're seeing. You don't need to know what the part is called. You get back what it probably is, whether it can wait, and what it usually costs.",
   },
   {
     title: "See who's worth calling",
@@ -14,11 +14,11 @@ const STEPS = [
   },
   {
     title: "Send one write-up to all of them",
-    body: "The problem is written up once, in your words. Text, email or call each pro yourself, then paste in what they say. Price, timing and fine print line up side by side.",
+    body: "The problem is written up once, in your words, so you're not telling the story of the leak to a fifth voicemail. Paste in what each pro says and the prices line up side by side.",
   },
   {
     title: "Keep the ones who did right by you",
-    body: "The pro you hire goes on your crew list with your notes. Next time something breaks, you start with people you already trust.",
+    body: "The pro you hire goes on your crew list with your notes. Next time something breaks, and it will, you start with people you already trust.",
   },
 ];
 
@@ -92,11 +92,15 @@ export default function Landing() {
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-8 md:grid-cols-[1.1fr_1fr] md:pb-24 md:pt-14">
           <div>
             <h1 className="text-5xl font-bold leading-[1.02] sm:text-6xl lg:text-7xl">
-              Something broke. Explain it once.
+              &quot;Do it, hunny.&quot;
+              <span className="mt-2 block text-3xl leading-tight text-ink/75 sm:text-4xl lg:text-[44px]">
+                Fine. But I&apos;m calling a professional.
+              </span>
             </h1>
             <p className="mt-6 max-w-xl text-xl leading-relaxed text-ink/80">
-              Snap a photo. HunnyDo works out what&apos;s wrong, lines up the local pros most likely to show up, and
-              keeps every quote in one place until you pick one.
+              Something at your house just broke, and you don&apos;t own the right wrench. Snap a photo. HunnyDo works
+              out what&apos;s wrong, lines up the local pros most likely to show up, and keeps every quote in one place
+              until you pick one.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <LinkButton external href="/login" variant="dark" size="lg">
@@ -135,7 +139,7 @@ export default function Landing() {
       <section className="bg-paper">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="text-4xl font-bold sm:text-5xl">Every trade your house needs</h2>
+            <h2 className="text-4xl font-bold sm:text-5xl">Every trade your house will eventually need</h2>
             <p className="max-w-sm text-ink-soft">
               Pros for the first eight are lined up the moment you add your address. The rest load when you need them.
             </p>
@@ -185,7 +189,7 @@ export default function Landing() {
 
       <section className="bg-honey">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-5 py-12">
-          <h2 className="text-3xl font-bold sm:text-4xl">Got something that needs fixing?</h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">Go on. It won&apos;t fix itself.</h2>
           <LinkButton external href="/login" variant="dark" size="lg">
             Start with your address <ArrowRight className="h-5 w-5" aria-hidden />
           </LinkButton>
