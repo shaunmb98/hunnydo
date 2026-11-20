@@ -228,7 +228,7 @@ export function BidCard({
           )}
           {bid.status === "quoted" && (
             <>
-              <Button size="sm" onClick={() => onHire(bid)}>Go with {bid.proName}</Button>
+              <Button variant="outline" size="sm" onClick={() => onHire(bid)}>Go with {bid.proName}</Button>
               <Button size="sm" variant="outline" onClick={() => onLogQuote(bid)}>Edit quote</Button>
             </>
           )}

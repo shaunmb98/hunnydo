@@ -2,8 +2,8 @@
 
 Snap a photo of what broke. Get a diagnosis, the local pros most likely to show up, and every quote in one place. When the job is done, the good ones stay in your crew.
 
-**Live app:** https://hunnydo-336070400804.us-central1.run.app
-**Built for:** the Casper Studios take-home, in a 2-hour timebox. The brief and my original product prompt are in [`docs/reference/`](docs/reference/).
+**Live app:** https://app.doithunny.com (also at https://hunnydo-336070400804.us-central1.run.app)
+**Site:** https://doithunny.com
 
 ## Why I built this
 
@@ -79,14 +79,14 @@ Other commands: `npm run typecheck`, `npm run build`. Deploying is `gcloud run d
 
 ## How it was built
 
-I worked with Claude Code as a small team. I wrote the product direction and made the calls. One session built the shared foundation (data model, design system, auth, the Claude and Places helpers, ranking). Then separate agents built features on their own branches in separate git worktrees, each testing its own API routes against the real services before reporting back. Every branch was merged into `main` with a merge commit, clicked through in a real browser, and reviewed by an independent agent for bugs and security problems. The git history shows that sequence.
+I worked with Claude Code as a small team. I set the product direction and made the calls. One session built the shared foundation (data model, design system, auth, the Claude and Places helpers, ranking). Separate agents then built features on their own branches in separate git worktrees, each testing its API routes against the real services before reporting back. Every branch was merged into `main` with a merge commit and clicked through in a real browser. Independent agents reviewed the code for bugs and security problems, walked the app as first-time users, and edited the copy. Their findings and the fixes are in the git history.
 
-Account setup (the cloud project, API keys, DNS) was done before the timer started. No application code was written before the first commit.
+The original product prompt and the brief this started from are in [`docs/reference/`](docs/reference/).
 
 ## Status
 
-See [`docs/STATUS.md`](docs/STATUS.md) for what works, what is incomplete, and what I would build next.
+See [`docs/STATUS.md`](docs/STATUS.md) for what works today, what is incomplete, and what comes next.
 
 ## Credits
 
-The three sample photos on the "Something broke?" page are from Wikimedia Commons: "Pointing at a leaking pipe" by Nokalfirstimeokaynaman (CC BY-SA 4.0), "Electrical panel with exposed wiring in a residential setting" by Shixart1985 (CC BY 2.0), and "Broken garage door springs" by Garagedoorrepairlasvegas (CC BY-SA 4.0). They are resized and otherwise unchanged.
+The sample photos on the landing page and the "Something broke?" page are from Wikimedia Commons: "Pointing at a leaking pipe" by Nokalfirstimeokaynaman (CC BY-SA 4.0), "Electrical panel with exposed wiring in a residential setting" by Shixart1985 (CC BY 2.0), and "Broken garage door springs" by Garagedoorrepairlasvegas (CC BY-SA 4.0). They are resized and otherwise unchanged.
