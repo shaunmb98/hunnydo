@@ -243,7 +243,8 @@ export function Matches({
 
       {error && <div className="mt-4"><ErrorNote>{error}</ErrorNote></div>}
 
-      <div className="sticky bottom-3 z-10 mt-5">
+      {/* Stays in reach while you scroll the list. On phones it sits above the tab bar. */}
+      <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-ink bg-white p-3 shadow-hard md:bottom-4">
         <Button size="lg" className="w-full sm:w-auto" onClick={draft} loading={drafting} disabled={!chosen.length}>
           {!drafting && <PenLine className="h-5 w-5" aria-hidden />}
           {drafting
@@ -252,7 +253,7 @@ export function Matches({
               ? `Write my quote request for ${chosen.length} ${chosen.length === 1 ? "pro" : "pros"}`
               : "Pick who to ask"}
         </Button>
-        <p className="mt-2 text-xs text-mute">
+        <p className="min-w-0 flex-1 text-sm text-ink-soft">
           You send every message yourself. HunnyDo never contacts a business for you.
         </p>
       </div>

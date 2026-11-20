@@ -104,7 +104,7 @@ export default function JobPage() {
 
   return (
     <div className="space-y-5">
-      <Link href="/jobs" className="inline-flex items-center gap-1.5 text-sm font-bold text-ink-soft hover:text-ink">
+      <Link href="/jobs" className="flex w-fit items-center gap-1.5 text-sm font-bold text-ink-soft hover:text-ink">
         <ArrowLeft className="h-4 w-4" aria-hidden /> All jobs
       </Link>
 
