@@ -43,8 +43,9 @@ Each item below was clicked through in a real browser against the real services,
 ## What I would build next
 
 1. HunnyDo reaches out for you. Today you send every message yourself. The plan is for the app to send the emails and texts, fill in a pro's contact form, and place the calls on your behalf: a voice agent rings the shortlisted pros with the job brief, collects a price and a time, books the visit, and puts the result on your quote board. You approve who gets contacted and can step in at any point.
-2. Real business verification, then reviews from homeowners who hired through the app.
-3. Inbox and text integration so quotes arrive on their own.
-4. County and permit coverage beyond Maricopa.
-5. Home warranty integration. Many homeowners already pay for a warranty plan and don't know what it covers. The app would hold your plan, tell you at diagnosis time whether the repair is likely covered and what the service fee is, and open the claim with the warranty company before you call anyone else.
-6. Maintenance reminders from what the app knows about the house: water heater age, roof age, filter changes.
+2. Prices from real jobs. Today the estimate on each diagnosis comes from Claude's knowledge of typical prices for that repair in that city, and every quote is checked against it. Each quote logged and each hire recorded is the better source. With enough of them, the range should come from what people nearby were actually quoted and paid for the same repair, shown as "based on 14 similar jobs near you".
+3. Real business verification, then reviews from homeowners who hired through the app.
+4. Inbox and text integration so quotes arrive on their own.
+5. County and permit coverage beyond Maricopa.
+6. Home warranty integration. Many homeowners already pay for a warranty plan and don't know what it covers. The app would hold your plan, tell you at diagnosis time whether the repair is likely covered and what the service fee is, and open the claim with the warranty company before you call anyone else.
+7. Maintenance reminders from what the app knows about the house: water heater age, roof age, filter changes.

@@ -223,6 +223,10 @@ Do this now
           <h2 className="text-sm font-bold text-honey">What a pro usually charges</h2>
           <p className="mt-1 font-display text-3xl font-bold sm:text-4xl">{moneyRange(d.costLow, d.costHigh)}</p>
           <p className="mt-2 leading-relaxed text-white/75">{d.costNotes}</p>
+          <p className="mt-3 border-t border-white/15 pt-3 text-sm text-white/60">
+            This is what this kind of repair usually runs in your area. It&apos;s an estimate to check quotes against,
+            not a quote. Each quote you log is marked against it.
+          </p>
         </Card>
         <Section icon={Wrench} title="Can you fix it yourself?">
           <Badge tone={d.diyFeasible ? "green" : "red"}>{d.diyFeasible ? "Doable" : "Call a pro"}</Badge>
