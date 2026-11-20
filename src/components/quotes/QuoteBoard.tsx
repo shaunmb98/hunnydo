@@ -12,6 +12,7 @@ import { Booked } from "./Booked";
 import { Compare } from "./Compare";
 import { HireSheet } from "./HireSheet";
 import { Matches } from "./Matches";
+import { OpenBoardToggle } from "./OpenBoardToggle";
 import { QuoteForm } from "./QuoteForm";
 import { SectionTitle } from "./bits";
 
@@ -56,6 +57,7 @@ export function QuoteBoard({ job }: { job: Job }) {
 
   return (
     <div className="space-y-10" data-job={job.id}>
+      <OpenBoardToggle job={job} />
       {booked && <Booked job={job} hired={hired} passed={passedButContacted} emailed={emailed} />}
 
       {!booked && quoted.length > 0 && (
