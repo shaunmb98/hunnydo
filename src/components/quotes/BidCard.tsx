@@ -92,6 +92,7 @@ export function BidCard({
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">
             <Stars rating={bid.proRating} count={bid.proReviewCount} />
             {bid.proPhone && <span>{bid.proPhone}</span>}
+            {bid.source === "board" && <Badge tone="blue">From the job board</Badge>}
           </div>
         </div>
         <div className="text-right">

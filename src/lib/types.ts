@@ -35,6 +35,7 @@ export interface UserProfile {
   emailUpdates?: boolean;
   house?: HouseFacts;
   housePermits?: Permit[];
+  businessId?: string; // Google place id of the business this login has claimed (see biz-types.ts)
 }
 
 export interface Review {
@@ -120,6 +121,7 @@ export interface Job {
   scheduledFor?: string;
   bidCount?: number;
   quoteCount?: number;
+  openToBids?: boolean; // posted to the job board for local pros
   createdAt: number;
   updatedAt: number;
 }
@@ -168,6 +170,7 @@ export interface Bid {
   followUpAt?: number;
   notes?: string;
   events: BidEvent[];
+  source?: "board"; // set when the pro sent this bid through the job board
   createdAt: number;
   updatedAt: number;
 }
