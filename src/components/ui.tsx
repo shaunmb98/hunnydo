@@ -269,17 +269,24 @@ export function ErrorNote({ children }: { children: ReactNode }) {
   );
 }
 
+/** The mark: one cell of honeycomb with the job ticked off. */
+export function LogoMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      <path d="M16 3 27.3 9.5v13L16 29 4.7 22.5v-13z" fill="#17171c" stroke="#17171c" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M10.2 16.6 14.4 20.8 22 12.4" fill="none" stroke="#ffc629" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
   const big = size === "lg";
   return (
     <span className={cx("inline-flex items-center gap-2 font-display font-bold tracking-tight", big ? "text-[22px] sm:text-[26px]" : "text-[22px]")}>
-      <span
-        className={cx("grid place-items-center rounded-[9px] bg-ink font-display font-bold text-honey", big ? "h-9 w-9 text-xl" : "h-8 w-8 text-lg")}
-        aria-hidden
-      >
-        H
+      <LogoMark className={big ? "h-9 w-9 sm:h-10 sm:w-10" : "h-8 w-8"} />
+      <span>
+        Hunny<span className="text-ink/60">Do</span>
       </span>
-      HunnyDo
     </span>
   );
 }

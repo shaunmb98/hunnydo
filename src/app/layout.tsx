@@ -6,6 +6,10 @@ import "./globals.css";
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"] });
 const body = Figtree({ subsets: ["latin"], variable: "--font-body" });
 
+// Render every page per request. Otherwise the CDN in front of the app keeps prerendered pages for a year
+// and visitors can be handed a stale page after a deploy.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "HunnyDo: fix it once, keep your crew",
   description:
