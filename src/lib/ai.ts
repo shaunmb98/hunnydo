@@ -34,17 +34,31 @@ export async function structured<S extends z.ZodType>(opts: {
     { type: "text", text: opts.prompt },
   ];
 
-  try {
-    const response = await client.messages.parse({
+  // Fast mode roughly halves the wait on long answers. If it's rate limited or unavailable, run at normal speed.
+  const request = (fast: boolean) =>
+    client.messages.parse({
       model: MODEL,
       max_tokens: opts.maxTokens ?? 8000,
       system: opts.system,
       messages: [{ role: "user", content }],
+      ...(fast ? { speed: "fast" as const } : {}),
       output_config: {
         effort: opts.effort ?? "low",
         format: zodOutputFormat(opts.schema),
       },
     });
+
+  try {
+    let response;
+    try {
+      response = await request(true);
+    } catch (err) {
+      if (err instanceof Anthropic.APIError && (err.status === 429 || err.status === 400 || err.status === 403)) {
+        response = await request(false);
+      } else {
+        throw err;
+      }
+    }
     if (response.stop_reason === "refusal") {
       throw new HttpError(422, "The assistant couldn't help with that one. Try rewording it.");
     }

@@ -84,7 +84,12 @@ export function Card({
 }: { className?: string; children: ReactNode; flat?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cx("rounded-2xl border-2 border-ink bg-white", !flat && "shadow-hard", className)}
+      className={cx(
+        "rounded-2xl border-2 border-ink",
+        !/\bbg-/.test(className ?? "") && "bg-white",
+        !flat && "shadow-hard",
+        className,
+      )}
       {...rest}
     >
       {children}
