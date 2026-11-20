@@ -142,7 +142,7 @@ export default function Landing() {
           </div>
           <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {CORE_TRADES.map((t) => (
-              <Link
+              <a
                 key={t.id}
                 href="/login"
                 className="group rounded-2xl border border-line bg-white p-5 shadow-card transition-colors hover:border-ink"
