@@ -63,7 +63,8 @@ export function scorePro(pro: Pro, ctx: { urgency?: Urgency } = {}): Scored {
   const openNow = fresh ? pro.openNow : undefined;
   if (openNow) {
     reach += urgent ? 12 : 5;
-    reasons.push(urgent ? "Open right now" : "Open now");
+    // Cards already show an open/closed badge. Only call it out as a reason when the job can't wait.
+    if (urgent) reasons.push("Open right now");
   } else if (openNow === false && urgent) {
     cautions.push("Closed right now");
   }

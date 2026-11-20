@@ -24,6 +24,24 @@ const EXAMPLES = [
   "Scorpions in the garage",
 ];
 
+const SAMPLES = [
+  {
+    src: "/samples/leaking-pipe.jpg",
+    label: "Leaking pipe",
+    says: "This pipe on the side of the house has been dripping for a couple of days and the wall under it stays wet.",
+  },
+  {
+    src: "/samples/electrical-panel.jpg",
+    label: "Electrical panel",
+    says: "A breaker keeps tripping when the microwave and the toaster run together. This is what the panel looks like.",
+  },
+  {
+    src: "/samples/garage-door-spring.jpg",
+    label: "Garage door",
+    says: "Heard a loud bang in the garage last night and now the door won't open more than a few inches.",
+  },
+] as const;
+
 export default function NewJobPage() {
   const { user } = useAuth();
   const router = useRouter();
@@ -54,6 +72,21 @@ export default function NewJobPage() {
       setPhotoBusy(false);
       if (cameraInput.current) cameraInput.current.value = "";
       if (libraryInput.current) libraryInput.current.value = "";
+    }
+  }
+
+  // For anyone who wants to try it without a broken thing in front of them.
+  async function useSample(sample: (typeof SAMPLES)[number]) {
+    setPhotoError("");
+    setPhotoBusy(true);
+    try {
+      const blob = await (await fetch(sample.src)).blob();
+      setPhoto(await resizePhoto(new File([blob], "sample.jpg", { type: "image/jpeg" })));
+      setDescription(sample.says);
+    } catch {
+      setPhotoError("Couldn't load that sample. Try another, or use your own photo.");
+    } finally {
+      setPhotoBusy(false);
     }
   }
 
@@ -197,6 +230,30 @@ export default function NewJobPage() {
             </div>
           )}
           <p className="mt-1.5 text-xs text-mute">No photo? A description on its own works too.</p>
+          {!photo && (
+            <div className="mt-4 rounded-2xl border-2 border-line bg-white p-3">
+              <p className="text-sm font-bold">Nothing broken right now? Try a sample.</p>
+              <div className="mt-2 grid grid-cols-3 gap-2">
+                {SAMPLES.map((sample) => (
+                  <button
+                    key={sample.src}
+                    type="button"
+                    disabled={photoBusy}
+                    onClick={() => useSample(sample)}
+                    className="group cursor-pointer overflow-hidden rounded-xl border-2 border-ink bg-white text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={sample.src} alt="" className="h-20 w-full object-cover transition-transform group-hover:scale-105 sm:h-24" />
+                    <span className="block px-2 py-1.5 text-xs font-bold leading-tight">{sample.label}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="mt-2 text-[11px] text-mute">
+                Sample photos from Wikimedia Commons: Nokalfirstimeokaynaman (CC BY-SA 4.0), Shixart1985 (CC BY 2.0),
+                Garagedoorrepairlasvegas (CC BY-SA 4.0).
+              </p>
+            </div>
+          )}
         </div>
 
         <div>

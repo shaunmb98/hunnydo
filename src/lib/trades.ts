@@ -16,7 +16,7 @@ export const TRADES: TradeInfo[] = [
   { id: "roofing", label: "Roofing", pro: "Roofer", query: "roofing contractor", examples: "Leaks, missing shingles, tile, flashing", core: true },
   { id: "appliance", label: "Appliances", pro: "Appliance tech", query: "appliance repair", examples: "Washer, dryer, fridge, dishwasher, oven", core: true },
   { id: "handyman", label: "Handyman", pro: "Handyman", query: "handyman", examples: "Drywall, doors, fixtures, odd jobs", core: true },
-  { id: "pest", label: "Pest control", pro: "Pest control", query: "pest control", examples: "Termites, scorpions, rodents, ants", core: true },
+  { id: "pest", label: "Pest control", pro: "Pest control tech", query: "pest control", examples: "Termites, scorpions, rodents, ants", core: true },
   { id: "landscaping", label: "Yard & irrigation", pro: "Landscaper", query: "landscaper", examples: "Sprinklers, drainage, yard cleanup", core: true },
   { id: "dryer_vent", label: "Dryer vents & ducts", pro: "Vent cleaner", query: "dryer vent cleaning", examples: "Dryer taking forever, lint buildup, air duct cleaning" },
   { id: "garage_door", label: "Garage doors", pro: "Garage door tech", query: "garage door repair", examples: "Door won't open, broken spring, noisy opener" },

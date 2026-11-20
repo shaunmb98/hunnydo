@@ -86,3 +86,7 @@ Account setup (the cloud project, API keys, DNS) was done before the timer start
 ## Status
 
 See [`docs/STATUS.md`](docs/STATUS.md) for what works, what is incomplete, and what I would build next.
+
+## Credits
+
+The three sample photos on the "Something broke?" page are from Wikimedia Commons: "Pointing at a leaking pipe" by Nokalfirstimeokaynaman (CC BY-SA 4.0), "Electrical panel with exposed wiring in a residential setting" by Shixart1985 (CC BY 2.0), and "Broken garage door springs" by Garagedoorrepairlasvegas (CC BY-SA 4.0). They are resized and otherwise unchanged.

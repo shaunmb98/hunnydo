@@ -61,12 +61,15 @@ export function Matches({
     });
   }
 
+  // "garage door techs", "plumbers": how you'd say it out loud.
+  const who = /s$/i.test(info.pro) ? info.pro.toLowerCase() : `${info.pro.toLowerCase()}s`;
+
   async function findPros() {
     setFinding(true);
     setError("");
     try {
       const res = await api<{ count: number }>("/api/pros/refresh", { trade: info.id });
-      if (!res.count) setError(`We didn't find any ${info.label.toLowerCase()} pros near your address. You can add one by hand from the Pros page.`);
+      if (!res.count) setError(`We didn't find any ${who} near your address. You can add one by hand from My crew.`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Couldn't look up pros. Try again.");
     } finally {
@@ -115,7 +118,17 @@ export function Matches({
     }
   }
 
+  // Services outside the core eight aren't looked up at sign-up, so look once on arrival.
+  const looked = useRef(false);
+  useEffect(() => {
+    if (prosLoading || ranked.length || looked.current) return;
+    looked.current = true;
+    void findPros();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prosLoading, ranked.length]);
+
   if (prosLoading) return <Spinner label="Finding your best matches" />;
+  if (!ranked.length && finding) return <Spinner label={`Looking for ${who} near you`} />;
 
   if (!ranked.length) {
     return (
@@ -123,13 +136,13 @@ export function Matches({
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border-2 border-ink bg-honey shadow-hard-sm">
           <Search className="h-6 w-6" aria-hidden />
         </div>
-        <h3 className="mt-4 text-xl font-bold">No {info.label.toLowerCase()} pros on your list yet</h3>
+        <h3 className="mt-4 text-xl font-bold">No {who} on your list yet</h3>
         <p className="mx-auto mt-1 max-w-md text-ink-soft">
           We&apos;ll look around your address and rank who&apos;s most likely to pick up and show up.
         </p>
         <div className="mt-5 flex justify-center">
           <Button onClick={findPros} loading={finding}>
-            Find {info.label.toLowerCase()} pros near me
+            Look for {who} near me
           </Button>
         </div>
         {error && <div className="mx-auto mt-4 max-w-md text-left"><ErrorNote>{error}</ErrorNote></div>}
