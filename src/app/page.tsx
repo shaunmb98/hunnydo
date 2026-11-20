@@ -1,5 +1,4 @@
 import { ArrowRight, Check } from "lucide-react";
-import Link from "next/link";
 import { TradeIcon } from "@/components/TradeIcon";
 import { LinkButton, Logo } from "@/components/ui";
 import { CORE_TRADES, MORE_TRADES } from "@/lib/trades";
@@ -78,13 +77,13 @@ export default function Landing() {
         <header className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-2 px-5">
           <Logo size="lg" />
           <nav className="flex items-center gap-1.5 sm:gap-3">
-            <Link href="/login?next=/biz/claim" className="hidden rounded-lg px-3 py-2 font-semibold hover:bg-ink/10 sm:inline">
+            <a href="/login?next=/biz/claim" className="hidden rounded-lg px-3 py-2 font-semibold hover:bg-ink/10 sm:inline">
               For pros
-            </Link>
-            <Link href="/login?mode=signin" className="whitespace-nowrap rounded-lg px-3 py-2 font-semibold hover:bg-ink/10">
+            </a>
+            <a href="/login?mode=signin" className="whitespace-nowrap rounded-lg px-3 py-2 font-semibold hover:bg-ink/10">
               Sign in
-            </Link>
-            <LinkButton href="/login" variant="dark" className="whitespace-nowrap">
+            </a>
+            <LinkButton external href="/login" variant="dark" className="whitespace-nowrap">
               Get started
             </LinkButton>
           </nav>
@@ -100,10 +99,10 @@ export default function Landing() {
               keeps every quote in one place until you pick one.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <LinkButton href="/login" variant="dark" size="lg">
+              <LinkButton external href="/login" variant="dark" size="lg">
                 Start with your address <ArrowRight className="h-5 w-5" aria-hidden />
               </LinkButton>
-              <LinkButton href="/login?mode=signin" variant="ghost" size="lg">
+              <LinkButton external href="/login?mode=signin" variant="ghost" size="lg">
                 I have an account
               </LinkButton>
             </div>
@@ -151,7 +150,7 @@ export default function Landing() {
                 <TradeIcon trade={t.id} className="h-7 w-7 text-ink" />
                 <p className="mt-4 text-lg font-bold">{t.label}</p>
                 <p className="mt-1 text-sm leading-snug text-ink-soft">{t.examples}</p>
-              </Link>
+              </a>
             ))}
           </div>
           <p className="mt-6 leading-relaxed text-ink-soft">
@@ -178,7 +177,7 @@ export default function Landing() {
               with a photo and a full write-up, and price it before you pick up the phone.
             </p>
             <div className="mt-6">
-              <LinkButton href="/login?next=/biz/claim">Claim your business</LinkButton>
+              <LinkButton external href="/login?next=/biz/claim">Claim your business</LinkButton>
             </div>
           </div>
         </div>
@@ -187,7 +186,7 @@ export default function Landing() {
       <section className="bg-honey">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-5 py-12">
           <h2 className="text-3xl font-bold sm:text-4xl">Got something that needs fixing?</h2>
-          <LinkButton href="/login" variant="dark" size="lg">
+          <LinkButton external href="/login" variant="dark" size="lg">
             Start with your address <ArrowRight className="h-5 w-5" aria-hidden />
           </LinkButton>
         </div>
@@ -197,12 +196,12 @@ export default function Landing() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-8 text-sm text-mute">
           <Logo />
           <span className="flex gap-5">
-            <Link href="/login?mode=signin" className="hover:text-ink">
+            <a href="/login?mode=signin" className="hover:text-ink">
               Sign in
-            </Link>
-            <Link href="/login?next=/biz/claim" className="hover:text-ink">
+            </a>
+            <a href="/login?next=/biz/claim" className="hover:text-ink">
               For pros
-            </Link>
+            </a>
           </span>
         </div>
       </footer>
