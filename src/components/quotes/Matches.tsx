@@ -242,7 +242,7 @@ export function Matches({
       {error && <div className="mt-4"><ErrorNote>{error}</ErrorNote></div>}
 
       {/* Stays in reach while you scroll the list. On phones it sits above the tab bar. */}
-      <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border border-line bg-white p-2 sm:p-3 md:bottom-4">
+      <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border border-line bg-white p-2 shadow-lift sm:p-3 md:bottom-4">
         <Button className="w-full sm:w-auto sm:px-6 sm:py-3.5 sm:text-lg" onClick={draft} loading={drafting} disabled={!chosen.length}>
           {drafting ? (
             "Writing it up"

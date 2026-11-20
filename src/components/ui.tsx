@@ -272,7 +272,7 @@ export function ErrorNote({ children }: { children: ReactNode }) {
 export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
   const big = size === "lg";
   return (
-    <span className={cx("inline-flex items-center gap-2 font-display font-bold tracking-tight", big ? "text-[26px]" : "text-[22px]")}>
+    <span className={cx("inline-flex items-center gap-2 font-display font-bold tracking-tight", big ? "text-[22px] sm:text-[26px]" : "text-[22px]")}>
       <span
         className={cx("grid place-items-center rounded-[9px] bg-ink font-display font-bold text-honey", big ? "h-9 w-9 text-xl" : "h-8 w-8 text-lg")}
         aria-hidden

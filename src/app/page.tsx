@@ -75,16 +75,16 @@ export default function Landing() {
   return (
     <div className="bg-white">
       <div className="bg-honey">
-        <header className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
+        <header className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-2 px-5">
           <Logo size="lg" />
           <nav className="flex items-center gap-1.5 sm:gap-3">
             <Link href="/login?next=/biz/claim" className="hidden rounded-lg px-3 py-2 font-semibold hover:bg-ink/10 sm:inline">
               For pros
             </Link>
-            <Link href="/login?mode=signin" className="rounded-lg px-3 py-2 font-semibold hover:bg-ink/10">
+            <Link href="/login?mode=signin" className="whitespace-nowrap rounded-lg px-3 py-2 font-semibold hover:bg-ink/10">
               Sign in
             </Link>
-            <LinkButton href="/login" variant="dark">
+            <LinkButton href="/login" variant="dark" className="whitespace-nowrap">
               Get started
             </LinkButton>
           </nav>
