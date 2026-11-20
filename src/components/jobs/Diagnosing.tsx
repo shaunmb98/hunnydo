@@ -21,7 +21,7 @@ export function Diagnosing({ photoUrl, description }: { photoUrl?: string; descr
       <div className="grid gap-5 p-5 sm:grid-cols-[200px_1fr] sm:p-6">
         {photoUrl && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={photoUrl} alt="Your photo" className="h-44 w-full animate-pulse rounded-md border border-line object-cover sm:h-full sm:max-h-56" />
+          <img src={photoUrl} alt="Your photo" className="h-44 w-full rounded-md border border-line object-cover sm:h-full sm:max-h-56" />
         )}
         <div className={photoUrl ? "" : "sm:col-span-2"}>
           <h1 className="text-2xl font-bold sm:text-3xl">Taking a look</h1>

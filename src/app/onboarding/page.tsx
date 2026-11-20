@@ -1,6 +1,6 @@
 "use client";
 import { setDoc } from "firebase/firestore";
-import { ArrowRight, Check, Loader2, MapPin, NotebookText, RotateCw, TriangleAlert } from "lucide-react";
+import { ArrowRight, Check, Loader2, NotebookText, RotateCw, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
@@ -114,7 +114,7 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
 
   const show = open && items.length > 0;
   return (
-    <div className="pop">
+    <div className="">
       <h1 className="text-4xl font-bold sm:text-5xl">
         Where&apos;s home?
       </h1>
@@ -128,7 +128,6 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
           Home address
         </label>
         <div className="relative">
-          <MapPin className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-mute" aria-hidden />
           <input
             id="home-address"
             role="combobox"
@@ -174,7 +173,6 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
                 i === active && "bg-honey-soft",
               )}
             >
-              <MapPin className="h-4 w-4 shrink-0 text-ink-soft" aria-hidden />
               <span className="min-w-0 break-words">{s.text}</span>
             </li>
           ))}
@@ -276,7 +274,7 @@ function ScoutStep({
 
   if (homeError) {
     return (
-      <div className="pop space-y-4">
+      <div className=" space-y-4">
         <h1 className="text-3xl font-bold sm:text-4xl">That address didn&apos;t take</h1>
         <ErrorNote>{homeError}</ErrorNote>
         <Button onClick={onBack}>Try another address</Button>
@@ -285,13 +283,12 @@ function ScoutStep({
   }
 
   return (
-    <div className="pop">
+    <div className="">
       <h1 className="text-3xl font-bold sm:text-5xl">
         Scouting your neighborhood
       </h1>
       <p className="mt-3 flex items-start gap-2 text-ink-soft">
-        <MapPin className="mt-0.5 h-5 w-5 shrink-0" aria-hidden />
-        <span>{home?.address ?? "Pinning your address on the map..."}</span>
+        <span>{home?.address ?? "Pinning your address on the map"}</span>
       </p>
 
       <div className="mt-5 h-3 overflow-hidden rounded border border-line bg-white" aria-hidden>
@@ -319,11 +316,11 @@ function ScoutStep({
                       : "None nearby yet"
                     : r.state === "failed"
                       ? "Couldn't load, we'll retry later"
-                      : "Looking..."}
+                      : "Looking"}
                 </span>
               </span>
               {r.state === "done" ? (
-                <span className="pop flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
+                <span className=" flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
                   <Check className="h-4 w-4" aria-hidden />
                 </span>
               ) : r.state === "failed" ? (
@@ -340,7 +337,7 @@ function ScoutStep({
             county.text ? "border-line bg-white" : "border-line bg-white",
           )}
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line bg-honey-soft">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center ">
             <NotebookText className="h-5 w-5" aria-hidden />
           </span>
           <span className="min-w-0 flex-1">
@@ -352,7 +349,7 @@ function ScoutStep({
           {county.state === "looking" ? (
             <Loader2 className="h-5 w-5 animate-spin text-mute" aria-hidden />
           ) : county.text ? (
-            <span className="pop flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
+            <span className=" flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
               <Check className="h-4 w-4" aria-hidden />
             </span>
           ) : null}
@@ -397,13 +394,13 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
   const total = pros.filter((p) => p.source === "google").length;
 
   return (
-    <div className="pop">
+    <div className="">
       <h1 className="text-3xl font-bold sm:text-5xl">
         Your neighborhood, sorted
       </h1>
       <p className="mt-3 text-lg text-ink-soft">
         {loading ? (
-          "Counting them up..."
+          "Counting them up"
         ) : (
           <>
             <strong className="text-ink">{plural(total, "local pro")}</strong> near{" "}
@@ -447,7 +444,7 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
         </ul>
       )}
 
-      <Card flat className="mt-6 bg-honey-soft p-4 sm:p-5">
+      <Card flat className="mt-6 bg-paper p-4 sm:p-5">
         <h2 className="text-xl font-bold">Already have someone you trust?</h2>
         <p className="mt-0.5 text-sm text-ink-soft">
           Add them now and they go straight into your crew, ahead of the strangers. Skip it if you like.

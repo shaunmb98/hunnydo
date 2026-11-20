@@ -1,6 +1,6 @@
 "use client";
 import { updateDoc } from "firebase/firestore";
-import { Wand2 } from "lucide-react";
+
 import { useState } from "react";
 import { Button, ErrorNote, Field, Input, Textarea } from "@/components/ui";
 import { api } from "@/lib/api-client";
@@ -136,7 +136,6 @@ export function QuoteForm({ uid, jobId, bid, onClose }: { uid: string; jobId: st
         </Field>
         <div className="flex flex-wrap items-center gap-3">
           <Button onClick={extract} loading={reading} disabled={raw.trim().length < 8} variant={showFields ? "outline" : "primary"}>
-            {!reading && <Wand2 className="h-4 w-4" aria-hidden />}
             {reading ? "Reading it" : showFields ? "Read it again" : "Pull out the details"}
           </Button>
           {!showFields && (

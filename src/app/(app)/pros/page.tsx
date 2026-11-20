@@ -1,5 +1,5 @@
 "use client";
-import { Globe, Phone, RotateCw, Search } from "lucide-react";
+import { Phone, RotateCw, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
@@ -274,7 +274,7 @@ function Directory() {
                         )}
                         {pro.website && (
                           <LinkButton href={pro.website} size="sm" variant="outline" external>
-                            <Globe className="h-4 w-4" aria-hidden /> Website
+Website
                           </LinkButton>
                         )}
                         {user && <CrewButton uid={user.uid} proId={pro.id} inCrew={!!pro.inCrew} />}

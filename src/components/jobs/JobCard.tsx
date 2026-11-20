@@ -37,9 +37,9 @@ export function JobCard({ job }: { job: Job }) {
   return (
     <Link
       href={`/jobs/${job.id}`}
-      className="group flex min-w-0 items-stretch gap-3 rounded-md border border-line bg-white p-3 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+      className="group flex min-w-0 items-stretch gap-3 rounded-md border border-line bg-white p-3 hover:border-line-strong focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
     >
-      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-line bg-honey-soft sm:h-24 sm:w-24">
+      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-line bg-paper sm:h-24 sm:w-24">
         {job.photoUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={job.photoUrl} alt="" className="h-full w-full object-cover" />
@@ -47,11 +47,6 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex h-full w-full items-center justify-center">
             <TradeIcon trade={job.trade} className="h-9 w-9" />
           </div>
-        )}
-        {job.photoUrl && job.trade && (
-          <span className="absolute bottom-1 right-1 rounded-md border border-line bg-honey p-0.5">
-            <TradeIcon trade={job.trade} className="h-4 w-4" />
-          </span>
         )}
       </div>
       <div className="min-w-0 flex-1 py-0.5">
@@ -69,7 +64,7 @@ export function JobCard({ job }: { job: Job }) {
             .join(" · ")}
         </p>
       </div>
-      <ChevronRight className="h-5 w-5 shrink-0 self-center text-mute transition-transform group-hover:translate-x-0.5" aria-hidden />
+      <ChevronRight className="h-5 w-5 shrink-0 self-center text-mute" aria-hidden />
     </Link>
   );
 }

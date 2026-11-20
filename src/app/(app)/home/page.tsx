@@ -10,9 +10,9 @@ import { cx } from "@/lib/format";
 import { CORE_TRADES as TRADES } from "@/lib/trades";
 
 const STEPS = [
-  { icon: Camera, title: "Snap what broke", body: "Take a photo or type a few words. You'll hear what it probably is, and whether it can wait or you need to act now." },
-  { icon: PhoneCall, title: "Send one write-up", body: "You get a job brief in your own words. Send the same one to every pro, so you only explain it once." },
-  { icon: ClipboardCheck, title: "Line up the quotes", body: "Keep each quote next to the others, pick one, and save the good pros to your crew." },
+  { title: "Snap what broke", body: "Take a photo or type a few words. You'll hear what it probably is, and whether it can wait or you need to act now." },
+  { title: "Send one write-up", body: "You get a job brief in your own words. Send the same one to every pro, so you only explain it once." },
+  { title: "Line up the quotes", body: "Keep each quote next to the others, pick one, and save the good pros to your crew." },
 ];
 
 function greeting() {
@@ -53,7 +53,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-2xl font-bold leading-tight">Something broke?</h2>
             <p className="mt-1 max-w-lg text-ink-soft">
-              Snap a photo. Find out what it is, what it should cost and who to call. Takes about a minute.
+              Take a photo and find out what it probably is and what it usually costs.
             </p>
           </div>
           <LinkButton href="/jobs/new" size="lg" className="shrink-0">
@@ -67,19 +67,13 @@ export default function HomePage() {
       ) : firstTime ? (
         <section>
           <h2 className="text-2xl font-bold">How it works</h2>
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <Card key={s.title} flat className="p-5">
-                <div className="flex h-11 w-11 items-center justify-center text-ink-soft">
-                  <s.icon className="h-5 w-5" aria-hidden />
-                </div>
-                <h3 className="mt-3 text-lg font-bold">
-                  {i + 1}. {s.title}
-                </h3>
-                <p className="mt-1 text-ink-soft">{s.body}</p>
-              </Card>
+          <ol className="mt-3 max-w-2xl list-decimal space-y-2 pl-5">
+            {STEPS.map((s) => (
+              <li key={s.title}>
+                <span className="font-bold">{s.title}.</span> <span className="text-ink-soft">{s.body}</span>
+              </li>
             ))}
-          </div>
+          </ol>
           <p className="mt-4 text-sm text-mute">Nothing broken today? Have a look at who&apos;s nearby so you&apos;re ready when it happens.</p>
         </section>
       ) : (
@@ -98,7 +92,7 @@ export default function HomePage() {
             </div>
           ) : (
             <p className="rounded-md border border-dashed border-line bg-white px-4 py-6 text-center text-ink-soft">
-              All caught up. Enjoy it while it lasts.
+              No open jobs.
             </p>
           )}
         </section>
@@ -130,7 +124,7 @@ export default function HomePage() {
                 key={t.id}
                 href={has ? "/crew" : `/pros?trade=${t.id}`}
                 className={cx(
-                  "relative rounded-md border border-line p-3.5 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
+                  "relative rounded-md border border-line p-3.5 hover:border-line-strong focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
                   has ? "bg-white" : "border-dashed bg-white/60",
                 )}
               >

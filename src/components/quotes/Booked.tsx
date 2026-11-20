@@ -1,5 +1,5 @@
 "use client";
-import { CalendarCheck, MessageSquare, Phone, Undo2 } from "lucide-react";
+import { Phone, Undo2 } from "lucide-react";
 import { useState } from "react";
 import { Button, Card, LinkButton } from "@/components/ui";
 import { api } from "@/lib/api-client";
@@ -33,19 +33,19 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
       <Card className="overflow-hidden">
         <div className="p-5">
           <p className="flex items-center gap-2 text-xs font-bold">
-            <CalendarCheck className="h-4 w-4" aria-hidden /> You&apos;re booked
+You&apos;re booked
           </p>
           <h2 className="mt-1 text-3xl font-bold leading-tight">{name}</h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-md border border-line bg-honey-soft p-3">
+            <div className="border-t border-line pt-2">
               <dt className="text-xs font-bold text-ink-soft">When</dt>
               <dd className="font-bold">{job.scheduledFor ?? "Not set yet"}</dd>
             </div>
-            <div className="rounded-md border border-line bg-honey-soft p-3">
+            <div className="border-t border-line pt-2">
               <dt className="text-xs font-bold text-ink-soft">Price</dt>
               <dd className="font-display text-xl font-bold">{price}</dd>
             </div>
-            <div className="rounded-md border border-line bg-honey-soft p-3">
+            <div className="border-t border-line pt-2">
               <dt className="text-xs font-bold text-ink-soft">Warranty</dt>
               <dd className="font-bold">{q?.warranty ?? "They didn't say"}</dd>
             </div>
@@ -62,7 +62,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
                   <Phone className="h-4 w-4" aria-hidden /> Call {hired.proPhone}
                 </LinkButton>
                 <LinkButton href={smsHref(hired.proPhone, "")} variant="outline">
-                  <MessageSquare className="h-4 w-4" aria-hidden /> Text
+Text
                 </LinkButton>
               </>
             )}
@@ -101,7 +101,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
                     <CopyButton text={note}>Copy note</CopyButton>
                     {b.proPhone && (
                       <LinkButton href={smsHref(b.proPhone, note)} size="sm" variant="outline">
-                        <MessageSquare className="h-4 w-4" aria-hidden /> Text it
+Text it
                       </LinkButton>
                     )}
                   </div>

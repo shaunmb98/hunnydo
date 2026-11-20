@@ -1,5 +1,5 @@
 "use client";
-import { Check, Mail, Phone, Plus, UserMinus, Users, X } from "lucide-react";
+import { Check, Phone, Plus, UserMinus, Users, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { TradeIcon } from "@/components/pros/TradeIcon";
@@ -38,7 +38,7 @@ export default function CrewPage() {
       />
 
       {adding && (
-        <Card className="pop mb-6 p-5">
+        <Card className=" mb-6 p-5">
           <h2 className="text-xl font-bold">Add someone you trust</h2>
           <p className="mb-4 mt-0.5 text-sm text-ink-soft">Your brother-in-law&apos;s electrician counts.</p>
           <AddProForm
@@ -91,7 +91,7 @@ export default function CrewPage() {
       {crew.length === 0 ? (
         <Card className="overflow-hidden">
           <div className="px-6 py-10 text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-md border border-line bg-honey" aria-hidden>
+            <div className="mx-auto flex h-16 w-16 items-center justify-center " aria-hidden>
               <Users className="h-8 w-8" />
             </div>
             <h2 className="mt-3 text-2xl font-bold">Your crew is empty for now.</h2>
@@ -146,7 +146,7 @@ export default function CrewPage() {
                           )}
                           {p.email && (
                             <LinkButton href={`mailto:${p.email}`} size="sm" variant="outline">
-                              <Mail className="h-4 w-4" aria-hidden /> Email
+Email
                             </LinkButton>
                           )}
                           <Button

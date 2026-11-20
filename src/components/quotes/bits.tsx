@@ -65,7 +65,7 @@ export function Sheet({ title, onClose, children }: { title: string; onClose: ()
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="pop max-h-[92dvh] w-full overflow-y-auto rounded-t-md border border-line bg-white p-5 sm:max-w-xl sm:rounded-md sm:"
+        className=" max-h-[92dvh] w-full overflow-y-auto rounded-t-md border border-line bg-white p-5 sm:max-w-xl sm:rounded-md sm:"
       >
         <div className="mb-4 flex items-start justify-between gap-3">
           <h3 className="text-2xl font-bold leading-tight">{title}</h3>

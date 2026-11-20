@@ -187,7 +187,7 @@ export default function HousePage() {
                   </p>
                 )}
                 {assessorUrl && (
-                  <div className="mt-4 rounded-md border border-line bg-honey-soft px-3.5 py-3">
+                  <div className="mt-4 rounded-md border border-line bg-paper px-3.5 py-3">
                     <a
                       href={assessorUrl}
                       target="_blank"

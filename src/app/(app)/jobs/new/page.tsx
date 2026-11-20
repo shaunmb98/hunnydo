@@ -84,7 +84,7 @@ export default function NewJobPage() {
       setPhoto(await resizePhoto(new File([blob], "sample.jpg", { type: "image/jpeg" })));
       setDescription(sample.says);
     } catch {
-      setPhotoError("Couldn't load that sample. Try another, or use your own photo.");
+      setPhotoError("Couldn't load that photo. Try another, or use your own.");
     } finally {
       setPhotoBusy(false);
     }
@@ -175,7 +175,7 @@ export default function NewJobPage() {
             onChange={(e) => pickFile(e.target.files?.[0])}
           />
           {photo ? (
-            <Card className="pop relative overflow-hidden">
+            <Card className=" relative overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={photo.previewUrl} alt="Your photo of the problem" className="max-h-[420px] w-full bg-ink object-contain" />
               <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2">
@@ -199,14 +199,14 @@ export default function NewJobPage() {
               }}
               className={cx(
                 "rounded-md border border-dashed border-line p-4 text-center transition-colors sm:p-6",
-                dragging ? "bg-honey" : "bg-honey-soft",
+                dragging ? "bg-paper" : "bg-white",
               )}
             >
               <button
                 type="button"
                 onClick={() => cameraInput.current?.click()}
                 disabled={photoBusy}
-                className="flex w-full cursor-pointer flex-col items-center gap-2 rounded-md border border-line bg-honey px-4 py-7 transition-[transform,box-shadow] hover:bg-honey-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
+                className="flex w-full cursor-pointer flex-col items-center gap-2 rounded-md border border-line bg-honey px-4 py-7 hover:bg-honey-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
               >
                 <Camera className="h-10 w-10" aria-hidden />
                 <span className="font-display text-2xl font-bold">{photoBusy ? "Getting your photo ready" : "Take a photo"}</span>
@@ -232,7 +232,7 @@ export default function NewJobPage() {
           <p className="mt-1.5 text-xs text-mute">No photo? A description on its own works too.</p>
           {!photo && (
             <div className="mt-4 rounded-md border border-line bg-white p-3">
-              <p className="text-sm font-bold">Nothing broken right now? Try a sample.</p>
+              <p className="text-sm font-bold">Or start from a common problem</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 {SAMPLES.map((sample) => (
                   <button
@@ -243,13 +243,13 @@ export default function NewJobPage() {
                     className="group cursor-pointer overflow-hidden rounded-md border border-line bg-white text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={sample.src} alt="" className="h-20 w-full object-cover transition-transform group-hover:scale-105 sm:h-24" />
+                    <img src={sample.src} alt="" className="h-20 w-full object-cover sm:h-24" />
                     <span className="block px-2 py-1.5 text-xs font-bold leading-tight">{sample.label}</span>
                   </button>
                 ))}
               </div>
               <p className="mt-2 text-[11px] text-mute">
-                Sample photos from Wikimedia Commons: Nokalfirstimeokaynaman (CC BY-SA 4.0), Shixart1985 (CC BY 2.0),
+                Photos: Wikimedia Commons, Nokalfirstimeokaynaman (CC BY-SA 4.0), Shixart1985 (CC BY 2.0),
                 Garagedoorrepairlasvegas (CC BY-SA 4.0).
               </p>
             </div>
@@ -292,7 +292,7 @@ export default function NewJobPage() {
             }
           />
           {serviceFeeOk && (
-            <div className="pop">
+            <div className="">
               <Field label="Most you'd pay for the visit (optional)">
                 <div className="relative max-w-[200px]">
                   <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 font-bold text-mute">$</span>

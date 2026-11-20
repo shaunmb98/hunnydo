@@ -1,6 +1,6 @@
 "use client";
 import { updateDoc } from "firebase/firestore";
-import { AlertTriangle, Check, ClipboardCopy, Eye, Flag, HelpCircle, BookOpen, RefreshCw, ShieldAlert, Wrench } from "lucide-react";
+import { AlertTriangle, Check, ClipboardCopy, Eye, Flag, HelpCircle, BookOpen, Wrench } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge, Button, Card, ErrorNote, Textarea } from "@/components/ui";
 import { api } from "@/lib/api-client";
@@ -109,8 +109,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
 
   return (
     <div className="space-y-5">
-      <Card className="pop overflow-hidden">
-        {d.urgency === "emergency" && <div className="stripes h-3 border-b border-line" />}
+      <Card className=" overflow-hidden">
         <div className={cx("flex items-start gap-3 border-b border-line px-4 py-3 sm:px-5", urgencyBar[d.urgency] ?? "bg-warn-soft")}>
           {d.urgency === "emergency" ? <AlertTriangle className="mt-0.5 h-6 w-6 shrink-0 text-stop" aria-hidden /> : null}
           <p className="leading-snug">
@@ -147,9 +146,9 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
       </Card>
 
       {d.safetySteps.length > 0 && (
-        <Card className="bg-honey-soft p-4 sm:p-5">
+        <Card className="bg-paper p-4 sm:p-5">
           <h2 className="flex items-center gap-2 text-xl font-bold">
-            <ShieldAlert className="h-5 w-5" aria-hidden /> Do this now
+Do this now
           </h2>
           <ol className="mt-3 space-y-2">
             {d.safetySteps.map((s, i) => {
@@ -268,7 +267,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
 
       <Card flat className="p-4 sm:p-5">
         <h2 className="flex items-center gap-2 text-lg font-bold">
-          <RefreshCw className="h-5 w-5" aria-hidden /> Add a detail and re-check
+Add a detail and re-check
         </h2>
         <p className="text-sm text-ink-soft">Remembered something? The age of the unit, a noise or what you&apos;ve tried can change the answer.</p>
         <Textarea

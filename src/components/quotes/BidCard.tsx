@@ -1,6 +1,6 @@
 "use client";
 import { deleteDoc, updateDoc } from "firebase/firestore";
-import { BellRing, ChevronDown, Globe, Mail, MessageSquare, Phone, Trash2 } from "lucide-react";
+import { ChevronDown, Phone, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge, Button, Card, ErrorNote, LinkButton, Stars, Textarea } from "@/components/ui";
 import { bidRef, clean } from "@/lib/db";
@@ -107,9 +107,8 @@ export function BidCard({
       </div>
 
       {followUp && (
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-line bg-honey-soft px-3 py-2">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-line bg-paper px-3 py-2">
           <p className="flex items-center gap-2 text-sm font-bold">
-            <BellRing className="h-4 w-4 shrink-0" aria-hidden />
             It&apos;s been over a day. Worth a nudge.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -142,20 +141,20 @@ export function BidCard({
                 <Phone className="h-4 w-4" aria-hidden /> Call
               </LinkButton>
               <LinkButton href={smsHref(bid.proPhone, sms)} size="sm" variant="outline">
-                <MessageSquare className="h-4 w-4" aria-hidden /> Text
+Text
               </LinkButton>
             </>
           )}
           {bid.proEmail ? (
             <LinkButton href={mailtoHref(bid.proEmail, bid.subject ?? title, body)} size="sm" variant="outline">
-              <Mail className="h-4 w-4" aria-hidden /> Email
+Email
             </LinkButton>
           ) : (
             <>
               <CopyButton text={body}>Copy message</CopyButton>
               {bid.proWebsite && (
                 <LinkButton href={bid.proWebsite} size="sm" variant="ghost" external>
-                  <Globe className="h-4 w-4" aria-hidden /> Their website
+Their website
                 </LinkButton>
               )}
             </>

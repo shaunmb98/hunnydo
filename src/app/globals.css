@@ -36,7 +36,6 @@ h2,
 h3,
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
 }
 
 /* Links in running text look like links. */
@@ -49,27 +48,7 @@ h3,
   color: var(--color-ink);
 }
 
-/* Caution tape. Used in one place only: the top of an emergency diagnosis. */
-.stripes {
-  background-image: repeating-linear-gradient(-45deg, var(--color-honey) 0 12px, var(--color-ink) 12px 24px);
-}
-
-@keyframes pop {
-  from {
-    transform: translateY(4px);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-.pop {
-  animation: pop 0.2s ease-out both;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .pop,
   .animate-spin,
   .animate-pulse {
     animation: none;

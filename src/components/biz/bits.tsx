@@ -1,5 +1,5 @@
 "use client";
-import { PhoneCall, ShieldQuestion } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { TradeIcon } from "@/components/TradeIcon";
 import { Badge, Card } from "@/components/ui";
@@ -58,7 +58,6 @@ export function VerificationNote({ phone }: { phone?: string }) {
   return (
     <Card flat className="space-y-3 p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <ShieldQuestion className="h-5 w-5" aria-hidden />
         <p className="font-bold">Claimed, not yet verified</p>
         <Badge tone="amber">Verification coming soon</Badge>
       </div>

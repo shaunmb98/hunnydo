@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft, Check, Globe, Mail, MapPin, Phone, SearchX, Sparkles, TriangleAlert } from "lucide-react";
+import { ArrowLeft, Check, Phone, SearchX, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -64,7 +64,7 @@ export default function ProDetailPage() {
 
       <Card className="p-5 sm:p-6">
         <div className="flex items-start gap-4">
-          <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-md border border-line bg-honey text-3xl sm:flex" aria-hidden>
+          <div className="hidden h-14 w-14 shrink-0 items-center justify-center text-3xl sm:flex" aria-hidden>
             <TradeIcon id={t.id} className="h-7 w-7" />
           </div>
           <div className="min-w-0 flex-1">
@@ -83,7 +83,7 @@ export default function ProDetailPage() {
             </div>
             {pro.address && (
               <p className="mt-2 flex items-start gap-1.5 text-sm text-ink-soft">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden /> {pro.address}
+{pro.address}
               </p>
             )}
           </div>
@@ -97,17 +97,17 @@ export default function ProDetailPage() {
           )}
           {pro.email && (
             <LinkButton href={`mailto:${pro.email}`} variant="outline">
-              <Mail className="h-4 w-4" aria-hidden /> Email
+Email
             </LinkButton>
           )}
           {pro.website && (
             <LinkButton href={pro.website} variant="outline" external>
-              <Globe className="h-4 w-4" aria-hidden /> Website
+Website
             </LinkButton>
           )}
           {pro.mapsUrl && (
             <LinkButton href={pro.mapsUrl} variant="outline" external>
-              <MapPin className="h-4 w-4" aria-hidden /> Google Maps
+Google Maps
             </LinkButton>
           )}
           <CrewButton uid={user.uid} proId={pro.id} inCrew={!!pro.inCrew} size="md" />
@@ -120,7 +120,7 @@ export default function ProDetailPage() {
             <ScoreDial score={score} />
             <div>
               <h2 className="text-xl font-bold">Match score</h2>
-              <p className="text-sm text-ink-soft">Our best guess at who picks up, shows up and does it right.</p>
+              <p className="text-sm text-ink-soft">Our best guess at who picks up and shows up.</p>
             </div>
           </div>
           <ul className="mt-4 space-y-2">
@@ -147,7 +147,7 @@ export default function ProDetailPage() {
           </p>
         </Card>
 
-        <Card className={cx("p-5", !resp && "bg-honey-soft")}>
+        <Card className={cx("p-5", !resp && "bg-paper")}>
           {resp ? (
             <>
               <div className="flex items-center gap-4">
@@ -178,7 +178,6 @@ export default function ProDetailPage() {
               </p>
               {pro.source === "google" && (
                 <Button className="mt-4" onClick={analyze} loading={analyzing}>
-                  {!analyzing && <Sparkles className="h-4 w-4" aria-hidden />}
                   {analyzing ? "Reading the reviews..." : "Read the reviews for me"}
                 </Button>
               )}

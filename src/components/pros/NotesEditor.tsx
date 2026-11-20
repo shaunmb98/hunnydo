@@ -59,7 +59,7 @@ export function NotesEditor({
             Save note
           </Button>
         )}
-        {state === "saving" && <span className="text-mute">Saving...</span>}
+        {state === "saving" && <span className="text-mute">Saving</span>}
         {state === "saved" && !dirty && (
           <span className="inline-flex items-center gap-1 font-bold text-go">
             <Check className="h-3.5 w-3.5" aria-hidden /> Saved

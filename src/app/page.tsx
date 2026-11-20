@@ -35,7 +35,7 @@ export default function Landing() {
               Sign in
             </Link>
             <LinkButton href="/login" size="sm">
-              Get started
+              Add your address
             </LinkButton>
           </nav>
         </div>
@@ -117,7 +117,7 @@ export default function Landing() {
         <div className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:py-12 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold">Why I built it</h2>
-            <div className="mt-3 space-y-3 border-l-2 border-honey pl-4 text-[17px] leading-relaxed">
+            <div className="mt-3 space-y-3 border-l border-line-strong pl-4 text-[17px] leading-relaxed">
               <p>
                 My main water line broke. I spent hours calling plumbers who didn&apos;t pick up, explaining the same
                 problem over and over, and trying to keep everyone&apos;s quotes and schedules straight.

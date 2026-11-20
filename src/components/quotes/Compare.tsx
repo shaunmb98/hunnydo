@@ -1,5 +1,5 @@
 "use client";
-import { HelpCircle, Scale } from "lucide-react";
+
 import { useMemo, useState, type ReactNode } from "react";
 import { Badge, Button, Card, ErrorNote, Stars } from "@/components/ui";
 import { api } from "@/lib/api-client";
@@ -79,7 +79,6 @@ export function Compare({
         action={
           !locked && (
             <Button variant="outline" onClick={advise} loading={asking}>
-              {!asking && <HelpCircle className="h-4 w-4" aria-hidden />}
               {asking ? "Thinking it over" : advice ? "Ask again" : "Help me choose"}
             </Button>
           )
@@ -88,9 +87,9 @@ export function Compare({
       {error && <div className="mb-4"><ErrorNote>{error}</ErrorNote></div>}
 
       {advice && pick && (
-        <Card className="pop mb-5 bg-honey-soft p-4 sm:p-5">
+        <Card className=" mb-5 bg-paper p-4 sm:p-5">
           <p className="flex items-center gap-2 text-xs font-bold">
-            <Scale className="h-4 w-4" aria-hidden /> One opinion. It&apos;s your call.
+One opinion. It&apos;s your call.
           </p>
           <h3 className="mt-1 text-xl font-bold">Leaning toward {pick.proName}</h3>
           <p className="mt-1 leading-relaxed">{advice.why}</p>

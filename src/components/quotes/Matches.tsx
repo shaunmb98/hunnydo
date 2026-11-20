@@ -1,5 +1,5 @@
 "use client";
-import { CheckCircle2, MapPin, PenLine, Radar, Search } from "lucide-react";
+import { CheckCircle2, Search } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Badge, Button, Card, ErrorNote, ScoreDial, Spinner, Stars } from "@/components/ui";
 import { api } from "@/lib/api-client";
@@ -158,7 +158,6 @@ export function Matches({
         sub="Ranked by who's most likely to pick up and show up. Stars are only part of it."
         action={
           <Button variant="outline" size="sm" onClick={checkShowUps} loading={checking.size > 0}>
-            {checking.size === 0 && <Radar className="h-4 w-4" aria-hidden />}
             Check who shows up
           </Button>
         }
@@ -199,7 +198,6 @@ export function Matches({
                     <Stars rating={pro.rating} count={pro.reviewCount} />
                     {pro.distanceMi != null && (
                       <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5" aria-hidden />
                         {pro.distanceMi} mi
                       </span>
                     )}
@@ -208,7 +206,7 @@ export function Matches({
                         {pro.openNow ? "Open now" : "Closed now"}
                       </span>
                     )}
-                    {checking.has(pro.id) && <span className="animate-pulse font-semibold">Reading reviews</span>}
+                    {checking.has(pro.id) && <span className=" font-semibold">Reading reviews</span>}
                   </div>
                   {reasons.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-1.5">
@@ -246,7 +244,6 @@ export function Matches({
       {/* Stays in reach while you scroll the list. On phones it sits above the tab bar. */}
       <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border border-line bg-white p-2 sm:p-3 md:bottom-4">
         <Button className="w-full sm:w-auto sm:px-6 sm:py-3.5 sm:text-lg" onClick={draft} loading={drafting} disabled={!chosen.length}>
-          {!drafting && <PenLine className="h-5 w-5" aria-hidden />}
           {drafting ? (
             "Writing it up"
           ) : chosen.length ? (

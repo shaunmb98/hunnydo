@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, MapPin, Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { useState } from "react";
 import { useBiz } from "@/components/biz/bits";
 import { TradeIcon } from "@/components/TradeIcon";
@@ -64,7 +64,6 @@ function JobCard({ job, biz, onSent }: { job: BoardJob; biz?: Business; onSent: 
             <p className="flex flex-wrap items-center gap-x-2 text-sm text-ink-soft">
               <span>{trade(job.trade).label}</span>
               <span className="inline-flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5" aria-hidden />
                 {job.city || "Nearby"}, about {Math.max(1, Math.round(job.distanceMi))} mi away
               </span>
               <span>Posted {timeAgo(job.createdAt)}</span>
@@ -150,7 +149,7 @@ function BidForm({ job, biz, onDone, onCancel }: { job: BoardJob; biz?: Business
   }
 
   return (
-    <form onSubmit={send} className="space-y-4 rounded-md border border-line bg-honey-soft p-4">
+    <form onSubmit={send} className="space-y-4 rounded-md border border-line bg-paper p-4">
       <p className="font-bold">Your bid</p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Field label="Price, low end">
