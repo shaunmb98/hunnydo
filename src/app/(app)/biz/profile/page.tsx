@@ -81,7 +81,7 @@ export default function BizProfilePage() {
           <Field label="Service-call fee" hint="Dollars. Leave blank if none.">
             <Input type="number" min={0} value={fee} onChange={(e) => setFee(e.target.value)} />
           </Field>
-          <Field label="License number" hint="ROC number in Arizona">
+          <Field label="License number" hint="Your state contractor license number, if you have one">
             <Input value={license} onChange={(e) => setLicense(e.target.value)} />
           </Field>
         </div>
