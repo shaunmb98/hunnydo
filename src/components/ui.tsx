@@ -237,21 +237,25 @@ export function PageHeader({
 }
 
 export function EmptyState({
-  emoji,
+  icon,
   title,
   body,
   action,
 }: {
-  emoji: string;
+  icon?: ReactNode;
+  /** @deprecated use icon */
+  emoji?: string;
   title: string;
   body: string;
   action?: ReactNode;
 }) {
   return (
     <Card flat className="border-dashed px-6 py-10 text-center">
-      <div className="text-4xl" aria-hidden>
-        {emoji}
-      </div>
+      {icon && (
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border-2 border-ink bg-honey shadow-hard-sm">
+          {icon}
+        </div>
+      )}
       <h3 className="mt-3 text-xl font-bold">{title}</h3>
       <p className="mx-auto mt-1 max-w-md text-ink-soft">{body}</p>
       {action && <div className="mt-5 flex justify-center">{action}</div>}

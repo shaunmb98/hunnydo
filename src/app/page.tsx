@@ -1,5 +1,6 @@
 import { Camera, ClipboardCheck, PhoneCall, Users } from "lucide-react";
 import { Badge, Card, LinkButton, Logo } from "@/components/ui";
+import { TradeIcon } from "@/components/TradeIcon";
 import { TRADES } from "@/lib/trades";
 
 const STEPS = [
@@ -90,8 +91,8 @@ export default function Landing() {
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {TRADES.map((t) => (
             <Card key={t.id} flat className="p-4">
-              <div className="text-3xl" aria-hidden>{t.emoji}</div>
-              <p className="mt-2 font-bold">{t.label}</p>
+              <TradeIcon trade={t.id} tile />
+              <p className="mt-3 font-bold">{t.label}</p>
               <p className="text-sm text-ink-soft">{t.examples}</p>
             </Card>
           ))}
