@@ -44,7 +44,11 @@ export function Compare({
 }) {
   const dx = job.diagnosis;
   const badges = useMemo(() => compareBadges(bids), [bids]);
-  const [advice, setAdvice] = useState<Advice | null>(null);
+  // The last advice is saved on the job, so it survives a reload.
+  const saved = (job as Job & { advice?: Advice & { quoteCount?: number } }).advice;
+  const [fresh, setFresh] = useState<Advice | null>(null);
+  const advice = fresh ?? saved ?? null;
+  const adviceStale = !fresh && !!saved && saved.quoteCount !== bids.length;
   const [asking, setAsking] = useState(false);
   const [error, setError] = useState("");
 
@@ -52,7 +56,7 @@ export function Compare({
     setAsking(true);
     setError("");
     try {
-      setAdvice(await api<Advice>("/api/quotes/advise", { jobId: job.id }));
+      setFresh(await api<Advice>("/api/quotes/advise", { jobId: job.id }));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Couldn't get advice just now. Try again.");
     } finally {
@@ -90,6 +94,11 @@ export function Compare({
           </p>
           <h3 className="mt-1 text-xl font-extrabold">We&apos;d lean toward {pick.proName}</h3>
           <p className="mt-1 leading-relaxed">{advice.why}</p>
+          {adviceStale && (
+            <p className="mt-2 text-sm font-semibold text-warn">
+              Your quotes have changed since this was written. Ask again for a fresh take.
+            </p>
+          )}
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {advice.tradeoffs.length > 0 && (
               <div>

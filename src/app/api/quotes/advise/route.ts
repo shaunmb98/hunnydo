@@ -1,4 +1,4 @@
-import { HttpError, handler } from "@/lib/admin";
+import { HttpError, handler, jobsCol } from "@/lib/admin";
 import { structured } from "@/lib/ai";
 import { AdviceSchema, PLAIN_VOICE, feePreference, loadBids, loadJob } from "@/lib/quotes-server";
 import { moneyRange } from "@/lib/format";
@@ -61,5 +61,11 @@ export const POST = handler<{ jobId?: string }>(async ({ uid, body }) => {
   // Never hand back a pick that isn't on the board.
   const pick = quoted.find((b) => b.id === advice.pick) ?? quoted.find((b) => advice.pick.includes(b.id));
   if (!pick) throw new HttpError(502, "The advice came back muddled. Try again.");
-  return { ...advice, pick: pick.id, pickName: pick.proName };
+  const result = { ...advice, pick: pick.id, pickName: pick.proName };
+  // Keep the latest advice on the job so it's still there after a reload. A newer quote makes it stale, and the page says so.
+  await jobsCol(uid)
+    .doc(job.id)
+    .update({ advice: { ...result, at: Date.now(), quoteCount: quoted.length } })
+    .catch(() => {});
+  return result;
 });
