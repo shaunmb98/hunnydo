@@ -125,7 +125,7 @@ function Directory() {
         }
       />
 
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" role="group" aria-label="Trade">
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" role="group" aria-label="Trade">
         <Chip on={active === "all"} onClick={() => pick("all")}>
           All <span className="font-medium text-ink-soft">{pros.length}</span>
         </Chip>

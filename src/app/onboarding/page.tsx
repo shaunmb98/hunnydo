@@ -381,9 +381,9 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
       {loading ? (
         <Spinner label="Sorting" />
       ) : (
-        <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+        <ul className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {tops.map(({ trade: t, count, top }) => (
-            <li key={t.id}>
+            <li key={t.id} className="min-w-0">
               <Link
                 href={top ? `/pros/${top.pro.id}` : `/pros?trade=${t.id}`}
                 className="flex h-full items-center gap-3 rounded-xl border-2 border-ink bg-white px-3 py-2.5 shadow-hard-sm transition-colors hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
