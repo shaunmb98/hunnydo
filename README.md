@@ -48,9 +48,9 @@ Each score comes with the reasons behind it.
 - **Claude** (`claude-opus-5-5`) through the Anthropic SDK, with structured outputs validated by Zod
 - **Google Places API (New)** for address lookup, nearby pros, and reviews
 - **Resend** for email to the signed-in user
-- **Google Cloud Run** for hosting, Secret Manager for keys
+- **Google Cloud Run** runs the app, **Firebase Hosting** fronts it for the two domains, and Secret Manager holds the keys
 
-Everything runs in one Google Cloud project. Each user's data lives under `users/{uid}` and security rules keep it there. The AI and Places calls run in API routes that check the Firebase ID token, so a mobile app could use the same backend later.
+Everything runs in one Google Cloud project. `doithunny.com` serves the public page and `app.doithunny.com` serves sign-in and the app, split by host in `src/middleware.ts`. Each user's data lives under `users/{uid}` and security rules keep it there. The AI and Places calls run in API routes that check the Firebase ID token, so a mobile app could use the same backend later.
 
 ## Run it locally
 
