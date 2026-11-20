@@ -49,6 +49,33 @@ h3,
   font-weight: 800;
 }
 
+/* Interactive things ease between states instead of snapping. */
+a,
+button,
+select,
+[role="tab"],
+[role="switch"] {
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease;
+}
+
+/* New content settles in with a short fade. No sliding, no bounce. */
+@keyframes settle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+main > * {
+  animation: settle 0.22s ease-out both;
+}
+
 .link {
   color: var(--color-sky);
   text-decoration: underline;
@@ -59,7 +86,15 @@ h3,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-spin {
+  .animate-spin,
+  main > * {
     animation: none;
+  }
+  a,
+  button,
+  select,
+  [role="tab"],
+  [role="switch"] {
+    transition: none;
   }
 }
