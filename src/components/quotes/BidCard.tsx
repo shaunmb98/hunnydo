@@ -85,7 +85,7 @@ export function BidCard({
   const sms = textMessage || body;
 
   return (
-    <Card flat={bid.status === "declined"} className={bid.status === "declined" ? "bg-paper p-4" : "p-4 sm:p-5"}>
+    <Card flat={bid.status === "declined"} className={bid.status === "declined" ? "min-w-0 bg-paper p-4" : "min-w-0 p-4 sm:p-5"}>
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-xl font-extrabold leading-tight">{bid.proName}</h3>
@@ -262,8 +262,8 @@ export function BidCard({
 
       {error && <div className="mt-3"><ErrorNote>{error}</ErrorNote></div>}
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <label className="block">
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <label className="block min-w-0">
           <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-mute">Your notes (only you see these)</span>
           <Textarea
             rows={2}
@@ -274,7 +274,7 @@ export function BidCard({
             onBlur={() => notes !== (bid.notes ?? "") && save({ notes })}
           />
         </label>
-        <div>
+        <div className="min-w-0">
           <p className="mb-1 text-xs font-extrabold uppercase tracking-wide text-mute">History</p>
           <ul className="space-y-0.5 text-sm text-ink-soft">
             {[...(bid.events ?? [])].reverse().slice(0, 4).map((e, i) => (

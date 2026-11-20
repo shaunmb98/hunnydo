@@ -87,7 +87,7 @@ export function QuoteBoard({ job }: { job: Job }) {
                 <p className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink-soft">
                   {STATUS_META[g.status].group} <span className="text-mute">({g.bids.length})</span>
                 </p>
-                <div className="grid gap-4 xl:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                   {g.bids.map((bid) => (
                     <BidCard
                       key={bid.id}

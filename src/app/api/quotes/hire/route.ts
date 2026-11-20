@@ -20,8 +20,16 @@ export const POST = handler<{ jobId?: string; proId?: string; scheduledFor?: str
     const [pro, profile] = await Promise.all([loadPro(uid, bid.id), loadProfile(uid)]);
     const q = bid.quote;
     const agreed = typeof body.amount === "number" && body.amount > 0 ? body.amount : undefined;
-    const hiredAmount = agreed ?? (q?.amountLow != null && q.amountLow === q.amountHigh ? q.amountLow : quoteMid(q));
-    const scheduledFor = (typeof body.scheduledFor === "string" && body.scheduledFor.trim()) || q?.availability || undefined;
+    // A repeat call for the same pro keeps what was already agreed unless new values are sent.
+    const hiredAmount =
+      agreed ??
+      (alreadyHired ? job.hiredAmount : undefined) ??
+      (q?.amountLow != null && q.amountLow === q.amountHigh ? q.amountLow : quoteMid(q));
+    const scheduledFor =
+      (typeof body.scheduledFor === "string" && body.scheduledFor.trim()) ||
+      (alreadyHired ? job.scheduledFor : undefined) ||
+      q?.availability ||
+      undefined;
     const now = Date.now();
 
     const batch = adminDb.batch();
