@@ -2,29 +2,7 @@ import { Bug, Droplets, Hammer, Home, Snowflake, Trees, WashingMachine, Zap, typ
 import { cx } from "@/lib/format";
 import type { TradeId } from "@/lib/types";
 
-const ICONS: Record<TradeId, LucideIcon> = {
-  plumbing: Droplets,
-  electrical: Zap,
-  hvac: Snowflake,
-  roofing: Home,
-  appliance: WashingMachine,
-  handyman: Hammer,
-  pest: Bug,
-  landscaping: Trees,
-};
-
-/** Line icon for a trade. `tile` wraps it in a small honey square. */
-export function TradeIcon({ id, className, tile }: { id: TradeId; className?: string; tile?: boolean }) {
-  const Icon = ICONS[id] ?? Hammer;
-  if (tile) {
-    return (
-      <span className={cx("flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-ink bg-honey", className)} aria-hidden>
-        <Icon className="h-5 w-5" />
-      </span>
-    );
-  }
-  return <Icon className={cx("inline-block h-4 w-4 shrink-0", className)} aria-hidden />;
-}
+export { TradeIcon } from "@/components/TradeIcon";
 
 /** Dashed empty-state card with an icon instead of a picture. */
 export function Empty({

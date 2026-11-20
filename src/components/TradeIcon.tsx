@@ -16,14 +16,17 @@ const ICONS: Record<TradeId, LucideIcon> = {
 /** Trade icon. `tile` draws it in a small honey square, the way trades show up across the app. */
 export function TradeIcon({
   trade,
+  id,
   tile,
   className,
 }: {
   trade?: TradeId | string;
+  /** Alias for `trade`. */
+  id?: TradeId | string;
   tile?: boolean;
   className?: string;
 }) {
-  const Icon = ICONS[(trade as TradeId) ?? "handyman"] ?? Hammer;
+  const Icon = ICONS[((trade ?? id) as TradeId) ?? "handyman"] ?? Hammer;
   if (!tile) return <Icon className={cx("h-5 w-5", className)} aria-hidden />;
   return (
     <span
