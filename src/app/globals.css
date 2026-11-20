@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* HunnyDo design language: a hardware-store flyer, not a SaaS dashboard.
+   Honey yellow + ink black, thick outlines, hard offset shadows, big friendly type. */
+@theme {
+  --color-honey: #ffc629;
+  --color-honey-dark: #f0b000;
+  --color-honey-soft: #fff3c4;
+  --color-ink: #17171c;
+  --color-ink-soft: #4b4b57;
+  --color-mute: #7a7a87;
+  --color-paper: #f3f4f6;
+  --color-line: #d9dbe1;
+  --color-go: #1f9d55;
+  --color-go-soft: #dcf5e6;
+  --color-stop: #d93f3f;
+  --color-stop-soft: #fde4e4;
+  --color-warn: #e8870c;
+  --color-warn-soft: #ffeccf;
+  --color-sky: #2563c9;
+  --color-sky-soft: #dfeaff;
+  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --shadow-hard: 4px 4px 0 0 #17171c;
+  --shadow-hard-sm: 2px 2px 0 0 #17171c;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Yellow marker highlight for a word or two in a headline */
+.marker {
+  background: linear-gradient(transparent 55%, var(--color-honey) 55%);
+  padding: 0 0.1em;
+}
+
+/* Diagonal caution stripe used on emergency banners */
+.stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-honey) 0 14px,
+    var(--color-ink) 14px 28px
+  );
+}
+
+@keyframes pop {
+  from {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.pop {
+  animation: pop 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop,
+  .animate-spin,
+  .animate-pulse {
+    animation: none;
+  }
+}
