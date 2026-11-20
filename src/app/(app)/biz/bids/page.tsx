@@ -34,14 +34,14 @@ export default function BizBidsPage() {
             <div className="flex items-start gap-3">
               <TradeIcon trade={o.trade} tile />
               <div className="min-w-0 flex-1">
-                <h2 className="text-lg font-extrabold leading-tight">{o.title}</h2>
+                <h2 className="text-lg font-bold leading-tight">{o.title}</h2>
                 <p className="text-sm text-ink-soft">
                   {o.city || "Nearby"} · sent {timeAgo(o.updatedAt)}
                 </p>
               </div>
               <Badge tone={STATUS[o.status].tone}>{STATUS[o.status].label}</Badge>
             </div>
-            <p className="font-display text-2xl font-extrabold">{moneyRange(o.amountLow, o.amountHigh)}</p>
+            <p className="font-display text-2xl font-bold">{moneyRange(o.amountLow, o.amountHigh)}</p>
             <p className="text-sm text-ink-soft">
               {o.serviceFee
                 ? `${money(o.serviceFee)} service call${o.serviceFeeCredited ? ", credited if hired" : ""}. `

@@ -86,7 +86,7 @@ export function QuoteBoard({ job }: { job: Job }) {
           <div className="space-y-6">
             {groups.map((g) => (
               <div key={g.status}>
-                <p className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink-soft">
+                <p className="mb-2 text-sm font-bold text-ink-soft">
                   {STATUS_META[g.status].group} <span className="text-mute">({g.bids.length})</span>
                 </p>
                 <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">

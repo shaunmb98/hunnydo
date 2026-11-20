@@ -29,14 +29,14 @@ type Mode = "home" | "biz";
 /** "My home" / "My business" switch. One login can be both. */
 function ModeSwitch({ mode, onPick, className }: { mode: Mode; onPick: (m: Mode) => void; className?: string }) {
   return (
-    <div role="group" aria-label="Switch between your home and your business" className={cx("flex overflow-hidden rounded-lg border-2 border-ink text-xs font-bold", className)}>
+    <div role="group" aria-label="Switch between your home and your business" className={cx("flex overflow-hidden rounded border border-line-strong text-xs font-semibold", className)}>
       {(["home", "biz"] as const).map((m) => (
         <button
           key={m}
           type="button"
           aria-pressed={mode === m}
           onClick={() => onPick(m)}
-          className={cx("flex-1 whitespace-nowrap px-2.5 py-1.5 cursor-pointer", mode === m ? "bg-honey text-ink" : "bg-white text-ink-soft hover:bg-ink/5")}
+          className={cx("flex-1 whitespace-nowrap px-2.5 py-1.5 cursor-pointer", mode === m ? "bg-ink text-white" : "bg-white text-ink-soft hover:text-ink")}
         >
           {m === "home" ? "My home" : "My business"}
         </button>
@@ -99,19 +99,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen pb-24 md:pb-10">
-      <header className="sticky top-0 z-30 border-b-2 border-ink bg-white">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4">
+      <header className="sticky top-0 z-30 border-b border-line bg-white">
+        <div className="mx-auto flex h-14 max-w-5xl items-center gap-6 px-4">
           <Link href={mode === "biz" ? "/biz" : "/home"} aria-label="HunnyDo home">
             <Logo />
           </Link>
-          <nav className="hidden flex-1 items-center gap-1 md:flex">
+          <nav className="hidden flex-1 items-center gap-2 self-stretch md:flex">
             {nav.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
                 className={cx(
-                  "rounded-lg px-3 py-2 text-[15px] font-bold",
-                  active(n.href) ? "bg-ink text-white" : "text-ink-soft hover:bg-ink/5",
+                  "-mb-px border-b-2 px-2.5 py-[15px] text-[15px]",
+                  active(n.href) ? "border-ink font-semibold text-ink" : "border-transparent text-ink-soft hover:text-ink",
                 )}
               >
                 {n.label}
@@ -131,11 +131,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             )}
             <button
               onClick={() => signOut(auth).then(() => router.replace("/"))}
-              className="rounded-lg p-2 text-ink-soft hover:bg-ink/5 cursor-pointer"
+              className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded px-2 py-1.5 text-sm text-ink-soft hover:text-ink"
               aria-label="Sign out"
               title={`Sign out ${user.email ?? ""}`}
             >
-              <LogOut className="h-5 w-5" />
+              <LogOut className="h-4 w-4" aria-hidden />
+              <span>Sign out</span>
             </button>
           </div>
         </div>
@@ -144,16 +145,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-6 sm:py-8">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:py-8">{children}</main>
 
-      <nav className={cx("fixed inset-x-0 bottom-0 z-30 grid border-t-2 border-ink bg-white md:hidden", mode === "biz" ? "grid-cols-3" : "grid-cols-5")}>
+      <nav className={cx("fixed inset-x-0 bottom-0 z-30 grid border-t border-line bg-white md:hidden", mode === "biz" ? "grid-cols-3" : "grid-cols-5")}>
         {nav.map((n) => (
           <Link
             key={n.href}
             href={n.href}
             className={cx(
-              "flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-bold",
-              active(n.href) ? "bg-honey text-ink" : "text-ink-soft",
+              "-mt-px flex flex-col items-center gap-0.5 border-t-2 py-2 text-[11px]",
+              active(n.href) ? "border-ink font-semibold text-ink" : "border-transparent text-mute",
             )}
           >
             <n.icon className="h-5 w-5" aria-hidden />

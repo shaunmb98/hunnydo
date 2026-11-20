@@ -64,7 +64,7 @@ export default function ProDetailPage() {
 
       <Card className="p-5 sm:p-6">
         <div className="flex items-start gap-4">
-          <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-ink bg-honey text-3xl shadow-hard-sm sm:flex" aria-hidden>
+          <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-md border border-line bg-honey text-3xl sm:flex" aria-hidden>
             <TradeIcon id={t.id} className="h-7 w-7" />
           </div>
           <div className="min-w-0 flex-1">
@@ -76,7 +76,7 @@ export default function ProDetailPage() {
               {pro.source === "manual" && <Badge>Added by you</Badge>}
               {pro.openNow != null && <Badge tone={pro.openNow ? "green" : "neutral"}>{pro.openNow ? "Open now" : "Closed right now"}</Badge>}
             </div>
-            <h1 className="mt-2 break-words text-3xl font-extrabold leading-tight sm:text-4xl">{pro.name}</h1>
+            <h1 className="mt-2 break-words text-3xl font-bold leading-tight sm:text-4xl">{pro.name}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-ink-soft">
               <Stars rating={pro.rating} count={pro.reviewCount} />
               {pro.distanceMi != null && <span className="text-sm">{pro.distanceMi} mi from home</span>}
@@ -119,7 +119,7 @@ export default function ProDetailPage() {
           <div className="flex items-center gap-4">
             <ScoreDial score={score} />
             <div>
-              <h2 className="text-xl font-extrabold">Match score</h2>
+              <h2 className="text-xl font-bold">Match score</h2>
               <p className="text-sm text-ink-soft">Our best guess at who picks up, shows up and does it right.</p>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function ProDetailPage() {
               <div className="flex items-center gap-4">
                 <ScoreDial score={resp.score} />
                 <div>
-                  <h2 className="text-xl font-extrabold">Will they show up?</h2>
+                  <h2 className="text-xl font-bold">Will they show up?</h2>
                   <p className="text-sm text-ink-soft">From their reviews, read {timeAgo(resp.analyzedAt)}.</p>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default function ProDetailPage() {
               {resp.signals.length > 0 && (
                 <ul className="mt-3 space-y-1.5">
                   {resp.signals.map((s, i) => (
-                    <li key={i} className="rounded-lg border border-line bg-paper px-3 py-1.5 text-sm text-ink-soft">
+                    <li key={i} className="rounded-md border border-line bg-paper px-3 py-1.5 text-sm text-ink-soft">
                       {s}
                     </li>
                   ))}
@@ -170,7 +170,7 @@ export default function ProDetailPage() {
             </>
           ) : (
             <>
-              <h2 className="text-xl font-extrabold">Will they show up?</h2>
+              <h2 className="text-xl font-bold">Will they show up?</h2>
               <p className="mt-1 text-[15px] text-ink-soft">
                 {pro.source === "google"
                   ? "Stars don't tell you who answers the phone. We'll read their reviews and pull out what people say about callbacks, quotes and showing up on time."
@@ -190,21 +190,21 @@ export default function ProDetailPage() {
         </Card>
 
         <Card className="p-5">
-          <h2 className="text-xl font-extrabold">My notes</h2>
+          <h2 className="text-xl font-bold">My notes</h2>
           <div className="mt-3">
             <NotesEditor uid={user.uid} proId={pro.id} value={pro.notes} rows={5} />
           </div>
         </Card>
 
         <Card className="p-5">
-          <h2 className="text-xl font-extrabold">Hours</h2>
+          <h2 className="text-xl font-bold">Hours</h2>
           {pro.hours?.length ? (
             <ul className="mt-3 space-y-1 text-[15px]">
               {pro.hours.map((h) => {
                 const [day, ...rest] = h.split(": ");
                 const isToday = day === today;
                 return (
-                  <li key={h} className={cx("flex justify-between gap-4 rounded-lg px-2 py-1", isToday && "bg-honey-soft font-bold")}>
+                  <li key={h} className={cx("flex justify-between gap-4 rounded-md px-2 py-1", isToday && "bg-honey-soft font-bold")}>
                     <span>{day}</span>
                     <span className="text-right text-ink-soft">{rest.join(": ")}</span>
                   </li>
@@ -219,7 +219,7 @@ export default function ProDetailPage() {
 
       {resp && (
         <section className="mt-6">
-          <h2 className="text-2xl font-extrabold">What people said</h2>
+          <h2 className="text-2xl font-bold">What people said</h2>
           {reviews.length ? (
             <ul className="mt-3 space-y-3">
               {reviews.map((r, i) => (

@@ -54,13 +54,13 @@ function JobCard({ job, biz, onSent }: { job: BoardJob; biz?: Business; onSent: 
     <Card className="overflow-hidden">
       {job.photoUrl && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={job.photoUrl} alt="Photo the homeowner took of the problem" className="h-44 w-full border-b-2 border-ink object-cover" />
+        <img src={job.photoUrl} alt="Photo the homeowner took of the problem" className="h-44 w-full border-b border-line object-cover" />
       )}
       <div className="space-y-3 p-5">
         <div className="flex items-start gap-3">
           <TradeIcon trade={job.trade} tile />
           <div className="min-w-0 flex-1">
-            <h2 className="text-xl font-extrabold leading-tight">{job.title}</h2>
+            <h2 className="text-xl font-bold leading-tight">{job.title}</h2>
             <p className="flex flex-wrap items-center gap-x-2 text-sm text-ink-soft">
               <span>{trade(job.trade).label}</span>
               <span className="inline-flex items-center gap-1">
@@ -87,7 +87,7 @@ function JobCard({ job, biz, onSent }: { job: BoardJob; biz?: Business; onSent: 
           {more ? "Hide the job brief" : "Read the job brief"}
           <ChevronDown className={cx("h-4 w-4 transition-transform", more && "rotate-180")} aria-hidden />
         </button>
-        {more && <p className="whitespace-pre-wrap rounded-xl border border-line bg-paper p-3 text-sm leading-relaxed">{job.brief}</p>}
+        {more && <p className="whitespace-pre-wrap rounded-md border border-line bg-paper p-3 text-sm leading-relaxed">{job.brief}</p>}
         {job.myOffer && !bidding && (
           <p className="text-sm font-semibold">
             You bid {moneyRange(job.myOffer.amountLow, job.myOffer.amountHigh)} {timeAgo(job.myOffer.updatedAt)}.
@@ -150,8 +150,8 @@ function BidForm({ job, biz, onDone, onCancel }: { job: BoardJob; biz?: Business
   }
 
   return (
-    <form onSubmit={send} className="space-y-4 rounded-xl border-2 border-ink bg-honey-soft p-4">
-      <p className="font-extrabold">Your bid</p>
+    <form onSubmit={send} className="space-y-4 rounded-md border border-line bg-honey-soft p-4">
+      <p className="font-bold">Your bid</p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Field label="Price, low end">
           <Input type="number" min={1} required value={low} onChange={(e) => setLow(e.target.value)} placeholder="350" />

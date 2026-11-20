@@ -31,23 +31,22 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
   return (
     <div className="space-y-5">
       <Card className="overflow-hidden">
-        <div className="stripes h-3 border-b-2 border-ink" />
         <div className="p-5">
-          <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide">
+          <p className="flex items-center gap-2 text-xs font-bold">
             <CalendarCheck className="h-4 w-4" aria-hidden /> You&apos;re booked
           </p>
-          <h2 className="mt-1 text-3xl font-extrabold leading-tight">{name}</h2>
+          <h2 className="mt-1 text-3xl font-bold leading-tight">{name}</h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-xl border-2 border-ink bg-honey-soft p-3">
-              <dt className="text-xs font-extrabold uppercase tracking-wide text-ink-soft">When</dt>
+            <div className="rounded-md border border-line bg-honey-soft p-3">
+              <dt className="text-xs font-bold text-ink-soft">When</dt>
               <dd className="font-bold">{job.scheduledFor ?? "Not set yet"}</dd>
             </div>
-            <div className="rounded-xl border-2 border-ink bg-honey-soft p-3">
-              <dt className="text-xs font-extrabold uppercase tracking-wide text-ink-soft">Price</dt>
-              <dd className="font-display text-xl font-extrabold">{price}</dd>
+            <div className="rounded-md border border-line bg-honey-soft p-3">
+              <dt className="text-xs font-bold text-ink-soft">Price</dt>
+              <dd className="font-display text-xl font-bold">{price}</dd>
             </div>
-            <div className="rounded-xl border-2 border-ink bg-honey-soft p-3">
-              <dt className="text-xs font-extrabold uppercase tracking-wide text-ink-soft">Warranty</dt>
+            <div className="rounded-md border border-line bg-honey-soft p-3">
+              <dt className="text-xs font-bold text-ink-soft">Warranty</dt>
               <dd className="font-bold">{q?.warranty ?? "They didn't say"}</dd>
             </div>
           </dl>
@@ -74,7 +73,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
             {emailed === false && " We couldn't send the confirmation email, so keep this page handy."}
           </p>
           {job.status !== "done" && (
-            <div className="mt-4 flex flex-wrap items-center gap-3 border-t-2 border-dashed border-line pt-3">
+            <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-dashed border-line pt-3">
               <span className="text-sm text-ink-soft">Booked the wrong one, or plans changed?</span>
               <Button variant="ghost" size="sm" onClick={undo} loading={undoing}>
                 <Undo2 className="h-4 w-4" aria-hidden /> Undo booking
@@ -87,7 +86,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
 
       {passed.length > 0 && (
         <Card flat className="p-4 sm:p-5">
-          <h3 className="text-xl font-extrabold">Let the others know</h3>
+          <h3 className="text-xl font-bold">Let the others know</h3>
           <p className="mt-1 text-ink-soft">
             They took the time to get back to you. A quick note keeps the door open for next time.
           </p>
@@ -95,7 +94,7 @@ export function Booked({ job, hired, passed, emailed }: { job: Job; hired?: Boar
             {passed.map((b) => {
               const note = thanksNote(b, title);
               return (
-                <li key={b.id} className="rounded-xl border-2 border-ink p-3">
+                <li key={b.id} className="rounded-md border border-line p-3">
                   <p className="font-bold">{b.proName}</p>
                   <p className="mt-1 text-[15px] text-ink-soft">{note}</p>
                   <div className="mt-2 flex flex-wrap gap-2">

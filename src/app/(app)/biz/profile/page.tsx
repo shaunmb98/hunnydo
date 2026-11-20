@@ -58,7 +58,7 @@ export default function BizProfilePage() {
       <PageHeader title="Business profile" subtitle="Homeowners see this next to your bid." />
       <Card className="space-y-1 p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <h2 className="text-xl font-extrabold">{biz.name}</h2>
+          <h2 className="text-xl font-bold">{biz.name}</h2>
           <Stars rating={biz.rating} count={biz.reviewCount} />
         </div>
         <p className="text-sm text-ink-soft">{biz.address}</p>

@@ -7,7 +7,7 @@ import { TRADES } from "@/lib/trades";
 import type { Pro, TradeId } from "@/lib/types";
 
 const selectCls =
-  "w-full rounded-xl border-2 border-ink bg-white px-3.5 py-2.5 text-[15px] focus:outline-none focus:ring-4 focus:ring-honey/60";
+  "w-full rounded-md border border-line bg-white px-3.5 py-2.5 text-[15px] focus:outline-none focus:ring-4 focus:ring-honey/60";
 
 /** Add someone you already trust. `compact` shows just name, trade and phone. */
 export function AddProForm({

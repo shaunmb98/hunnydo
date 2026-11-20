@@ -32,12 +32,12 @@ function Progress({ step }: { step: Step }) {
         const current = n === step;
         return (
           <li key={label} className={cx("flex items-center", i > 0 && "flex-1")} aria-current={current ? "step" : undefined}>
-            {i > 0 && <span className={cx("mx-2 h-1 flex-1 rounded-full border border-ink", done || current ? "bg-honey" : "bg-white")} />}
+            {i > 0 && <span className={cx("mx-2 h-1 flex-1 rounded border border-line", done || current ? "bg-honey" : "bg-white")} />}
             <span className="flex items-center gap-2">
               <span
                 className={cx(
-                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-base font-extrabold",
-                  done ? "bg-ink text-white" : current ? "bg-honey shadow-hard-sm" : "bg-white text-mute",
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded border border-line font-display text-base font-bold",
+                  done ? "bg-ink text-white" : current ? "bg-honey" : "bg-white text-mute",
                 )}
               >
                 {done ? <Check className="h-4 w-4" aria-hidden /> : n}
@@ -115,8 +115,8 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
   const show = open && items.length > 0;
   return (
     <div className="pop">
-      <h1 className="text-4xl font-extrabold sm:text-5xl">
-        Where&apos;s <span className="marker">home?</span>
+      <h1 className="text-4xl font-bold sm:text-5xl">
+        Where&apos;s home?
       </h1>
       <p className="mt-3 text-lg text-ink-soft">
         Give us the address and we&apos;ll line up the plumbers, electricians and everyone else nearby, sorted by who
@@ -144,7 +144,7 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
             onFocus={() => setOpen(true)}
             onBlur={() => setTimeout(() => setOpen(false), 150)}
             placeholder="Start typing your street address"
-            className="w-full rounded-xl border-2 border-ink bg-white py-3.5 pl-11 pr-11 text-lg shadow-hard-sm placeholder:text-mute focus:outline-none focus:ring-4 focus:ring-honey/60"
+            className="w-full rounded-md border border-line bg-white py-3.5 pl-11 pr-11 text-lg placeholder:text-mute focus:outline-none focus:ring-4 focus:ring-honey/60"
           />
           {busy && <Loader2 className="absolute right-3.5 top-1/2 h-5 w-5 -translate-y-1/2 animate-spin text-mute" aria-hidden />}
         </div>
@@ -154,7 +154,7 @@ function AddressStep({ onPick }: { onPick: (s: Suggestion) => void }) {
           role="listbox"
           aria-label="Address suggestions"
           className={cx(
-            "absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-xl border-2 border-ink bg-white shadow-hard",
+            "absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-md border border-line bg-white",
             !show && "hidden",
           )}
         >
@@ -277,7 +277,7 @@ function ScoutStep({
   if (homeError) {
     return (
       <div className="pop space-y-4">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">That address didn&apos;t take</h1>
+        <h1 className="text-3xl font-bold sm:text-4xl">That address didn&apos;t take</h1>
         <ErrorNote>{homeError}</ErrorNote>
         <Button onClick={onBack}>Try another address</Button>
       </div>
@@ -286,15 +286,15 @@ function ScoutStep({
 
   return (
     <div className="pop">
-      <h1 className="text-3xl font-extrabold sm:text-5xl">
-        Scouting your <span className="marker">neighborhood</span>
+      <h1 className="text-3xl font-bold sm:text-5xl">
+        Scouting your neighborhood
       </h1>
       <p className="mt-3 flex items-start gap-2 text-ink-soft">
         <MapPin className="mt-0.5 h-5 w-5 shrink-0" aria-hidden />
         <span>{home?.address ?? "Pinning your address on the map..."}</span>
       </p>
 
-      <div className="mt-5 h-3 overflow-hidden rounded-full border-2 border-ink bg-white" aria-hidden>
+      <div className="mt-5 h-3 overflow-hidden rounded border border-line bg-white" aria-hidden>
         <div className="h-full bg-honey transition-all duration-500" style={{ width: `${Math.max(6, (settled / TRADES.length) * 100)}%` }} />
       </div>
 
@@ -305,8 +305,8 @@ function ScoutStep({
             <li
               key={t.id}
               className={cx(
-                "flex items-center gap-3 rounded-xl border-2 px-3 py-2.5 transition-colors",
-                r.state === "done" ? "border-ink bg-white" : r.state === "failed" ? "border-warn/50 bg-warn-soft" : "border-line bg-white",
+                "flex items-center gap-3 rounded-md border px-3 py-2.5 transition-colors",
+                r.state === "done" ? "border-line bg-white" : r.state === "failed" ? "border-warn/50 bg-warn-soft" : "border-line bg-white",
               )}
             >
               <TradeIcon id={t.id} tile />
@@ -323,7 +323,7 @@ function ScoutStep({
                 </span>
               </span>
               {r.state === "done" ? (
-                <span className="pop flex h-7 w-7 items-center justify-center rounded-full border-2 border-ink bg-go text-white">
+                <span className="pop flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
                   <Check className="h-4 w-4" aria-hidden />
                 </span>
               ) : r.state === "failed" ? (
@@ -336,11 +336,11 @@ function ScoutStep({
         })}
         <li
           className={cx(
-            "flex items-center gap-3 rounded-xl border-2 px-3 py-2.5 transition-colors sm:col-span-2",
-            county.text ? "border-ink bg-white" : "border-line bg-white",
+            "flex items-center gap-3 rounded-md border px-3 py-2.5 transition-colors sm:col-span-2",
+            county.text ? "border-line bg-white" : "border-line bg-white",
           )}
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-honey-soft">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line bg-honey-soft">
             <NotebookText className="h-5 w-5" aria-hidden />
           </span>
           <span className="min-w-0 flex-1">
@@ -352,7 +352,7 @@ function ScoutStep({
           {county.state === "looking" ? (
             <Loader2 className="h-5 w-5 animate-spin text-mute" aria-hidden />
           ) : county.text ? (
-            <span className="pop flex h-7 w-7 items-center justify-center rounded-full border-2 border-ink bg-go text-white">
+            <span className="pop flex h-7 w-7 items-center justify-center rounded border border-line bg-go text-white">
               <Check className="h-4 w-4" aria-hidden />
             </span>
           ) : null}
@@ -398,8 +398,8 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
 
   return (
     <div className="pop">
-      <h1 className="text-3xl font-extrabold sm:text-5xl">
-        Your neighborhood, <span className="marker">sorted</span>
+      <h1 className="text-3xl font-bold sm:text-5xl">
+        Your neighborhood, sorted
       </h1>
       <p className="mt-3 text-lg text-ink-soft">
         {loading ? (
@@ -421,11 +421,11 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
             <li key={t.id} className="min-w-0">
               <Link
                 href={top ? `/pros/${top.pro.id}` : `/pros?trade=${t.id}`}
-                className="flex h-full items-center gap-3 rounded-xl border-2 border-ink bg-white px-3 py-2.5 shadow-hard-sm transition-colors hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+                className="flex h-full items-center gap-3 rounded-md border border-line bg-white px-3 py-2.5 transition-colors hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
               >
                 <TradeIcon id={t.id} tile />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-bold uppercase tracking-wide text-mute">
+                  <span className="block text-xs font-bold text-mute">
                     {t.label} · {count}
                   </span>
                   {top ? (
@@ -448,7 +448,7 @@ function SortedStep({ uid, home }: { uid: string; home?: Home }) {
       )}
 
       <Card flat className="mt-6 bg-honey-soft p-4 sm:p-5">
-        <h2 className="text-xl font-extrabold">Already have someone you trust?</h2>
+        <h2 className="text-xl font-bold">Already have someone you trust?</h2>
         <p className="mt-0.5 text-sm text-ink-soft">
           Add them now and they go straight into your crew, ahead of the strangers. Skip it if you like.
         </p>
@@ -524,7 +524,6 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="stripes h-3 border-b-2 border-ink" aria-hidden />
       <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
         <div className="mb-6 flex items-center justify-between gap-4">
           <Logo />
@@ -562,11 +561,22 @@ export default function OnboardingPage() {
           <p className="mt-5 text-center text-sm text-mute">
             Takes about ten seconds. We never contact a business for you.
             <br />
-            Here for your business instead?{" "}
-            <Link href="/biz/claim" className="font-bold text-ink underline decoration-2 underline-offset-2">
-              Claim it
-            </Link>
-            . You can add a home later.
+            {(profile as { businessId?: string } | null)?.businessId ? (
+              <>
+                Not adding a home right now?{" "}
+                <Link href="/biz" className="link font-semibold">
+                  Back to my business
+                </Link>
+              </>
+            ) : (
+              <>
+                Here for your business instead?{" "}
+                <Link href="/biz/claim" className="link font-semibold">
+                  Claim it
+                </Link>
+                . You can add a home later.
+              </>
+            )}
           </p>
         )}
       </div>

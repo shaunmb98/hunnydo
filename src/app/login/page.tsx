@@ -80,7 +80,7 @@ function LoginForm() {
         <Logo size="lg" />
       </Link>
       <Card className="w-full max-w-md p-6 sm:p-8">
-        <h1 className="text-2xl font-extrabold">
+        <h1 className="text-2xl font-bold">
           {mode === "signup" ? (forPro ? "Set up your business" : "Start your home's crew list") : "Welcome back"}
         </h1>
         <p className="mt-1 text-ink-soft">
@@ -93,7 +93,7 @@ function LoginForm() {
         <form onSubmit={submit} className="mt-5 space-y-4">
           {mode === "signup" && (
             <Field label="First name">
-              <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" placeholder="Shaun" />
+              <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" placeholder="First name" />
             </Field>
           )}
           <Field label="Email">

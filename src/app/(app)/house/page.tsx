@@ -34,9 +34,9 @@ function yearOrNull(v: string): number | null {
 function Fact({ label, value }: { label: string; value?: string | number | null }) {
   if (value == null || value === "") return null;
   return (
-    <div className="rounded-xl border-2 border-line bg-paper px-3.5 py-2.5">
-      <dt className="text-xs font-bold uppercase tracking-wide text-mute">{label}</dt>
-      <dd className="text-lg font-extrabold">{value}</dd>
+    <div className="rounded-md border border-line bg-paper px-3.5 py-2.5">
+      <dt className="text-xs font-bold text-mute">{label}</dt>
+      <dd className="text-lg font-bold">{value}</dd>
     </div>
   );
 }
@@ -126,7 +126,7 @@ export default function HousePage() {
         <div className="space-y-6">
           <Card className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-xl font-extrabold">
+              <h2 className="text-xl font-bold">
                 {webFound && !checking ? "Found online" : hasWeb && !checking ? "County records" : "What the county knows"}
               </h2>
               {hasCounty && <Badge tone="blue">Public record</Badge>}
@@ -187,12 +187,12 @@ export default function HousePage() {
                   </p>
                 )}
                 {assessorUrl && (
-                  <div className="mt-4 rounded-xl border-2 border-ink bg-honey-soft px-3.5 py-3">
+                  <div className="mt-4 rounded-md border border-line bg-honey-soft px-3.5 py-3">
                     <a
                       href={assessorUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 font-extrabold underline underline-offset-2"
+                      className="inline-flex items-center gap-1.5 font-bold underline underline-offset-2"
                     >
                       Look up your home at the {house?.assessorName ?? "county assessor"}
                       <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
@@ -202,7 +202,7 @@ export default function HousePage() {
                 )}
                 {webFound && webSources.length > 0 && (
                   <div className="mt-4">
-                    <h3 className="text-xs font-bold uppercase tracking-wide text-mute">Where this came from</h3>
+                    <h3 className="text-xs font-bold text-mute">Where this came from</h3>
                     <ul className="mt-1 space-y-1 text-sm">
                       {webSources.map((s) => (
                         <li key={s.url}>
@@ -232,7 +232,7 @@ export default function HousePage() {
           </Card>
 
           <Card className="p-5">
-            <h2 className="text-xl font-extrabold">Permit history</h2>
+            <h2 className="text-xl font-bold">Permit history</h2>
             {permits.length ? (
               <ul className="mt-3 divide-y-2 divide-line">
                 {permits.map((p, i) => (
@@ -258,7 +258,7 @@ export default function HousePage() {
         </div>
 
         <Card className="p-5">
-          <h2 className="text-xl font-extrabold">What only you know</h2>
+          <h2 className="text-xl font-bold">What only you know</h2>
           <p className="mb-4 mt-0.5 text-sm text-ink-soft">
             No record has these. Skip anything you&apos;re not sure about.
           </p>

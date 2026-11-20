@@ -10,8 +10,8 @@ import { SectionTitle } from "./bits";
 
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="border-t-2 border-dashed border-line py-2.5">
-      <dt className="text-xs font-extrabold uppercase tracking-wide text-mute">{label}</dt>
+    <div className="border-t border-dashed border-line py-2.5">
+      <dt className="text-xs font-bold text-mute">{label}</dt>
       <dd className="mt-0.5 text-[15px]">{children}</dd>
     </div>
   );
@@ -89,10 +89,10 @@ export function Compare({
 
       {advice && pick && (
         <Card className="pop mb-5 bg-honey-soft p-4 sm:p-5">
-          <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide">
+          <p className="flex items-center gap-2 text-xs font-bold">
             <Scale className="h-4 w-4" aria-hidden /> One opinion. It&apos;s your call.
           </p>
-          <h3 className="mt-1 text-xl font-extrabold">We&apos;d lean toward {pick.proName}</h3>
+          <h3 className="mt-1 text-xl font-bold">Leaning toward {pick.proName}</h3>
           <p className="mt-1 leading-relaxed">{advice.why}</p>
           {adviceStale && (
             <p className="mt-2 text-sm font-semibold text-warn">
@@ -102,7 +102,7 @@ export function Compare({
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {advice.tradeoffs.length > 0 && (
               <div>
-                <p className="text-sm font-extrabold">What you&apos;d be giving up</p>
+                <p className="text-sm font-bold">What you&apos;d be giving up</p>
                 <ul className="mt-1 list-disc space-y-1 pl-5 text-[15px]">
                   {advice.tradeoffs.map((t) => (
                     <li key={t}>{t}</li>
@@ -112,7 +112,7 @@ export function Compare({
             )}
             {advice.questionsToAsk.length > 0 && (
               <div>
-                <p className="text-sm font-extrabold">Ask before you say yes</p>
+                <p className="text-sm font-bold">Ask before you say yes</p>
                 <ul className="mt-1 list-disc space-y-1 pl-5 text-[15px]">
                   {advice.questionsToAsk.map((t) => (
                     <li key={t}>{t}</li>
@@ -137,9 +137,9 @@ export function Compare({
                   <Badge key={b.label} tone={b.tone}>{b.label}</Badge>
                 ))}
               </div>
-              <h3 className="mt-2 text-lg font-extrabold leading-tight">{bid.proName}</h3>
+              <h3 className="mt-2 text-lg font-bold leading-tight">{bid.proName}</h3>
               <Stars rating={bid.proRating} count={bid.proReviewCount} />
-              <p className="mt-3 font-display text-3xl font-extrabold leading-none">
+              <p className="mt-3 font-display text-3xl font-bold leading-none">
                 {moneyRange(q.amountLow, q.amountHigh) || <span className="text-xl text-mute">No price yet</span>}
               </p>
               {verdict && (

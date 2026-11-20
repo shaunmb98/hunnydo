@@ -45,7 +45,7 @@ export default function JobPage() {
   if (!job) {
     return (
       <Card flat className="mx-auto max-w-md border-dashed px-6 py-10 text-center">
-        <h1 className="text-2xl font-extrabold">That job isn&apos;t here</h1>
+        <h1 className="text-2xl font-bold">That job isn&apos;t here</h1>
         <p className="mt-1 text-ink-soft">It may have been deleted.</p>
         <div className="mt-5 flex justify-center">
           <LinkButton href="/jobs">Back to jobs</LinkButton>
@@ -112,7 +112,7 @@ export default function JobPage() {
         <Card className="flex flex-wrap items-center gap-3 bg-go-soft p-4">
           <CheckCircle2 className="h-7 w-7 shrink-0 text-go" aria-hidden />
           <div className="min-w-0 flex-1">
-            <p className="font-display text-xl font-extrabold">Hired: {job.hiredProName}</p>
+            <p className="font-display text-xl font-bold">Hired: {job.hiredProName}</p>
             <p className="text-sm text-ink-soft">
               {[job.hiredAmount != null ? money(job.hiredAmount) : "", job.scheduledFor ? `Coming ${job.scheduledFor}` : "No date set yet"]
                 .filter(Boolean)
@@ -146,15 +146,15 @@ export default function JobPage() {
 
       {failed && (
         <Card className="p-5 sm:p-6">
-          <h1 className="text-2xl font-extrabold sm:text-3xl">That didn&apos;t work</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">That didn&apos;t work</h1>
           <p className="mt-1 text-ink-soft">
             {job.diagnosisError || "The diagnosis didn't finish."} Your photo and description are saved, so you won&apos;t have to redo anything.
           </p>
           {job.photoUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={job.photoUrl} alt="Your photo" className="mt-4 max-h-56 rounded-xl border-2 border-ink object-cover" />
+            <img src={job.photoUrl} alt="Your photo" className="mt-4 max-h-56 rounded-md border border-line object-cover" />
           )}
-          {job.description && <p className="mt-3 rounded-xl bg-paper px-3 py-2 text-sm text-ink-soft">You said: {job.description}</p>}
+          {job.description && <p className="mt-3 rounded-md bg-paper px-3 py-2 text-sm text-ink-soft">You said: {job.description}</p>}
           <div className="mt-4">
             <Button onClick={retry}>
               <RotateCcw className="h-4 w-4" aria-hidden /> Try again
@@ -164,7 +164,7 @@ export default function JobPage() {
       )}
 
       {job.diagnosis && (
-        <div role="tablist" className="grid grid-cols-2 gap-1 rounded-2xl border-2 border-ink bg-white p-1 sm:inline-grid sm:min-w-[440px]">
+        <div role="tablist" className="grid grid-cols-2 gap-1 rounded-md border border-line bg-white p-1 sm:inline-grid sm:min-w-[440px]">
           {(
             [
               ["diagnosis", "What's wrong", ""],
@@ -177,13 +177,13 @@ export default function JobPage() {
               aria-selected={view === key}
               onClick={() => showTab(key)}
               className={cx(
-                "flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[15px] font-bold cursor-pointer",
+                "flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[15px] font-bold cursor-pointer",
                 view === key ? "bg-ink text-white" : "text-ink-soft hover:bg-ink/5",
               )}
             >
               {label}
               {count && (
-                <span className={cx("rounded-full px-2 py-0.5 text-xs", view === key ? "bg-honey text-ink" : "bg-paper")}>
+                <span className={cx("rounded-sm px-1.5 py-0.5 text-xs", view === key ? "bg-white/20" : "bg-paper")}>
                   {count}
                 </span>
               )}
@@ -196,18 +196,18 @@ export default function JobPage() {
         <>
           <DiagnosisView job={job} uid={user.uid} />
           {job.status !== "done" && !job.hiredProName && (
-            <Card className="flex flex-wrap items-center justify-between gap-4 bg-honey p-5 sm:p-6">
+            <Card className="flex flex-wrap items-center justify-between gap-4 p-5">
               <div>
-                <h2 className="text-2xl font-extrabold">
+                <h2 className="text-xl font-bold">
                   {job.bidCount ? "Back to your quotes" : `Now find a ${tradeInfo(job.trade).pro.toLowerCase()}`}
                 </h2>
-                <p className="mt-1">
+                <p className="mt-1 text-ink-soft">
                   {job.bidCount
                     ? "See who you've asked and what they said."
                     : "We'll rank who's nearby and write the message for you. You decide who gets it."}
                 </p>
               </div>
-              <Button variant="dark" size="lg" onClick={() => showTab("quotes")}>
+              <Button size="lg" onClick={() => showTab("quotes")}>
                 {job.bidCount ? "Open quotes" : "See who to call"} <ArrowRight className="h-5 w-5" aria-hidden />
               </Button>
             </Card>
@@ -218,7 +218,7 @@ export default function JobPage() {
 
       <ErrorNote>{error}</ErrorNote>
 
-      <div className="flex flex-wrap items-center gap-2 border-t-2 border-line pt-5">
+      <div className="flex flex-wrap items-center gap-2 border-t border-line pt-5">
         {job.diagnosis &&
           (job.status === "done" ? (
             <Button variant="outline" onClick={() => setDone(false)} loading={busy === "done"}>
@@ -230,7 +230,7 @@ export default function JobPage() {
             </Button>
           ))}
         {confirmDelete ? (
-          <div className="flex flex-wrap items-center gap-2 rounded-xl border-2 border-stop bg-stop-soft px-3 py-2">
+          <div className="flex flex-wrap items-center gap-2 rounded-md border border-stop bg-stop-soft px-3 py-2">
             <span className="text-sm font-bold text-stop">Delete this job and its quotes for good?</span>
             <Button variant="danger" size="sm" onClick={remove} loading={busy === "delete"}>
               Yes, delete

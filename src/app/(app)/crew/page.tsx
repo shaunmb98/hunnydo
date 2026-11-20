@@ -39,7 +39,7 @@ export default function CrewPage() {
 
       {adding && (
         <Card className="pop mb-6 p-5">
-          <h2 className="text-xl font-extrabold">Add someone you trust</h2>
+          <h2 className="text-xl font-bold">Add someone you trust</h2>
           <p className="mb-4 mt-0.5 text-sm text-ink-soft">Your brother-in-law&apos;s electrician counts.</p>
           <AddProForm
             uid={user.uid}
@@ -58,7 +58,7 @@ export default function CrewPage() {
 
       <section aria-label="Coverage" className="mb-8">
         <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h2 className="text-lg font-extrabold">Who you&apos;ve got covered</h2>
+          <h2 className="text-lg font-bold">Who you&apos;ve got covered</h2>
           <span className="text-sm font-bold text-ink-soft">{covered} of 8 trades</span>
         </div>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -67,7 +67,7 @@ export default function CrewPage() {
             return (
               <li
                 key={t.id}
-                className={cx("flex items-center gap-2 rounded-xl border-2 px-3 py-2", has ? "border-ink bg-go-soft" : "border-dashed border-ink/40 bg-white")}
+                className={cx("flex items-center gap-2 rounded-md border px-3 py-2", has ? "border-line bg-go-soft" : "border-dashed border-line/40 bg-white")}
               >
                 <TradeIcon id={t.id} tile />
                 <span className="min-w-0 flex-1">
@@ -90,12 +90,11 @@ export default function CrewPage() {
 
       {crew.length === 0 ? (
         <Card className="overflow-hidden">
-          <div className="stripes h-3 border-b-2 border-ink" aria-hidden />
           <div className="px-6 py-10 text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-ink bg-honey shadow-hard-sm" aria-hidden>
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-md border border-line bg-honey" aria-hidden>
               <Users className="h-8 w-8" />
             </div>
-            <h2 className="mt-3 text-2xl font-extrabold">Your crew is empty for now.</h2>
+            <h2 className="mt-3 text-2xl font-bold">Your crew is empty for now.</h2>
             <p className="mx-auto mt-2 max-w-md text-ink-soft">
               When a pro does right by you, save them here. Next time something breaks you call one number instead of
               fifteen.
@@ -116,7 +115,7 @@ export default function CrewPage() {
             .filter((g) => g.members.length)
             .map(({ trade: t, members }) => (
               <section key={t.id}>
-                <h2 className="mb-3 flex items-center gap-2 text-2xl font-extrabold">
+                <h2 className="mb-3 flex items-center gap-2 text-2xl font-bold">
                   <TradeIcon id={t.id} tile /> {t.label}
                   <span className="text-base font-bold text-mute">{plural(members.length, "pro")}</span>
                 </h2>
@@ -126,7 +125,7 @@ export default function CrewPage() {
                       <Card className="flex h-full flex-col p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
-                            <Link href={`/pros/${p.id}`} className="block break-words text-lg font-extrabold leading-tight hover:underline">
+                            <Link href={`/pros/${p.id}`} className="block break-words text-lg font-bold leading-tight hover:underline">
                               {p.name}
                             </Link>
                             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">

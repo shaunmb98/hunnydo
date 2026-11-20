@@ -65,15 +65,15 @@ export function Sheet({ title, onClose, children }: { title: string; onClose: ()
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="pop max-h-[92dvh] w-full overflow-y-auto rounded-t-2xl border-2 border-ink bg-white p-5 sm:max-w-xl sm:rounded-2xl sm:shadow-hard"
+        className="pop max-h-[92dvh] w-full overflow-y-auto rounded-t-md border border-line bg-white p-5 sm:max-w-xl sm:rounded-md sm:"
       >
         <div className="mb-4 flex items-start justify-between gap-3">
-          <h3 className="text-2xl font-extrabold leading-tight">{title}</h3>
+          <h3 className="text-2xl font-bold leading-tight">{title}</h3>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="-mr-1 -mt-1 cursor-pointer rounded-lg p-2 hover:bg-ink/5"
+            className="-mr-1 -mt-1 cursor-pointer rounded-md p-2 hover:bg-ink/5"
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
@@ -88,8 +88,8 @@ export function SectionTitle({ step, title, sub, action }: { step?: string; titl
   return (
     <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
       <div className="min-w-0">
-        {step && <p className="text-xs font-extrabold uppercase tracking-wide text-mute">{step}</p>}
-        <h2 className="text-2xl font-extrabold sm:text-3xl">{title}</h2>
+        {step && <p className="text-xs font-bold text-mute">{step}</p>}
+        <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
         {sub && <p className="mt-1 max-w-2xl text-ink-soft">{sub}</p>}
       </div>
       {action}

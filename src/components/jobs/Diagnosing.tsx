@@ -18,21 +18,20 @@ export function Diagnosing({ photoUrl, description }: { photoUrl?: string; descr
 
   return (
     <Card className="overflow-hidden">
-      <div className="stripes h-3 border-b-2 border-ink" />
       <div className="grid gap-5 p-5 sm:grid-cols-[200px_1fr] sm:p-6">
         {photoUrl && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={photoUrl} alt="Your photo" className="h-44 w-full animate-pulse rounded-xl border-2 border-ink object-cover sm:h-full sm:max-h-56" />
+          <img src={photoUrl} alt="Your photo" className="h-44 w-full animate-pulse rounded-md border border-line object-cover sm:h-full sm:max-h-56" />
         )}
         <div className={photoUrl ? "" : "sm:col-span-2"}>
-          <h1 className="text-2xl font-extrabold sm:text-3xl">Taking a look</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">Taking a look</h1>
           <p className="mt-1 text-ink-soft">This takes about half a minute. You can leave this page and it&apos;ll be here when you&apos;re back.</p>
           <ol className="mt-4 space-y-2" aria-live="polite">
             {lines.map((line, i) => (
               <li key={line} className={cx("flex items-center gap-2.5 font-semibold", i > step && "text-mute")}>
                 <span
                   className={cx(
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink",
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded border border-line",
                     i < step ? "bg-go text-white" : i === step ? "bg-honey" : "border-line bg-white",
                   )}
                 >
@@ -42,7 +41,7 @@ export function Diagnosing({ photoUrl, description }: { photoUrl?: string; descr
               </li>
             ))}
           </ol>
-          {description && <p className="mt-4 rounded-xl bg-paper px-3 py-2 text-sm text-ink-soft">You said: {description}</p>}
+          {description && <p className="mt-4 rounded-md bg-paper px-3 py-2 text-sm text-ink-soft">You said: {description}</p>}
         </div>
       </div>
     </Card>

@@ -30,16 +30,16 @@ export function JobCard({ job }: { job: Job }) {
   const diagnosing = job.status === "diagnosing";
   const title = job.title && job.title !== "New job" ? job.title : diagnosing ? "Working out what this is" : job.description || "Untitled job";
   const counts = [
-    job.bidCount ? plural(job.bidCount, "pro") + " contacted" : "",
+    job.bidCount ? plural(job.bidCount, "pro") + " on the board" : "",
     job.quoteCount ? plural(job.quoteCount, "quote") : "",
   ].filter(Boolean);
 
   return (
     <Link
       href={`/jobs/${job.id}`}
-      className="group flex min-w-0 items-stretch gap-3 rounded-2xl border-2 border-ink bg-white p-3 shadow-hard transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+      className="group flex min-w-0 items-stretch gap-3 rounded-md border border-line bg-white p-3 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
     >
-      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 border-ink bg-honey-soft sm:h-24 sm:w-24">
+      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-line bg-honey-soft sm:h-24 sm:w-24">
         {job.photoUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={job.photoUrl} alt="" className="h-full w-full object-cover" />
@@ -49,7 +49,7 @@ export function JobCard({ job }: { job: Job }) {
           </div>
         )}
         {job.photoUrl && job.trade && (
-          <span className="absolute bottom-1 right-1 rounded-md border-2 border-ink bg-honey p-0.5">
+          <span className="absolute bottom-1 right-1 rounded-md border border-line bg-honey p-0.5">
             <TradeIcon trade={job.trade} className="h-4 w-4" />
           </span>
         )}
@@ -62,7 +62,7 @@ export function JobCard({ job }: { job: Job }) {
             {STATUS_LABEL[job.status] ?? job.status}
           </Badge>
         </div>
-        <p className="mt-1 line-clamp-2 font-display text-lg font-extrabold leading-tight">{title}</p>
+        <p className="mt-1 line-clamp-2 font-display text-lg font-bold leading-tight">{title}</p>
         <p className="mt-0.5 truncate text-sm text-ink-soft">
           {[job.trade ? t.label : "", job.hiredProName ? `Hired ${job.hiredProName}` : "", ...counts, timeAgo(job.createdAt)]
             .filter(Boolean)

@@ -38,7 +38,7 @@ export default function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-extrabold sm:text-4xl">
+        <h1 className="text-3xl font-bold sm:text-4xl">
           {greeting()}
           {firstName ? `, ${firstName}` : ""}
         </h1>
@@ -48,15 +48,15 @@ export default function HomePage() {
         </p>
       </div>
 
-      <Card className="overflow-hidden bg-honey">
-        <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+      <Card className="overflow-hidden">
+        <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-3xl font-extrabold leading-tight sm:text-4xl">Something broke?</h2>
-            <p className="mt-1 max-w-lg text-lg">
+            <h2 className="text-2xl font-bold leading-tight">Something broke?</h2>
+            <p className="mt-1 max-w-lg text-ink-soft">
               Snap a photo. Find out what it is, what it should cost and who to call. Takes about a minute.
             </p>
           </div>
-          <LinkButton href="/jobs/new" variant="dark" size="lg" className="shrink-0">
+          <LinkButton href="/jobs/new" size="lg" className="shrink-0">
             <Camera className="h-5 w-5" aria-hidden /> Take a photo
           </LinkButton>
         </div>
@@ -66,11 +66,11 @@ export default function HomePage() {
         <Spinner label="Loading your jobs" />
       ) : firstTime ? (
         <section>
-          <h2 className="text-2xl font-extrabold">How it works</h2>
+          <h2 className="text-2xl font-bold">How it works</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {STEPS.map((s, i) => (
               <Card key={s.title} flat className="p-5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-ink bg-honey shadow-hard-sm">
+                <div className="flex h-11 w-11 items-center justify-center text-ink-soft">
                   <s.icon className="h-5 w-5" aria-hidden />
                 </div>
                 <h3 className="mt-3 text-lg font-bold">
@@ -85,7 +85,7 @@ export default function HomePage() {
       ) : (
         <section>
           <div className="mb-3 flex items-end justify-between gap-3">
-            <h2 className="text-2xl font-extrabold">Open jobs</h2>
+            <h2 className="text-2xl font-bold">Open jobs</h2>
             <Link href="/jobs" className="inline-flex items-center gap-1 text-sm font-bold underline decoration-2 underline-offset-2">
               All jobs{doneCount ? ` (${doneCount} done)` : ""} <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
@@ -97,7 +97,7 @@ export default function HomePage() {
               ))}
             </div>
           ) : (
-            <p className="rounded-2xl border-2 border-dashed border-ink bg-white px-4 py-6 text-center text-ink-soft">
+            <p className="rounded-md border border-dashed border-line bg-white px-4 py-6 text-center text-ink-soft">
               All caught up. Enjoy it while it lasts.
             </p>
           )}
@@ -107,7 +107,7 @@ export default function HomePage() {
       <section>
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-2xl font-extrabold">Your crew</h2>
+            <h2 className="text-2xl font-bold">Your crew</h2>
             <p className="text-ink-soft">
               {prosLoading
                 ? "Checking who's nearby"
@@ -130,13 +130,13 @@ export default function HomePage() {
                 key={t.id}
                 href={has ? "/crew" : `/pros?trade=${t.id}`}
                 className={cx(
-                  "relative rounded-2xl border-2 border-ink p-3.5 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
-                  has ? "bg-white shadow-hard-sm" : "border-dashed bg-white/60",
+                  "relative rounded-md border border-line p-3.5 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
+                  has ? "bg-white" : "border-dashed bg-white/60",
                 )}
               >
                 <span
                   className={cx(
-                    "absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full border-2 border-ink",
+                    "absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded border border-line",
                     has ? "bg-go text-white" : "bg-white text-ink",
                   )}
                 >
@@ -145,7 +145,7 @@ export default function HomePage() {
                 <TradeIcon trade={t.id} className="h-7 w-7" />
                 <p className="mt-2 font-bold leading-tight">{t.label}</p>
                 <p className="truncate text-sm text-ink-soft">
-                  {has ? (saved.length === 1 ? saved[0].name : `${saved.length} saved`) : near ? `${near} nearby` : `Find a ${t.pro.toLowerCase()}`}
+                  {has ? (saved.length === 1 ? saved[0].name : `${saved.length} saved`) : near ? `${near} nearby` : `Find ${/^[aeiou]|^hvac/i.test(t.pro) ? "an" : "a"} ${t.pro.toLowerCase()}`}
                 </p>
               </Link>
             );
@@ -154,7 +154,7 @@ export default function HomePage() {
         {!prosLoading && nearby.length > 0 && (
           <Card flat className="mt-4 flex flex-wrap items-center justify-between gap-3 p-4">
             <p>
-              <span className="font-display text-2xl font-extrabold">{nearby.length}</span>{" "}
+              <span className="font-display text-2xl font-bold">{nearby.length}</span>{" "}
               <span className="font-semibold">
                 pros near {city || "you"} across {nearbyTrades} {nearbyTrades === 1 ? "trade" : "trades"}, ranked by who&apos;s most likely to show up.
               </span>

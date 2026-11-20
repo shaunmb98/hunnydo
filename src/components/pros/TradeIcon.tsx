@@ -17,8 +17,8 @@ export function Empty({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border-2 border-dashed border-ink bg-white px-6 py-10 text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-ink bg-honey shadow-hard-sm" aria-hidden>
+    <div className="rounded-md border border-dashed border-line bg-white px-6 py-10 text-center">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-md border border-line bg-honey" aria-hidden>
         {icon}
       </div>
       <h3 className="mt-4 text-xl font-bold">{title}</h3>

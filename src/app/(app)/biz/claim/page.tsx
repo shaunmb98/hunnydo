@@ -89,13 +89,13 @@ export default function ClaimPage() {
                   disabled={l.claimed === "other"}
                   onClick={() => setPicked(l)}
                   className={cx(
-                    "w-full rounded-xl border-2 border-ink px-4 py-3 text-left",
+                    "w-full rounded-md border border-line px-4 py-3 text-left",
                     l.claimed === "other" ? "cursor-not-allowed bg-paper opacity-60" : "cursor-pointer",
                     picked?.placeId === l.placeId ? "bg-honey-soft" : "bg-white",
                   )}
                 >
                   <span className="flex flex-wrap items-center gap-2">
-                    <span className="font-extrabold">{l.name}</span>
+                    <span className="font-bold">{l.name}</span>
                     <Stars rating={l.rating} count={l.reviewCount} />
                     {l.claimed === "other" && <Badge>Already claimed</Badge>}
                   </span>
@@ -110,7 +110,7 @@ export default function ClaimPage() {
 
       {picked && (
         <Card className="space-y-5 p-5">
-          <h2 className="text-xl font-extrabold">Set up {picked.name}</h2>
+          <h2 className="text-xl font-bold">Set up {picked.name}</h2>
           <div>
             <p className="mb-1.5 text-sm font-bold">What kind of work do you do?</p>
             <TradePicker value={trades} onChange={setTrades} />

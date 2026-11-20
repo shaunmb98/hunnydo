@@ -133,7 +133,7 @@ export function Matches({
   if (!ranked.length) {
     return (
       <Card flat className="border-dashed px-6 py-10 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border-2 border-ink bg-honey shadow-hard-sm">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center text-ink-soft">
           <Search className="h-6 w-6" aria-hidden />
         </div>
         <h3 className="mt-4 text-xl font-bold">No {who} on your list yet</h3>
@@ -173,9 +173,9 @@ export function Matches({
             <li key={pro.id}>
               <label
                 className={cx(
-                  "flex gap-3 rounded-2xl border-2 border-ink p-3 sm:p-4",
+                  "flex gap-3 rounded-md border border-line p-3 sm:p-4",
                   added ? "bg-paper" : "cursor-pointer bg-white",
-                  on && "bg-honey-soft shadow-hard-sm",
+                  on && "bg-honey-soft",
                 )}
               >
                 <input
@@ -188,7 +188,7 @@ export function Matches({
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <p className="font-display text-lg font-extrabold leading-tight">{pro.name}</p>
+                    <p className="font-display text-lg font-bold leading-tight">{pro.name}</p>
                     {added && (
                       <Badge tone="dark">
                         <CheckCircle2 className="h-3 w-3" aria-hidden /> On your board
@@ -244,7 +244,7 @@ export function Matches({
       {error && <div className="mt-4"><ErrorNote>{error}</ErrorNote></div>}
 
       {/* Stays in reach while you scroll the list. On phones it sits above the tab bar. */}
-      <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-ink bg-white p-2 shadow-hard sm:p-3 md:bottom-4">
+      <div className="sticky bottom-20 z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border border-line bg-white p-2 sm:p-3 md:bottom-4">
         <Button className="w-full sm:w-auto sm:px-6 sm:py-3.5 sm:text-lg" onClick={draft} loading={drafting} disabled={!chosen.length}>
           {!drafting && <PenLine className="h-5 w-5" aria-hidden />}
           {drafting ? (

@@ -24,7 +24,8 @@ export const POST = handler<{ jobId?: string; proId?: string; scheduledFor?: str
     const hiredAmount =
       agreed ??
       (alreadyHired ? job.hiredAmount : undefined) ??
-      (q?.amountLow != null && q.amountLow === q.amountHigh ? q.amountLow : quoteMid(q));
+      // A ranged quote has no agreed price yet, so none is recorded until the homeowner gives one.
+      (q?.amountLow != null && q.amountLow === q.amountHigh ? q.amountLow : undefined);
     const scheduledFor =
       (typeof body.scheduledFor === "string" && body.scheduledFor.trim()) ||
       (alreadyHired ? job.scheduledFor : undefined) ||

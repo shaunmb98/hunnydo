@@ -40,7 +40,7 @@ export function TradePicker({ value, onChange }: { value: TradeId[]; onChange: (
             aria-pressed={on}
             onClick={() => onChange(on ? value.filter((v) => v !== t.id) : [...value, t.id])}
             className={cx(
-              "flex items-center gap-2 rounded-xl border-2 border-ink px-3 py-2.5 text-left text-sm font-bold cursor-pointer",
+              "flex items-center gap-2 rounded-md border border-line px-3 py-2.5 text-left text-sm font-bold cursor-pointer",
               on ? "bg-honey" : "bg-white hover:bg-ink/5",
             )}
           >
@@ -59,14 +59,14 @@ export function VerificationNote({ phone }: { phone?: string }) {
     <Card flat className="space-y-3 p-4">
       <div className="flex flex-wrap items-center gap-2">
         <ShieldQuestion className="h-5 w-5" aria-hidden />
-        <p className="font-extrabold">Claimed, not yet verified</p>
+        <p className="font-bold">Claimed, not yet verified</p>
         <Badge tone="amber">Verification coming soon</Badge>
       </div>
       <p className="text-sm text-ink-soft">
         Right now a claim is your word that this is your business. We haven't checked it, and homeowners see the listing
         as unverified.
       </p>
-      <div className="flex gap-3 rounded-xl border border-line bg-paper p-3 text-sm text-ink-soft">
+      <div className="flex gap-3 rounded-md border border-line bg-paper p-3 text-sm text-ink-soft">
         <PhoneCall className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
         <p>
           How it will work: we'll place an automated call to the number on your Google listing

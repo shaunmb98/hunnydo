@@ -38,7 +38,7 @@ export default function JobsPage() {
       ) : (
         <div className="space-y-8">
           <section>
-            <h2 className="mb-3 text-xl font-extrabold">Active ({active.length})</h2>
+            <h2 className="mb-3 text-xl font-bold">Active ({active.length})</h2>
             {active.length ? (
               <div className="space-y-3">
                 {active.map((j) => (
@@ -46,14 +46,14 @@ export default function JobsPage() {
                 ))}
               </div>
             ) : (
-              <p className="rounded-2xl border-2 border-dashed border-ink bg-white px-4 py-6 text-center text-ink-soft">
+              <p className="rounded-md border border-dashed border-line bg-white px-4 py-6 text-center text-ink-soft">
                 All caught up. Nothing open right now.
               </p>
             )}
           </section>
           {done.length > 0 && (
             <section>
-              <h2 className="mb-3 text-xl font-extrabold">Done ({done.length})</h2>
+              <h2 className="mb-3 text-xl font-bold">Done ({done.length})</h2>
               <div className="space-y-3 opacity-90">
                 {done.map((j) => (
                   <JobCard key={j.id} job={j} />

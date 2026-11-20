@@ -88,7 +88,7 @@ export function BidCard({
     <Card flat={bid.status === "declined"} className={bid.status === "declined" ? "min-w-0 bg-paper p-4" : "min-w-0 p-4 sm:p-5"}>
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
-          <h3 className="text-xl font-extrabold leading-tight">{bid.proName}</h3>
+          <h3 className="text-xl font-bold leading-tight">{bid.proName}</h3>
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">
             <Stars rating={bid.proRating} count={bid.proReviewCount} />
             {bid.proPhone && <span>{bid.proPhone}</span>}
@@ -107,7 +107,7 @@ export function BidCard({
       </div>
 
       {followUp && (
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border-2 border-ink bg-honey-soft px-3 py-2">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-line bg-honey-soft px-3 py-2">
           <p className="flex items-center gap-2 text-sm font-bold">
             <BellRing className="h-4 w-4 shrink-0" aria-hidden />
             It&apos;s been over a day. Worth a nudge.
@@ -126,8 +126,8 @@ export function BidCard({
       )}
 
       {q && (
-        <div className="mt-3 rounded-xl border-2 border-ink bg-go-soft px-3 py-2">
-          <p className="font-display text-2xl font-extrabold">{moneyRange(q.amountLow, q.amountHigh) || "Price not given"}</p>
+        <div className="mt-3 rounded-md border border-line bg-go-soft px-3 py-2">
+          <p className="font-display text-2xl font-bold">{moneyRange(q.amountLow, q.amountHigh) || "Price not given"}</p>
           <p className="text-sm text-ink-soft">
             {[q.availability, q.warranty && `Warranty: ${q.warranty}`].filter(Boolean).join(" · ") || "No timing given yet"}
           </p>
@@ -183,7 +183,7 @@ export function BidCard({
           {open && (
             <div className="mt-3 space-y-3">
               <label className="block">
-                <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-mute">
+                <span className="mb-1 block text-xs font-bold text-mute">
                   Email or contact form{bid.subject ? ` · ${bid.subject}` : ""}
                 </span>
                 <Textarea
@@ -194,7 +194,7 @@ export function BidCard({
                 />
               </label>
               <label className="block">
-                <span className="mb-1 flex justify-between text-xs font-extrabold uppercase tracking-wide text-mute">
+                <span className="mb-1 flex justify-between text-xs font-bold text-mute">
                   <span>Text message</span>
                   <span className={textMessage.length > 320 ? "text-stop" : ""}>{textMessage.length} / 320</span>
                 </span>
@@ -206,8 +206,8 @@ export function BidCard({
                 />
               </label>
               {bid.callScript && (
-                <div className="rounded-xl border-2 border-dashed border-ink bg-paper p-3">
-                  <p className="mb-1 text-xs font-extrabold uppercase tracking-wide text-mute">
+                <div className="rounded-md border border-dashed border-line bg-paper p-3">
+                  <p className="mb-1 text-xs font-bold text-mute">
                     If they pick up, or for a voicemail
                   </p>
                   <p className="text-[15px] leading-relaxed">{bid.callScript}</p>
@@ -219,7 +219,7 @@ export function BidCard({
       )}
 
       {!locked && (
-        <div className="mt-4 flex flex-wrap gap-2 border-t-2 border-dashed border-line pt-4">
+        <div className="mt-4 flex flex-wrap gap-2 border-t border-dashed border-line pt-4">
           {bid.status === "drafted" && (
             <Button size="sm" variant="dark" onClick={() => reachedOut("Reached out")}>I reached out</Button>
           )}
@@ -270,7 +270,7 @@ export function BidCard({
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="block min-w-0">
-          <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-mute">Your notes (only you see these)</span>
+          <span className="mb-1 block text-xs font-bold text-mute">Your notes (only you see these)</span>
           <Textarea
             rows={2}
             className="min-h-0 text-sm"
@@ -281,7 +281,7 @@ export function BidCard({
           />
         </label>
         <div className="min-w-0">
-          <p className="mb-1 text-xs font-extrabold uppercase tracking-wide text-mute">History</p>
+          <p className="mb-1 text-xs font-bold text-mute">History</p>
           <ul className="space-y-0.5 text-sm text-ink-soft">
             {[...(bid.events ?? [])].reverse().slice(0, 4).map((e, i) => (
               <li key={`${e.at}-${i}`} className="flex justify-between gap-3">

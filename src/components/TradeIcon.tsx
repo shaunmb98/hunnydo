@@ -76,14 +76,7 @@ export function TradeIcon({
 }) {
   const Icon = ICONS[((trade ?? id) as TradeId) ?? "handyman"] ?? Hammer;
   if (!tile) return <Icon className={cx("h-5 w-5", className)} aria-hidden />;
-  return (
-    <span
-      className={cx(
-        "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-honey",
-        className,
-      )}
-    >
-      <Icon className="h-5 w-5" aria-hidden />
-    </span>
-  );
+  // The "tile" is just the icon at a slightly larger size, in ink. No coloured square behind it.
+  return <Icon className={cx("h-6 w-6 shrink-0 text-ink-soft", className)} aria-hidden />;
+
 }

@@ -14,14 +14,14 @@ import { PHOTO_DECODE_MESSAGE, resizePhoto, type ResizedPhoto } from "@/lib/jobs
 import type { Job } from "@/lib/types";
 
 const EXAMPLES = [
-  "Water pooling by the meter",
+  "Water pooling in the yard",
   "AC blowing warm air",
   "Breaker keeps tripping",
   "Water heater leaking from the bottom",
   "Brown stain on the ceiling",
   "Sprinkler zone won't shut off",
   "Dishwasher won't drain",
-  "Scorpions in the garage",
+  "Garage door won't open",
 ];
 
 const SAMPLES = [
@@ -148,7 +148,7 @@ export default function NewJobPage() {
       <PageHeader
         title={
           <>
-            Something <span className="marker">broke?</span>
+            Something broke?
           </>
         }
         subtitle="Show it or describe it. You'll only have to explain it this once."
@@ -178,7 +178,7 @@ export default function NewJobPage() {
             <Card className="pop relative overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={photo.previewUrl} alt="Your photo of the problem" className="max-h-[420px] w-full bg-ink object-contain" />
-              <div className="flex items-center justify-between gap-2 border-t-2 border-ink px-3 py-2">
+              <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2">
                 <span className="text-sm font-semibold text-ink-soft">Looks good. Add a few words below if you can.</span>
                 <Button type="button" variant="outline" size="sm" onClick={() => setPhoto(null)}>
                   <X className="h-4 w-4" aria-hidden /> Remove
@@ -198,7 +198,7 @@ export default function NewJobPage() {
                 pickFile(e.dataTransfer.files?.[0]);
               }}
               className={cx(
-                "rounded-2xl border-2 border-dashed border-ink p-4 text-center transition-colors sm:p-6",
+                "rounded-md border border-dashed border-line p-4 text-center transition-colors sm:p-6",
                 dragging ? "bg-honey" : "bg-honey-soft",
               )}
             >
@@ -206,17 +206,17 @@ export default function NewJobPage() {
                 type="button"
                 onClick={() => cameraInput.current?.click()}
                 disabled={photoBusy}
-                className="flex w-full cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-ink bg-honey px-4 py-7 shadow-hard transition-[transform,box-shadow] hover:bg-honey-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:opacity-60"
+                className="flex w-full cursor-pointer flex-col items-center gap-2 rounded-md border border-line bg-honey px-4 py-7 transition-[transform,box-shadow] hover:bg-honey-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
               >
                 <Camera className="h-10 w-10" aria-hidden />
-                <span className="font-display text-2xl font-extrabold">{photoBusy ? "Getting your photo ready" : "Take a photo"}</span>
+                <span className="font-display text-2xl font-bold">{photoBusy ? "Getting your photo ready" : "Take a photo"}</span>
                 <span className="text-sm font-semibold text-ink-soft">Get close, then one from a step back if you can</span>
               </button>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-ink-soft">
                 <button
                   type="button"
                   onClick={() => libraryInput.current?.click()}
-                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1 font-bold text-ink underline decoration-2 underline-offset-2 hover:bg-white"
+                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 font-bold text-ink underline decoration-2 underline-offset-2 hover:bg-white"
                 >
                   <ImagePlus className="h-4 w-4" aria-hidden /> Choose from your photos
                 </button>
@@ -231,7 +231,7 @@ export default function NewJobPage() {
           )}
           <p className="mt-1.5 text-xs text-mute">No photo? A description on its own works too.</p>
           {!photo && (
-            <div className="mt-4 rounded-2xl border-2 border-line bg-white p-3">
+            <div className="mt-4 rounded-md border border-line bg-white p-3">
               <p className="text-sm font-bold">Nothing broken right now? Try a sample.</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 {SAMPLES.map((sample) => (
@@ -240,7 +240,7 @@ export default function NewJobPage() {
                     type="button"
                     disabled={photoBusy}
                     onClick={() => useSample(sample)}
-                    className="group cursor-pointer overflow-hidden rounded-xl border-2 border-ink bg-white text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
+                    className="group cursor-pointer overflow-hidden rounded-md border border-line bg-white text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:opacity-60"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={sample.src} alt="" className="h-20 w-full object-cover transition-transform group-hover:scale-105 sm:h-24" />
@@ -272,7 +272,7 @@ export default function NewJobPage() {
                 key={ex}
                 type="button"
                 onClick={() => addExample(ex)}
-                className="cursor-pointer rounded-full border-2 border-ink bg-white px-3 py-1 text-sm font-semibold hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+                className="cursor-pointer rounded border border-line bg-white px-3 py-1 text-sm font-semibold hover:bg-honey-soft focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
               >
                 {ex}
               </button>

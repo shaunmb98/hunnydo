@@ -11,12 +11,10 @@ import { trade, URGENCY } from "@/lib/trades";
 import { TradeIcon } from "./TradeIcon";
 import { UrgencyBadge } from "./JobCard";
 
-function Section({ icon: Icon, title, children }: { icon: typeof Eye; title: string; children: React.ReactNode }) {
+function Section({ title, children }: { icon: typeof Eye; title: string; children: React.ReactNode }) {
   return (
     <Card flat className="p-4 sm:p-5">
-      <h2 className="flex items-center gap-2 text-lg font-extrabold">
-        <Icon className="h-5 w-5 shrink-0" aria-hidden /> {title}
-      </h2>
+      <h2 className="text-lg font-bold">{title}</h2>
       <div className="mt-2">{children}</div>
     </Card>
   );
@@ -112,11 +110,11 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
   return (
     <div className="space-y-5">
       <Card className="pop overflow-hidden">
-        {d.urgency === "emergency" && <div className="stripes h-3 border-b-2 border-ink" />}
-        <div className={cx("flex items-start gap-3 border-b-2 border-ink px-4 py-3 sm:px-5", urgencyBar[d.urgency] ?? "bg-warn-soft")}>
+        {d.urgency === "emergency" && <div className="stripes h-3 border-b border-line" />}
+        <div className={cx("flex items-start gap-3 border-b border-line px-4 py-3 sm:px-5", urgencyBar[d.urgency] ?? "bg-warn-soft")}>
           {d.urgency === "emergency" ? <AlertTriangle className="mt-0.5 h-6 w-6 shrink-0 text-stop" aria-hidden /> : null}
           <p className="leading-snug">
-            <span className="font-extrabold">
+            <span className="font-bold">
               {u.label}. {u.blurb}.
             </span>{" "}
             {d.urgencyReason}
@@ -131,10 +129,10 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
               </Badge>
               <Badge>{d.confidence === "high" ? "Pretty sure" : d.confidence === "medium" ? "Fairly sure" : "Best guess"}</Badge>
             </div>
-            <h1 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">{d.title}</h1>
+            <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">{d.title}</h1>
             <p className="mt-2 text-lg leading-relaxed text-ink-soft">{d.summary}</p>
             {d.confidence === "low" && (
-              <p className="mt-2 rounded-xl bg-paper px-3 py-2 text-sm font-semibold text-ink-soft">
+              <p className="mt-2 rounded-md bg-paper px-3 py-2 text-sm font-semibold text-ink-soft">
                 This one&apos;s a best guess. Add a detail or a clearer photo below and it&apos;ll get sharper.
               </p>
             )}
@@ -142,7 +140,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
           {job.photoUrl && (
             <a href={job.photoUrl} target="_blank" rel="noreferrer" className="block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={job.photoUrl} alt="Your photo of the problem" className="max-h-64 w-full rounded-xl border-2 border-ink object-cover md:h-full" />
+              <img src={job.photoUrl} alt="Your photo of the problem" className="max-h-64 w-full rounded-md border border-line object-cover md:h-full" />
             </a>
           )}
         </div>
@@ -150,7 +148,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
 
       {d.safetySteps.length > 0 && (
         <Card className="bg-honey-soft p-4 sm:p-5">
-          <h2 className="flex items-center gap-2 text-xl font-extrabold">
+          <h2 className="flex items-center gap-2 text-xl font-bold">
             <ShieldAlert className="h-5 w-5" aria-hidden /> Do this now
           </h2>
           <ol className="mt-3 space-y-2">
@@ -163,11 +161,11 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
                     role="checkbox"
                     aria-checked={ticked}
                     onClick={() => toggleStep(i)}
-                    className="flex w-full cursor-pointer items-start gap-3 rounded-xl border-2 border-ink bg-white px-3 py-2.5 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
+                    className="flex w-full cursor-pointer items-start gap-3 rounded-md border border-line bg-white px-3 py-2.5 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40"
                   >
                     <span
                       className={cx(
-                        "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink text-sm font-extrabold",
+                        "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-line text-sm font-bold",
                         ticked ? "bg-go text-white" : "bg-honey",
                       )}
                     >
@@ -185,8 +183,8 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
       <Card className="p-4 sm:p-5">
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className="text-xl font-extrabold">
-              Your job brief. <span className="marker">Describe it once.</span>
+            <h2 className="text-xl font-bold">
+              Your job brief. Describe it once.
             </h2>
             <p className="text-sm text-ink-soft">This goes to every pro you contact. Edit it so it sounds like you.</p>
           </div>
@@ -222,10 +220,10 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
       </Card>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Card flat className="bg-ink p-4 text-white sm:p-5">
-          <p className="text-sm font-bold text-honey">What a pro usually charges</p>
-          <p className="mt-1 font-display text-3xl font-extrabold sm:text-4xl">{moneyRange(d.costLow, d.costHigh)}</p>
-          <p className="mt-2 text-sm leading-relaxed text-white/80">{d.costNotes}</p>
+        <Card flat className="p-4 sm:p-5">
+          <h2 className="text-lg font-bold">What a pro usually charges</h2>
+          <p className="mt-1 font-display text-3xl font-bold sm:text-4xl">{moneyRange(d.costLow, d.costHigh)}</p>
+          <p className="mt-2 leading-relaxed text-ink-soft">{d.costNotes}</p>
         </Card>
         <Section icon={Wrench} title="Can you fix it yourself?">
           <Badge tone={d.diyFeasible ? "green" : "red"}>{d.diyFeasible ? "Doable" : "Call a pro"}</Badge>
@@ -269,7 +267,7 @@ export function DiagnosisView({ job, uid }: { job: JobDoc; uid: string }) {
       </div>
 
       <Card flat className="p-4 sm:p-5">
-        <h2 className="flex items-center gap-2 text-lg font-extrabold">
+        <h2 className="flex items-center gap-2 text-lg font-bold">
           <RefreshCw className="h-5 w-5" aria-hidden /> Add a detail and re-check
         </h2>
         <p className="text-sm text-ink-soft">Remembered something? The age of the unit, a noise or what you&apos;ve tried can change the answer.</p>

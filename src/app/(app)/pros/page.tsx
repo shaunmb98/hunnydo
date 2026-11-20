@@ -30,8 +30,8 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       aria-pressed={on}
       onClick={onClick}
       className={cx(
-        "inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-ink px-3 py-1.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
-        on ? "bg-honey shadow-hard-sm" : "bg-white hover:bg-honey-soft",
+        "inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded border border-line px-3 py-1.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky/40",
+        on ? "bg-honey" : "bg-white hover:bg-honey-soft",
       )}
     >
       {children}
@@ -149,7 +149,7 @@ function Directory() {
           aria-label="More services"
           value=""
           onChange={(e) => e.target.value && pick(e.target.value as TradeId)}
-          className="shrink-0 cursor-pointer rounded-full border-2 border-ink bg-white px-3 py-1.5 text-sm font-bold"
+          className="shrink-0 cursor-pointer rounded border border-line bg-white px-3 py-1.5 text-sm font-bold"
         >
           <option value="">More services</option>
           {MORE_TRADES.filter((tr) => !counts[tr.id] && active !== tr.id).map((tr) => (
@@ -171,7 +171,7 @@ function Directory() {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
-              className="rounded-xl border-2 border-ink bg-white px-3 py-2 text-sm font-bold focus:outline-none focus:ring-4 focus:ring-honey/60"
+              className="rounded-md border border-line bg-white px-3 py-2 text-sm font-bold focus:outline-none focus:ring-4 focus:ring-honey/60"
             >
               {SORTS.map((s) => (
                 <option key={s.id} value={s.id}>
@@ -243,7 +243,7 @@ function Directory() {
                       <div className="flex items-start gap-3">
                         <ScoreDial score={score} label="Match" />
                         <div className="min-w-0 flex-1">
-                          <Link href={`/pros/${pro.id}`} className="block text-lg font-extrabold leading-tight hover:underline">
+                          <Link href={`/pros/${pro.id}`} className="block text-lg font-bold leading-tight hover:underline">
                             {pro.name}
                           </Link>
                           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">

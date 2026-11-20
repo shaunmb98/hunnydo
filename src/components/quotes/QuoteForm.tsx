@@ -23,7 +23,7 @@ function TriSelect({ value, onChange, yes, no }: { value: Tri; onChange: (v: Tri
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as Tri)}
-      className="w-full rounded-xl border-2 border-ink bg-white px-3 py-2.5 text-[15px] focus:outline-none focus:ring-4 focus:ring-honey/60"
+      className="w-full rounded-md border border-line bg-white px-3 py-2.5 text-[15px] focus:outline-none focus:ring-4 focus:ring-honey/60"
     >
       <option value="">They didn&apos;t say</option>
       <option value="yes">{yes}</option>
@@ -148,7 +148,7 @@ export function QuoteForm({ uid, jobId, bid, onClose }: { uid: string; jobId: st
         <ErrorNote>{error}</ErrorNote>
 
         {showFields && (
-          <div className="space-y-4 border-t-2 border-dashed border-line pt-4">
+          <div className="space-y-4 border-t border-dashed border-line pt-4">
             <p className="text-sm font-semibold text-ink-soft">Check these against what they told you, then save.</p>
             <div className="grid grid-cols-2 gap-3">
               <Field label="Price from">
