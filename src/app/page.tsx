@@ -114,6 +114,19 @@ export default function Landing() {
         </Card>
       </section>
 
+      <section className="mx-auto max-w-6xl px-4 pb-14">
+        <Card flat className="flex flex-wrap items-center justify-between gap-5 p-6 sm:p-8">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-extrabold">Do this work for a living?</h2>
+            <p className="mt-2 text-ink-soft">
+              Claim your business with the same login. You&apos;ll see jobs nearby that homeowners opened to bids, each
+              with a photo and a full write-up, so you can price it before you pick up the phone.
+            </p>
+          </div>
+          <LinkButton href="/login" variant="outline" size="lg">Claim my business</LinkButton>
+        </Card>
+      </section>
+
       <footer className="border-t-2 border-ink bg-white py-6 text-center text-sm text-mute">
         HunnyDo · doithunny.com · Built in two hours for Casper Studios
       </footer>
