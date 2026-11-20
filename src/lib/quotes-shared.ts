@@ -45,11 +45,12 @@ export function needsFollowUp(bid: BoardBid, now = Date.now()) {
 }
 
 export function followUpNote(bid: BoardBid, jobTitle: string) {
-  return `Hi ${bid.proName}, following up on my message about ${jobTitle.toLowerCase()}. Are you able to take a look and give me a rough quote? If you're booked up, no problem, just let me know. Thanks!`;
+  return `Hi ${bid.proName}, checking back on my message about the ${jobTitle.toLowerCase()}. Can you take a look and give me a rough price? If you're booked up that's fine, just let me know. Thanks`;
 }
 
+/** Fixed wording (no model call), so the decline note always sounds the same plain way. */
 export function thanksNote(bid: BoardBid, jobTitle: string) {
-  return `Hi ${bid.proName}, thanks for getting back to me about ${jobTitle.toLowerCase()}. I've decided to go with another company for this one, but I appreciate your time and I'll keep your number for next time.`;
+  return `Hi ${bid.proName}, thanks for getting back to me about the ${jobTitle.toLowerCase()}. I went with someone else for this one. I've got your number and I'll call you next time something comes up.`;
 }
 
 /** The number to compare a quote by: the middle of the range, or whichever end we have. */

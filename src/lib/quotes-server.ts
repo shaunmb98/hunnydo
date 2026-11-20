@@ -77,3 +77,12 @@ export function feePreference(job: Job) {
   if (job.maxServiceFee) return `I'm fine paying a service-call fee up to about $${job.maxServiceFee}, ideally credited toward the work if I hire them.`;
   return "I'm fine paying a reasonable service-call fee, ideally credited toward the work if I hire them.";
 }
+
+/** Voice rules for anything Claude writes that a person will read or send as their own words. */
+export const PLAIN_VOICE = `Voice rules, follow all of them:
+- Sound like a neighbor typed it on their phone. First person, short plain sentences, contractions, specific details.
+- No em dashes, no semicolons, no bullet points or lists inside a message, no exclamation marks, no emoji.
+- No stock politeness: never "I hope this message finds you well", "I would greatly appreciate", "at your earliest convenience", "please don't hesitate", "thank you in advance".
+- No "not just X but Y", no strings of three adjectives, no words like seamless, effortless, elevate, unlock, streamline, robust, leverage, ensure, utilize.
+- No sign-off flourish. End on the ask, then a plain "Thanks" and the first name if you have one.
+- Never mention AI, an app or an assistant.`;

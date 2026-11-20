@@ -1,20 +1,22 @@
 import { HttpError, adminDb, bidsCol, handler, jobsCol, prosCol } from "@/lib/admin";
 import { structured } from "@/lib/ai";
-import { DraftSchema, feePreference, loadBids, loadJob, loadProfile } from "@/lib/quotes-server";
+import { DraftSchema, PLAIN_VOICE, feePreference, loadBids, loadJob, loadProfile } from "@/lib/quotes-server";
 import { fillPro, type BoardBid } from "@/lib/quotes-shared";
 import { trade } from "@/lib/trades";
 import type { Pro } from "@/lib/types";
 
 export const maxDuration = 60;
 
-const SYSTEM = `You write short outreach for a homeowner who needs a home-service pro. The homeowner will send it themselves from their own phone or email, so it must read like a real person wrote it: first person, plain, polite, specific, no marketing language, no emoji, no mention of AI or any app.
+const SYSTEM = `You write a homeowner's message to local tradespeople asking for a quote. The homeowner sends it themselves from their own phone or email, as their own words, to a busy plumber or electrician who reads it between jobs.
 
-Write ONE version that works for any business. Wherever the business name belongs, write the literal placeholder {{pro}}. Never invent facts that aren't in the brief. Don't include a phone number or street address. Sign off with the homeowner's first name if you're given one, otherwise just "Thanks".
+${PLAIN_VOICE}
 
-- subject: under 70 characters, says what the job is.
-- message: 120-180 words. Open with "Hi {{pro}}," then describe the problem using the brief, say when the homeowner is around, and ask for: a rough quote or price range, their earliest availability, whether they charge a service-call fee and if it's credited toward the work, and whether they're licensed and insured. Mention photos are available if they'd help.
-- textMessage: under 260 characters. The same ask, boiled down for a text. Starts with "Hi {{pro}}".
-- callScript: about 20 seconds spoken (50-65 words). Something to say when someone picks up or to leave as a voicemail. Natural speech, one short paragraph, ends by asking for a callback or text with a rough price and when they could come out. Use [your number] where the callback number goes.`;
+Write ONE version that works for any business. Wherever the business name belongs, write the literal placeholder {{pro}}. Never invent facts that aren't in the brief. Don't include a phone number or street address.
+
+- subject: under 70 characters, just says what the job is.
+- message: 120-180 words in two or three short paragraphs. Start with "Hi {{pro}}," then say what's wrong using the brief, say when I'm around, and ask in plain sentences for a rough price or range, the soonest they could come out, whether they charge a service-call fee and if it comes off the bill when I hire them, and whether they're licensed and insured. Say I can send photos.
+- textMessage: under 260 characters. The same ask boiled down for a text. Starts with "Hi {{pro}}".
+- callScript: about 20 seconds out loud (50-65 words), one paragraph, the way a person actually talks on the phone. Works when someone picks up or as a voicemail. Ends by asking them to call or text back with a rough price and when they could come out. Write [your number] where the callback number goes.`;
 
 /** POST /api/quotes/draft {jobId, proIds} -> writes one drafted bid per pro, returns {created, skipped, bidCount}. */
 export const POST = handler<{ jobId?: string; proIds?: string[] }>(async ({ uid, body }) => {
